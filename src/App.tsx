@@ -56,9 +56,12 @@ class App extends Component<AppProps> {
         <Search
           value={this.state.query}
           onChange={this.handleInputChange}
+          loading={this.state.loading}
           onClick={() => this.onSearch()}
         />
-        <Button onClick={this.simulateError}>simulate error</Button>
+        <Button className="bg-red-500" onClick={this.simulateError}>
+          simulate error
+        </Button>
         <CardList data={this.state.data} loading={this.state.loading} />
       </div>
     );

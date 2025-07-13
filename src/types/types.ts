@@ -6,6 +6,7 @@ export type ButtonProps = {
   onClick: () => void;
   disabled?: boolean;
   children: React.ReactNode;
+  className: string;
 };
 
 export type Card = {
@@ -36,6 +37,7 @@ export type CardListProps = {
 
 export type SearchProps = {
   value: string;
+  loading?: boolean;
   onChange: (value: string) => void;
   onClick: () => void;
 };
