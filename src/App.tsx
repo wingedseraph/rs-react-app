@@ -4,7 +4,7 @@ import { CardList } from './components/CardList';
 import { Search } from './components/Search';
 import { CONST, type AppProps, type PokemonResponse } from './types/types';
 
-class App extends Component<AppProps> {
+export class App extends Component<AppProps> {
   state = {
     query: localStorage.getItem(CONST.POKEMON_QUERY) ?? '',
     data: [],
@@ -68,5 +68,3 @@ class App extends Component<AppProps> {
     );
   }
 }
-
-export default App;
