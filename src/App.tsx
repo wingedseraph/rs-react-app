@@ -1,12 +1,12 @@
 import { Component } from 'react';
+import { Button } from './components/Button';
 import { CardList } from './components/CardList';
 import { Search } from './components/Search';
-import type { AppProps, PokemonResponse } from './types/types';
-import { Button } from './components/Button';
+import { CONST, type AppProps, type PokemonResponse } from './types/types';
 
 class App extends Component<AppProps> {
   state = {
-    query: '',
+    query: localStorage.getItem(CONST.POKEMON_QUERY) ?? '',
     data: [],
     loading: true,
     error: null,
@@ -15,6 +15,7 @@ class App extends Component<AppProps> {
 
   onSearch = async () => {
     const query = this.state.query || '';
+    localStorage.setItem(CONST.POKEMON_QUERY, query);
     const pageSize = 5;
     this.setState({ loading: true });
 

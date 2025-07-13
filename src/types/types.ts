@@ -1,12 +1,16 @@
 import type { ReactNode } from 'react';
 
+export enum CONST {
+  POKEMON_QUERY = 'POKEMON_QUERY',
+}
+
 export type AppProps = Record<string, unknown>;
 
 export type ButtonProps = {
+  className?: string;
   onClick: () => void;
   disabled?: boolean;
   children: React.ReactNode;
-  className: string;
 };
 
 export type Card = {
