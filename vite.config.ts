@@ -14,6 +14,9 @@ export default defineConfig({
     'process.env': {},
   },
   test: {
+    setupFiles: ['src/__tests__/setup.jsdom.ts'],
+    globals: true,
+    environment: 'jsdom',
     coverage: {
       thresholds: {
         global: {
