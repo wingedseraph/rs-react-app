@@ -14,7 +14,7 @@ export class App extends Component<AppProps> {
   };
 
   onSearch = async () => {
-    const query = this.state.query || '';
+    const query = (this.state.query || '').trim();
     localStorage.setItem(CONST.POKEMON_QUERY, query);
     const pageSize = 5;
     this.setState({ loading: true });
