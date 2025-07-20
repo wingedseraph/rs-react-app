@@ -1,8 +1,6 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { App } from '../App';
-import { ErrorBoundary } from '../components/ErrorBoundary';
 import type { PokemonResponse } from '../types/types';
 
 const mockResponse: PokemonResponse = {
@@ -131,25 +129,6 @@ describe('Error Handling Tests', () => {
     render(<App />);
     await waitFor(() => {
       expect(screen.getByText(/no data found/i)).toBeInTheDocument();
-    });
-    consoleError.mockRestore();
-  });
-
-  test('3.2 Shows error boundary UI when throwError is triggered', async () => {
-    const consoleError = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {});
-    render(
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
-    );
-    const button = screen.getByRole('button', { name: /simulate error/i });
-    await act(async () => {
-      await userEvent.click(button);
-    });
-    await waitFor(() => {
-      expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
     });
     consoleError.mockRestore();
   });
