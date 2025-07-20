@@ -11,6 +11,7 @@ export type ButtonProps = {
   onClick: () => void;
   disabled?: boolean;
   children: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset';
 };
 
 export type Card = {
@@ -43,7 +44,7 @@ export type SearchProps = {
   value: string;
   loading?: boolean;
   onChange: (value: string) => void;
-  onClick: () => void;
+  onClick: (value: string) => void;
 };
 
 export type ErrorBoundaryProps = {
