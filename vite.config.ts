@@ -18,6 +18,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     coverage: {
+      reporter: ['text'],
       thresholds: {
         global: {
           statements: 80,
