@@ -19,12 +19,12 @@ class Index extends Component<AppProps> {
 
     try {
       const response = await fetch(
-        `https://api.pokemontcg.io/v2/cards?q=name:*${query}*&pageSize=${pageSize}`
+        `https://api.tcgdex.net/v2/en/cards?name=*${query}*&pagination:page=3&pagination:itemsPerPage=${pageSize}`
       );
       const responseData: PokemonResponse = await response.json();
 
       this.setState({
-        data: responseData.data,
+        data: responseData,
         loading: false,
       });
     } catch (error) {

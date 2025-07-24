@@ -17,10 +17,7 @@ export type ButtonProps = {
 export type Card = {
   id: string;
   name: string;
-  images: {
-    small: string;
-    large: string;
-  };
+  image: string;
 };
 
 export type PokemonResponse = {
