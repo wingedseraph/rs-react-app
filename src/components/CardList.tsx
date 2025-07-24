@@ -1,6 +1,6 @@
+import { Card as CardComponent } from '@/components/Card';
+import type { Card, CardListProps } from '@/types';
 import { Component } from 'react';
-import type { Card, CardListProps } from '../types/types';
-import { Card as CardComponent } from './Card';
 import { Spinner } from './Spinner';
 
 export class CardList extends Component<CardListProps> {

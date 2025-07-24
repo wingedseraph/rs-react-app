@@ -1,5 +1,5 @@
+import type { SearchProps } from '@/types';
 import React from 'react';
-import type { SearchProps } from '../types/types';
 import { Button } from './Button';
 import { Input } from './Input';
 

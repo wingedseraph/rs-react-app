@@ -1,5 +1,5 @@
+import type { ButtonProps } from '@/types';
 import { Component } from 'react';
-import type { ButtonProps } from '../types/types';
 
 export class Button extends Component<ButtonProps> {
   render() {
