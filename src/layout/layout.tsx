@@ -5,13 +5,14 @@ import { Outlet } from 'react-router-dom';
 export const Layout = () => {
   return (
     <>
-      <header className="bg-red-600">header</header>
-      <main>
+      <header className="transition-all w-[40%] m-auto hover:scale-110">
+        <img src="/logo.png" />
+      </header>
+      <main className="transition-all mt-20">
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
       </main>
-      <footer className="bg-blue-600">footer</footer>
     </>
   );
 };

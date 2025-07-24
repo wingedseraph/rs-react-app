@@ -8,7 +8,7 @@ export class CardList extends Component<CardListProps> {
     if (this.props.loading) return <Spinner />;
 
     if (!this.props.data || this.props.data.length === 0)
-      return <p>No data found</p>;
+      return <p className="mt-10">No data found</p>;
 
     return (
       <div className="p-4 flex flex-row flex-wrap gap-4 justify-center">

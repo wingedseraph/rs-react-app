@@ -12,7 +12,7 @@ export class Search extends React.Component<SearchProps> {
   render() {
     return (
       <form
-        className="p-4 flex flex-row justify-center gap-4"
+        className="bg-[#F6CD46] border-[#203566] border-8 text-black rounded-4xl p-4 flex flex-row justify-center gap-4"
         onSubmit={this.handleSubmit}
         role="search"
       >
