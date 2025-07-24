@@ -14,12 +14,13 @@ class Index extends Component<AppProps> {
   onSearch = async () => {
     const query = (this.state.query || '').trim();
     localStorage.setItem(CONST.POKEMON_QUERY, query);
-    const pageSize = 5;
+    const POKEMON_PAGE_SIZE = 5;
+    const POKEMON_CURRENT_PAGE = 1;
     this.setState({ loading: true });
 
     try {
       const response = await fetch(
-        `https://api.tcgdex.net/v2/en/cards?name=*${query}*&pagination:page=3&pagination:itemsPerPage=${pageSize}`
+        `https://api.tcgdex.net/v2/en/cards?name=*${query}*&image=*&pagination:page=${POKEMON_CURRENT_PAGE}&pagination:itemsPerPage=${POKEMON_PAGE_SIZE}`
       );
       const responseData: PokemonResponse = await response.json();
 
