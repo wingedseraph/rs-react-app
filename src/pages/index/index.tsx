@@ -1,51 +1,48 @@
-import { fetchPokemons } from '@/api/fetchPokemons';
+import { getPokemonByQuery } from '@/api/getPokemonByQuery';
 import { CardList } from '@/components/CardList';
 import { Search } from '@/components/Search';
-import { CONST, type AppProps, type PokemonResponse } from '@/types';
-import { Component } from 'react';
+import { CONST, type Card } from '@/types';
+import { useEffect, useState } from 'react';
 
-class Index extends Component<AppProps> {
-  state = {
-    query: localStorage.getItem(CONST.POKEMON_QUERY) ?? '',
-    data: [],
-    loading: true,
-    error: null,
-  };
+function Index() {
+  const [value, setValue] = useState(
+    localStorage.getItem(CONST.POKEMON_QUERY) ?? ''
+  );
+  const [pokemonCards, setPokemonCards] = useState<Card[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  onSearch = async () => {
-    const query = (this.state.query || '').trim();
+  const onSearch = async () => {
+    const query = value.trim();
     localStorage.setItem(CONST.POKEMON_QUERY, query);
-    this.setState({ loading: true });
+    setLoading(true);
 
-    const responseData: PokemonResponse = await fetchPokemons(query);
+    const responseData: Card[] = await getPokemonByQuery(query);
+    console.warn('PokemonResponse: ', responseData);
+
     if (responseData) {
-      this.setState({
-        data: responseData,
-        loading: false,
-      });
+      setPokemonCards(responseData);
+      setLoading(false);
     }
   };
 
-  componentDidMount() {
-    this.onSearch();
-  }
+  useEffect(() => {
+    onSearch();
+  }, []);
 
-  handleInputChange = (value: string) => {
-    this.setState({ query: value });
+  const handleInputChange = (value: string) => {
+    setValue(value);
   };
 
-  render() {
-    return (
-      <div className="flex flex-col items-center justify-center">
-        <Search
-          value={this.state.query}
-          onChange={this.handleInputChange}
-          loading={this.state.loading}
-          onClick={() => this.onSearch()}
-        />
-        <CardList data={this.state.data} loading={this.state.loading} />
-      </div>
-    );
-  }
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <Search
+        value={value}
+        onChange={handleInputChange}
+        loading={loading}
+        onClick={() => onSearch()}
+      />
+      <CardList data={pokemonCards} loading={loading} />
+    </div>
+  );
 }
 export default Index;

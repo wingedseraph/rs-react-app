@@ -22,9 +22,7 @@ export type Card = {
   error?: string;
 };
 
-export type PokemonResponse = Card[];
-
-export type SinglePokemonResponse = {
+export type PokemonCardDetails = {
   category: string;
   id: string;
   illustrator: string;

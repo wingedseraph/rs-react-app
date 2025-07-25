@@ -1,25 +1,22 @@
 import { Card as CardComponent } from '@/components/Card';
 import type { Card, CardListProps } from '@/types';
-import { Component } from 'react';
 import { Spinner } from './Spinner';
 
-export class CardList extends Component<CardListProps> {
-  render() {
-    if (this.props.loading) return <Spinner />;
+export function CardList({ data, loading }: CardListProps) {
+  if (loading) return <Spinner />;
 
-    if (!this.props.data || !Array.isArray(this.props.data)) {
-      return <p className="mt-10">{String(this.props.data)}</p>;
-    }
-    if (this.props.data.length === 0) {
-      return <p className="mt-10">No data found</p>;
-    }
-
-    return (
-      <div className="p-4 flex flex-row flex-wrap gap-4 justify-center">
-        {this.props.data.map((card: Card) => (
-          <CardComponent key={card.id} card={card} />
-        ))}
-      </div>
-    );
+  if (!data || !Array.isArray(data)) {
+    return <p className="mt-10">{String(data)}</p>;
   }
+  if (data.length === 0) {
+    return <p className="mt-10">No data found</p>;
+  }
+
+  return (
+    <div className="p-4 flex flex-row flex-wrap gap-4 justify-center">
+      {data.map((card: Card) => (
+        <CardComponent key={card.id} {...card} />
+      ))}
+    </div>
+  );
 }
