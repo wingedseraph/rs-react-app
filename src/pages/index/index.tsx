@@ -1,3 +1,4 @@
+import { fetchPokemon } from '@/api/fetchPokemons';
 import { CardList } from '@/components/CardList';
 import { Search } from '@/components/Search';
 import { CONST, type AppProps, type PokemonResponse } from '@/types';
@@ -14,23 +15,14 @@ class Index extends Component<AppProps> {
   onSearch = async () => {
     const query = (this.state.query || '').trim();
     localStorage.setItem(CONST.POKEMON_QUERY, query);
-    const POKEMON_PAGE_SIZE = 5;
-    const POKEMON_CURRENT_PAGE = 1;
     this.setState({ loading: true });
 
-    try {
-      const response = await fetch(
-        `https://api.tcgdex.net/v2/en/cards?name=*${query}*&image=*&pagination:page=${POKEMON_CURRENT_PAGE}&pagination:itemsPerPage=${POKEMON_PAGE_SIZE}`
-      );
-      const responseData: PokemonResponse = await response.json();
-
+    const responseData: PokemonResponse = await fetchPokemon(query);
+    if (responseData) {
       this.setState({
         data: responseData,
         loading: false,
       });
-    } catch (error) {
-      console.error(error);
-      this.setState({ loading: false });
     }
   };
 

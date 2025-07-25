@@ -16,17 +16,13 @@ export type ButtonProps = {
 
 export type Card = {
   id: string;
-  name: string;
   image: string;
+  localId: string;
+  name: string;
+  error?: string;
 };
 
-export type PokemonResponse = {
-  data: Card[];
-  page: number;
-  pageSize: number;
-  count: number;
-  totalCount: number;
-};
+export type PokemonResponse = Card[];
 
 export type CardProps = {
   card: Card;
