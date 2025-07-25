@@ -1,4 +1,4 @@
-import { fetchPokemon } from '@/api/fetchPokemons';
+import { fetchPokemons } from '@/api/fetchPokemons';
 import { CardList } from '@/components/CardList';
 import { Search } from '@/components/Search';
 import { CONST, type AppProps, type PokemonResponse } from '@/types';
@@ -17,7 +17,7 @@ class Index extends Component<AppProps> {
     localStorage.setItem(CONST.POKEMON_QUERY, query);
     this.setState({ loading: true });
 
-    const responseData: PokemonResponse = await fetchPokemon(query);
+    const responseData: PokemonResponse = await fetchPokemons(query);
     if (responseData) {
       this.setState({
         data: responseData,

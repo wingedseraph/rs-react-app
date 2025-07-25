@@ -1,9 +1,13 @@
+import {
+  POKEMON_BASE_API_URL,
+  POKEMON_CURRENT_PAGE,
+  POKEMON_PAGE_SIZE,
+} from '@/config/apiConfig';
 import type { PokemonResponse } from '@/types';
 
-const POKEMON_BASE_API_URL = 'https://api.tcgdex.net/v2/en/';
-const POKEMON_PAGE_SIZE = 10;
-const POKEMON_CURRENT_PAGE = 1;
-export async function fetchPokemon(query: string): Promise<PokemonResponse> {
+export async function getPokemonByQuery(
+  query: string
+): Promise<PokemonResponse> {
   let data = null;
   try {
     const response = await fetch(
