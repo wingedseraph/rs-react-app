@@ -10,7 +10,7 @@ export const useLocalStorage = (
   });
 
   useEffect(() => {
-    localStorage.setItem(key, state);
+    localStorage.setItem(key, state.trim());
   }, [state, key]);
   return [state, setState];
 };

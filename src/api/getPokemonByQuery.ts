@@ -3,12 +3,11 @@ import {
   POKEMON_CURRENT_PAGE,
   POKEMON_PAGE_SIZE,
 } from '@/config/apiConfig';
-import type { PokemonResponse } from '@/types';
+import type { Card } from '@/types';
 
-export async function getPokemonByQuery(
-  query: string
-): Promise<PokemonResponse> {
-  let data = null;
+export async function getPokemonByQuery(query: string): Promise<Card[]> {
+  const data: Card[] = [];
+
   try {
     const response = await fetch(
       `${POKEMON_BASE_API_URL}cards?name=*${query}*&image=*&pagination:page=${POKEMON_CURRENT_PAGE}&pagination:itemsPerPage=${POKEMON_PAGE_SIZE}`
@@ -18,10 +17,10 @@ export async function getPokemonByQuery(
       throw new Error(`${response.status}`);
     }
 
-    data = await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('fetchPokemon:', error);
-    data = error;
+    return data;
   }
-  return data;
 }

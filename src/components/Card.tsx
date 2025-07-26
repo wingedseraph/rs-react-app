@@ -22,6 +22,7 @@ export function Card(card: Card) {
         <img
           className="transition-all hover:scale-105 max-w-3xs max-h-[350px]"
           src={`${card.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
+          alt={card.name}
           loading="lazy"
         />
       )}
