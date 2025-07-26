@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
         path: Path.index,
         Component: lazy(() => import('@/pages/index/index')),
       },
+      {
+        path: Path.about,
+        Component: lazy(() => import('@/pages/about/about')),
+      },
     ],
   },
 ]);
