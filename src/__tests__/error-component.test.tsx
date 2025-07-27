@@ -30,7 +30,7 @@ describe('ErrorBoundary Tests', () => {
       expect(screen.getByText(/error:/i)).toBeInTheDocument();
 
       const returnElement = screen.getByRole('link', {
-        name: /← return to index page/i,
+        name: /← to index page/i,
       });
 
       expect(returnElement).toHaveAttribute('href', '/');
