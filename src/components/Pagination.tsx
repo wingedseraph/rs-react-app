@@ -5,6 +5,7 @@ type PaginationProps = {
   currentPage: number;
   disabled: boolean;
   hasMorePages?: boolean;
+  className?: string;
   onClick: Dispatch<SetStateAction<number>>;
 };
 
@@ -12,10 +13,13 @@ export function Pagination({
   currentPage,
   disabled,
   hasMorePages,
+  className,
   onClick,
 }: PaginationProps) {
   return (
-    <div className="flex items-center justify-between gap-10 mt-4">
+    <div
+      className={`p-4 flex items-center justify-between gap-10 mt-4 ${className}`}
+    >
       <Button
         onClick={() => onClick(currentPage - 1)}
         disabled={currentPage === 1 || disabled}

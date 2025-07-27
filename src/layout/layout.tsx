@@ -7,8 +7,12 @@ export const Layout = () => {
   return (
     <>
       <header className="transition-all md:w-[40%] m-auto hover:scale-110">
-        <img src="/logo.png" alt="pokemon logo" />
-        <Link to={Path.about}>go to about page →</Link>
+        <Link
+          className="text-[#203363] hover:text-[#F6CD46] hover:bg-[#203363] transition-all"
+          to={Path.about}
+        >
+          <img src="/logo.png" alt="pokemon logo" /> to about page →
+        </Link>
       </header>
       <main className="transition-all mt-20">
         <Suspense fallback={<Spinner />}>
