@@ -9,7 +9,7 @@ export function Button({
   return (
     <button
       type={type ?? 'button'}
-      className={`text-[#203363] cursor-pointer hover:underline underline-offset-4 transition-all disabled:pointer-events-none disabled:cursor-not-allowed ${className}`}
+      className={`text-[#203363] cursor-pointer hover:underline underline-offset-4 transition-all disabled:pointer-events-none disabled:cursor-not-allowed disabled:text-neutral-500 ${className}`}
       onClick={onClick}
       disabled={disabled}
     >
