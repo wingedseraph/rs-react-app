@@ -1,4 +1,3 @@
-import { CONST } from '@/types';
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 
 export const useLocalStorage = (
@@ -6,7 +5,7 @@ export const useLocalStorage = (
   key: string
 ): [string, Dispatch<SetStateAction<string>>] => {
   const [state, setState] = useState(() => {
-    return localStorage.getItem(CONST.POKEMON_QUERY) ?? default_;
+    return localStorage.getItem(key) ?? default_;
   });
 
   useEffect(() => {

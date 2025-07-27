@@ -1,33 +1,34 @@
-import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
-import { type Card, type PokemonCardDetails } from '@/types';
-import { useState } from 'react';
+import {
+  POKEMON_IMAGE_EXTENSION,
+  POKEMON_IMAGE_QUALITY,
+} from '@/config/apiConfig';
+import { type Card } from '@/types';
 
-const POKEMON_IMAGE_QUALITY = 'high';
-const POKEMON_IMAGE_EXTENSION = 'webp';
-export function Card(card: Card) {
-  const [pokemonCardDetails, setPokemonCardDetails] =
-    useState<PokemonCardDetails | null>(null);
+type CardProps = Card & {
+  onCardClick: (cardId: string) => void;
+  className?: string;
+};
+
+export function Card({ id, image, name, onCardClick, className }: CardProps) {
+  const handleCardClick = () => {
+    onCardClick(id);
+  };
 
   return (
     <div
-      onClick={async () => {
-        const some = await getPokemonCardDetails(card.id);
-        setPokemonCardDetails(some);
-      }}
-      className="transition-all mt-10 flex flex-col"
+      onClick={handleCardClick}
+      className={`transition-all mt-10 flex flex-col cursor-pointer relative z-2 ${className}`}
     >
-      <pre> {JSON.stringify(pokemonCardDetails?.hp)} HP </pre>
-
-      {card.image && (
+      {image && (
         <img
           className="transition-all hover:scale-105 max-w-3xs max-h-[350px]"
-          src={`${card.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
-          alt={card.name}
+          src={`${image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
+          alt={name}
           loading="lazy"
         />
       )}
       <div className="transition-all mt-4">
-        <p className="p-4 text-base">{card.name}</p>
+        <p className="p-4 text-base">{name}</p>
       </div>
     </div>
   );

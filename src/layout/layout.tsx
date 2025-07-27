@@ -11,7 +11,8 @@ export const Layout = () => {
           className="text-[#203363] hover:text-[#F6CD46] hover:bg-[#203363] transition-all"
           to={Path.about}
         >
-          <img src="/logo.png" alt="pokemon logo" /> to about page →
+          <img src="/logo.png" alt="pokemon logo" loading="lazy" /> to about
+          page →
         </Link>
       </header>
       <main className="transition-all mt-20">
