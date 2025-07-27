@@ -27,6 +27,7 @@ export function CardSlider({
   return (
     <>
       <div
+        data-testid="backdrop"
         className={`fixed top-0 left-0 w-full h-full z-1 bg-opacity-50 transition-opacity duration-300 ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         } `}
@@ -54,7 +55,7 @@ export function CardSlider({
             </div>
           )}
 
-          {cardDetails && (
+          {cardDetails && isOpen && (
             <div className="space-y-2 mt-10">
               <div className="flex justify-between">
                 <span className="font-semibold">hp </span>
