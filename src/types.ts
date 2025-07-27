@@ -51,9 +51,9 @@ export type CardSliderProps = {
   isOpen: boolean;
   cardDetails: PokemonCardDetails | null;
   className?: string;
-  isLoadingImage: boolean;
+  isLoadingImage?: boolean;
   onClose: () => void;
-  onImageLoad: () => void;
+  onImageLoad?: () => void;
 };
 
 export type SearchProps = {
