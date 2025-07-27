@@ -2,21 +2,15 @@ import {
   POKEMON_IMAGE_EXTENSION,
   POKEMON_IMAGE_QUALITY,
 } from '@/config/apiConfig';
-import { type PokemonCardDetails } from '@/types';
+import { type CardSliderProps } from '@/types';
 import { Button } from './Button';
-
-interface CardSliderProps {
-  isOpen: boolean;
-  cardDetails: PokemonCardDetails | null;
-  className?: string;
-  onClose: () => void;
-}
 
 export function CardSlider({
   isOpen,
   cardDetails,
-  className,
+  isLoadingImage,
   onClose,
+  onImageLoad,
 }: CardSliderProps) {
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -49,8 +43,11 @@ export function CardSlider({
               <img
                 src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
                 alt={cardDetails.name}
-                className={`w-full rounded-lg ${className}`}
+                className={`w-full rounded-lg transition-all duration-300 ${
+                  isLoadingImage ? 'blur-sm scale-95' : 'blur-none scale-100'
+                }`}
                 loading="lazy"
+                onLoad={onImageLoad}
               />
             </div>
           )}

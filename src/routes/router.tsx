@@ -16,6 +16,14 @@ export const router = createBrowserRouter([
         Component: lazy(() => import('@/pages/index/index')),
       },
       {
+        path: Path.page,
+        Component: lazy(() => import('@/pages/index/index')),
+      },
+      {
+        path: Path.card,
+        Component: lazy(() => import('@/pages/index/index')),
+      },
+      {
         path: Path.about,
         Component: lazy(() => import('@/pages/about/about')),
       },

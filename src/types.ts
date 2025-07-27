@@ -44,6 +44,16 @@ export type CardProps = {
 export type CardListProps = {
   loading: boolean;
   data: Card[] | null;
+  onCardClick?: (cardId: string) => void;
+};
+
+export type CardSliderProps = {
+  isOpen: boolean;
+  cardDetails: PokemonCardDetails | null;
+  className?: string;
+  isLoadingImage: boolean;
+  onClose: () => void;
+  onImageLoad: () => void;
 };
 
 export type SearchProps = {

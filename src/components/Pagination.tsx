@@ -1,12 +1,11 @@
 import { Button } from '@/components/Button';
-import type { Dispatch, SetStateAction } from 'react';
 
 type PaginationProps = {
   currentPage: number;
   disabled: boolean;
   hasMorePages?: boolean;
   className?: string;
-  onClick: Dispatch<SetStateAction<number>>;
+  onClick: (page: number) => void;
 };
 
 export function Pagination({
