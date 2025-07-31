@@ -16,35 +16,31 @@ function Index() {
   const [value, setValue] = useLocalStorage('', CONST.POKEMON_QUERY);
   const [pokemonCards, setPokemonCards] = useState<Card[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isHasMorePages, isSetHasMorePages] = useState(false);
+  const [hasMorePages, setHasMorePages] = useState(false);
   const [isLoadingImage, setIsLoadingImage] = useState(true);
   const [currentPokemonPage, setCurrentPokemonPage] = useState(1);
 
   const [selectedCardDetails, setSelectedCardDetails] =
     useState<PokemonCardDetails | null>(null);
-  const [isSliderOpen, setIsSliderOpen] = useState(false);
-
-  const onSearch = async () => {
-    const query = value.trim();
-    setIsLoading(true);
-
-    const responseData: { data: Card[]; hasMorePages: boolean } =
-      await getPokemonByQuery(query, currentPokemonPage);
-
-    if (responseData) {
-      setPokemonCards(responseData.data);
-      setIsLoading(false);
-      isSetHasMorePages(responseData.hasMorePages);
-    }
-  };
 
   useEffect(() => {
     const page = pageId ? Number(pageId) : 1;
     setCurrentPokemonPage(page);
   }, [pageId]);
 
+  const fetchPokemonCards = async () => {
+    setIsLoading(true);
+    const query = value.trim();
+    const responseData = await getPokemonByQuery(query, currentPokemonPage);
+    if (responseData) {
+      setPokemonCards(responseData.data);
+      setHasMorePages(responseData.hasMorePages);
+    }
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    onSearch();
+    fetchPokemonCards();
   }, [currentPokemonPage]);
 
   useEffect(() => {
@@ -53,11 +49,9 @@ function Index() {
         const details = await getPokemonCardDetails(cardId);
         setSelectedCardDetails(details);
         setIsLoadingImage(true);
-        setIsSliderOpen(true);
       };
       loadCardDetails();
     } else {
-      setIsSliderOpen(false);
       setIsLoadingImage(false);
       setSelectedCardDetails(null);
     }
@@ -68,12 +62,7 @@ function Index() {
   };
 
   const handlePageChange = (page: number) => {
-    setCurrentPokemonPage(page);
-    if (cardId) {
-      navigate(`/page/${page}/card/${cardId}`);
-    } else {
-      navigate(`/page/${page}`);
-    }
+    navigate(`/page/${page}`);
   };
 
   const handleCardClick = (cardId: string) => {
@@ -84,13 +73,21 @@ function Index() {
     navigate(`/page/${currentPokemonPage}`);
   };
 
+  const handleSearchClick = () => {
+    if (currentPokemonPage === 1) {
+      fetchPokemonCards();
+    } else {
+      navigate('/page/1');
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Search
         value={value}
         onChange={handleInputChange}
         loading={isLoading}
-        onClick={() => onSearch()}
+        onClick={handleSearchClick}
       />
       <CardList
         data={pokemonCards}
@@ -100,11 +97,11 @@ function Index() {
       <Pagination
         currentPage={currentPokemonPage}
         disabled={isLoading}
-        hasMorePages={isHasMorePages}
+        hasMorePages={hasMorePages}
         onClick={handlePageChange}
       />
       <CardSlider
-        isOpen={isSliderOpen}
+        isOpen={!!cardId}
         onClose={handleSliderClose}
         isLoadingImage={isLoadingImage}
         cardDetails={selectedCardDetails}
