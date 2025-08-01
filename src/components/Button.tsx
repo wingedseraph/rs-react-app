@@ -1,17 +1,19 @@
-import { Component } from 'react';
-import type { ButtonProps } from '../types/types';
-
-export class Button extends Component<ButtonProps> {
-  render() {
-    return (
-      <button
-        type={this.props.type ?? 'button'}
-        className={`cursor-pointer hover:bg-black transition-all disabled:pointer-events-none disabled:cursor-not-allowed ${this.props.className}`}
-        onClick={this.props.onClick}
-        disabled={this.props.disabled}
-      >
-        {this.props.children}
-      </button>
-    );
-  }
+import type { ButtonProps } from '@/types';
+export function Button({
+  type,
+  className,
+  onClick,
+  disabled,
+  children,
+}: ButtonProps) {
+  return (
+    <button
+      type={type ?? 'button'}
+      className={`text-[#203363] hover:text-[#F6CD46] hover:bg-[#203363] cursor-pointer transition-all disabled:pointer-events-none disabled:cursor-not-allowed disabled:text-neutral-500 ${className}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
 }

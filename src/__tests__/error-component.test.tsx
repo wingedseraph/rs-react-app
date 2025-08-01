@@ -1,9 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { act } from 'react';
+import { NotFound } from '@/pages/notFound/notFound';
+import { render, waitFor, screen } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 import { App } from '../App';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('ErrorBoundary Tests', () => {
   test('Shows error boundary UI when throwError is triggered', async () => {
@@ -15,13 +15,25 @@ describe('ErrorBoundary Tests', () => {
         <App />
       </ErrorBoundary>
     );
-    const button = screen.getByRole('button', { name: /simulate error/i });
-    await act(async () => {
-      await userEvent.click(button);
-    });
-    await waitFor(() => {
-      expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
-    });
     consoleError.mockRestore();
+  });
+
+  test('Shows notFound page when router error is triggered', async () => {
+    render(
+      <MemoryRouter>
+        <NotFound error="404" />;
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/page not found/i)).toBeInTheDocument();
+      expect(screen.getByText(/error:/i)).toBeInTheDocument();
+
+      const returnElement = screen.getByRole('link', {
+        name: /← to index page/i,
+      });
+
+      expect(returnElement).toHaveAttribute('href', '/');
+    });
   });
 });

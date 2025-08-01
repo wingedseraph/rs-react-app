@@ -1,21 +1,27 @@
-import { Component } from 'react';
-import type { Card, CardListProps } from '../types/types';
-import { Card as CardComponent } from './Card';
+import { Card as CardComponent } from '@/components/Card';
+import type { Card, CardListProps } from '@/types';
 import { Spinner } from './Spinner';
 
-export class CardList extends Component<CardListProps> {
-  render() {
-    if (this.props.loading) return <Spinner />;
+export function CardList({ data, loading, onCardClick }: CardListProps) {
+  if (loading) return <Spinner />;
 
-    if (!this.props.data || this.props.data.length === 0)
-      return <p>No data found</p>;
-
-    return (
-      <div className="p-4 flex flex-row flex-wrap gap-4 justify-center">
-        {this.props.data.map((card: Card) => (
-          <CardComponent key={card.id} card={card} />
-        ))}
-      </div>
-    );
+  if (!data || !Array.isArray(data)) {
+    return <p className="mt-10">{String(data)}</p>;
   }
+  if (data.length === 0) {
+    return <p className="mt-10">No data found</p>;
+  }
+
+  return (
+    <div className="p-4 flex flex-row flex-wrap gap-4 justify-center">
+      {data.map((card: Card) => (
+        <CardComponent
+          key={card.id}
+          {...card}
+          onCardClick={onCardClick || (() => {})}
+          className={`${loading ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
+        />
+      ))}
+    </div>
+  );
 }

@@ -5,7 +5,7 @@ import { App } from '../App';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Search } from '../components/Search';
-import { CONST } from '../types/types';
+import { CONST } from '@/types';
 
 describe('Rendering Tests', () => {
   afterEach(() => {
@@ -24,18 +24,21 @@ describe('Rendering Tests', () => {
     expect(button).toBeInTheDocument();
   });
 
-  test('1.2 Displays previously saved search term from localStorage on mount', () => {
+  test('1.2 Displays previously saved search term from localStorage on mount', async () => {
     localStorage.setItem(CONST.POKEMON_QUERY, 'test_with_vitest');
     render(<App />);
 
+    await waitFor(() => screen.getByPlaceholderText('type to search...'));
+    screen.getByPlaceholderText('type to search...');
     const input = screen.getByPlaceholderText('type to search...');
     expect(input).toHaveValue('test_with_vitest');
   });
 
-  test('1.3 Shows empty input when no saved term exists', () => {
+  test('1.3 Shows empty input when no saved term exists', async () => {
     localStorage.setItem(CONST.POKEMON_QUERY, '');
     render(<App />);
 
+    await waitFor(() => screen.getByPlaceholderText('type to search...'));
     const input = screen.getByPlaceholderText('type to search...');
     expect(input).toHaveValue('');
   });
@@ -48,6 +51,7 @@ describe('User Interaction Tests', () => {
 
   test('2.1 Updates input value when user types', async () => {
     render(<App />);
+    await waitFor(() => screen.getByPlaceholderText('type to search...'));
     const input = screen.getByPlaceholderText('type to search...');
     const button = screen.getByRole('button', { name: /search/i });
 
@@ -58,6 +62,7 @@ describe('User Interaction Tests', () => {
   });
   test('2.3 Trims whitespace from search input before saving', async () => {
     render(<App />);
+    await waitFor(() => screen.getByPlaceholderText('type to search...'));
     const input = screen.getByPlaceholderText('type to search...');
     const button = screen.getByRole('button', { name: /search/i });
 

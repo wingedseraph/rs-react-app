@@ -1,22 +1,21 @@
+import type { Card } from '@/types';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { App } from '../App';
-import type { PokemonResponse } from '../types/types';
 
-const mockResponse: PokemonResponse = {
-  data: [
-    { id: '1', name: 'Aggron', images: { small: 'url', large: 'url' } },
-    { id: '2', name: 'Bulbasaur', images: { small: 'url', large: 'url' } },
-  ],
-  page: 1,
-  pageSize: 5,
-  count: 2,
-  totalCount: 19500,
-};
+const mockResponse: Card[] = [
+  {
+    id: 'swsh1-1',
+    localId: '1',
+    name: 'Celebi V',
+    image: 'url',
+  },
+];
 
-export const mockFetch = (mockResponse: object) => {
+export const mockFetch = (mockResponse: Card[] | object) => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue({
     json: async () => mockResponse,
+    ok: true,
   } as Response);
 };
 
@@ -31,18 +30,12 @@ describe('Rendering Tests', () => {
 
     render(<App />);
     await waitFor(() => {
-      expect(screen.getAllByText(/Aggron|Bulbasaur/)).toHaveLength(2);
+      expect(screen.getAllByText(/Celebi/)).toHaveLength(1);
     });
   });
 
   test('1.2 Displays "no results" message when data array is empty', async () => {
-    const mockResponse: PokemonResponse = {
-      data: [],
-      page: 0,
-      pageSize: 0,
-      count: 0,
-      totalCount: 0,
-    };
+    const mockResponse: Card[] = [];
     mockFetch(mockResponse);
 
     render(<App />);
@@ -67,13 +60,7 @@ describe('Rendering Tests', () => {
       const safeResolveFetch: (value: Response) => void = resolveFetch;
       await act(async () => {
         safeResolveFetch({
-          json: async () => ({
-            data: [],
-            page: 0,
-            pageSize: 0,
-            count: 0,
-            totalCount: 0,
-          }),
+          json: async () => [],
           ok: true,
         } as Response);
       });
@@ -91,27 +78,27 @@ describe('Data Display Tests', () => {
 
     render(<App />);
     await waitFor(() => {
-      expect(screen.getByText('Aggron')).toBeInTheDocument();
-      const image = screen.getByAltText('Aggron') as HTMLImageElement;
+      expect(screen.getByText('Celebi V')).toBeInTheDocument();
+      const image = screen.getByAltText('Celebi V') as HTMLImageElement;
       expect(image).toBeInTheDocument();
       expect(image.src).toContain('url');
     });
   });
 
   test('2.2 Handles missing or undefined data gracefully', async () => {
-    const mockResponse: PokemonResponse = {
-      data: [{ id: '1', name: 'wrong_name', images: { small: '', large: '' } }],
-      page: 1,
-      pageSize: 5,
-      count: 1,
-      totalCount: 19500,
-    };
+    const mockResponse: Card[] = [
+      {
+        id: 'swsh1-1',
+        localId: '1',
+        name: 'wrong_name',
+        image: 'https://assets.tcgdex.net/en/swsh/swsh1/1',
+      },
+    ];
     mockFetch(mockResponse);
 
     render(<App />);
     await waitFor(() => {
       expect(screen.getByText('wrong_name')).toBeInTheDocument();
-      expect(screen.queryByAltText('wrong_name')).not.toBeInTheDocument();
     });
   });
 });
@@ -128,7 +115,7 @@ describe('Error Handling Tests', () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error());
     render(<App />);
     await waitFor(() => {
-      expect(screen.getByText(/no data found/i)).toBeInTheDocument();
+      expect(screen.getByRole('status')).toBeInTheDocument();
     });
     consoleError.mockRestore();
   });
