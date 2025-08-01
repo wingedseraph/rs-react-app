@@ -4,7 +4,7 @@ export function Spinner() {
       role="status"
       className="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible"
     >
-      <img className="animate-spin w-12 h-12" src="/newLogo.svg" />
+      <img className="h-12 w-12 animate-spin" src="/newLogo.svg" />
     </div>
   );
 }

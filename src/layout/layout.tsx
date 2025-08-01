@@ -6,16 +6,16 @@ import { Link, Outlet } from 'react-router-dom';
 export const Layout = () => {
   return (
     <>
-      <header className="transition-all md:w-[40%] m-auto hover:scale-110">
+      <header className="m-auto transition-all hover:scale-110 md:w-[40%]">
         <Link
-          className="text-[#203363] hover:text-[#F6CD46] hover:bg-[#203363] transition-all"
+          className="text-[#203363] transition-all hover:bg-[#203363] hover:text-[#F6CD46]"
           to={Path.about}
         >
           <img src="/logo.png" alt="pokemon logo" loading="lazy" /> to about
           page →
         </Link>
       </header>
-      <main className="transition-all mt-20">
+      <main className="mt-20 transition-all">
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>

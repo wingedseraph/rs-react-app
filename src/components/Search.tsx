@@ -11,7 +11,7 @@ export function Search({ value, onChange, onClick }: SearchProps) {
 
   return (
     <form
-      className="bg-[#F6CD46] border-[#3B5BA7] border-8 text-black rounded-4xl p-4 flex flex-row justify-center gap-4"
+      className="flex flex-row justify-center gap-4 rounded-4xl border-8 border-[#3B5BA7] bg-[#F6CD46] p-4 text-black"
       onSubmit={handleSubmit}
       role="search"
     >

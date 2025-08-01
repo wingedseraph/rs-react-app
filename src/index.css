@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-light: hsl(220, 51%, 30%);
+  --color-dark: hsl(220, 51%, 20%);
+
+  --color-light-alt: hsl(46, 82%, 90%);
+  --color-dark-alt: hsl(46, 82%, 50%);
+}
+
 :root {
   font-family: Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -7,8 +15,15 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #203363;
-  background-color: #f0ce5f;
+
+  /* --color-light: hsl(220, 51%, 30%); */
+  /* --background-light: hsl(46, 82%, 90%); */
+  /**/
+  /* --color-dark: hsl(220, 51%, 20%); */
+  /* --background-dark: hsl(46, 82%, 50%); */
+  /**/
+  /* color: var(--color-light); */
+  /* background-color: var(--background-light); */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
