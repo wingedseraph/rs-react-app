@@ -13,10 +13,11 @@ export const Flyout = () => {
       onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
       className="mt-10 flex flex-col items-center gap-4 rounded-4xl border-2 border-black p-4"
     >
-      <p className="font-black">selected:</p>
+      <p className="font-black">selected {selectedItems.length} pokémon</p>
       {selectedItems?.map((item) => (
-        <div key={item.id} className="flex items-center gap-4">
-          <p>{item.name}</p> <p>{item.id}</p>
+        <div key={item.id} className="flex items-center justify-between gap-4">
+          <p title="name of pokémon">{item.name}</p>
+          <p title="id of pokémon">{item.id}</p>
         </div>
       ))}
 
