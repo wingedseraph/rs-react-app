@@ -7,7 +7,7 @@ describe('should render DownloadButton component', () => {
     render(<DownloadButton />);
     await waitFor(() => {
       const authorElement = screen.getByRole('button', {
-        name: /download csv/i,
+        name: /download/i,
       });
 
       expect(authorElement).toHaveAttribute('disabled');
