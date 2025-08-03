@@ -1,4 +1,3 @@
-import { Checkbox } from '@/components/Checkbox/Checkbox';
 import {
   POKEMON_IMAGE_EXTENSION,
   POKEMON_IMAGE_QUALITY,
@@ -14,11 +13,6 @@ export function CardSlider({
   onImageLoad,
 }: CardSliderProps) {
   if (!cardDetails) return null;
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
 
   return (
     <>
@@ -27,7 +21,7 @@ export function CardSlider({
         className={`bg-opacity-50 fixed top-0 left-0 z-1 h-full w-full transition-opacity duration-300 ${
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         } `}
-        onClick={handleBackdropClick}
+        onClick={onClose}
       />
 
       <div
@@ -75,7 +69,6 @@ export function CardSlider({
             </div>
           )}
         </div>
-        <Checkbox item={cardDetails} />
       </div>
     </>
   );

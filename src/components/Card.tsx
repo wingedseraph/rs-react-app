@@ -1,3 +1,4 @@
+import { Checkbox } from '@/components/Checkbox/Checkbox';
 import {
   POKEMON_IMAGE_EXTENSION,
   POKEMON_IMAGE_QUALITY,
@@ -9,11 +10,24 @@ type CardProps = Card & {
   className?: string;
 };
 
-export function Card({ id, image, name, onCardClick, className }: CardProps) {
+export function Card({
+  id,
+  image,
+  name,
+  localId,
+  onCardClick,
+  className,
+}: CardProps) {
   const handleCardClick = () => {
     onCardClick(id);
   };
 
+  const card = {
+    id,
+    name,
+    image: image || '',
+    localId,
+  };
   return (
     <div
       onClick={handleCardClick}
@@ -29,6 +43,7 @@ export function Card({ id, image, name, onCardClick, className }: CardProps) {
       )}
       <div className="mt-4 transition-all">
         <p className="p-4 text-base">{name}</p>
+        <Checkbox item={card} />
       </div>
     </div>
   );

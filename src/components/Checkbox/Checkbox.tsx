@@ -1,7 +1,7 @@
 import { useSelectedItemsStore } from '@/store/itemsStore';
-import type { PokemonCardDetails } from '@/types';
+import type { Card } from '@/types';
 
-export const Checkbox = ({ item }: { item: PokemonCardDetails }) => {
+export const Checkbox = ({ item }: { item: Card }) => {
   const selectedItems = useSelectedItemsStore((state) => state.selectedItems);
   const addItem = useSelectedItemsStore((state) => state.addItem);
   const removeItem = useSelectedItemsStore((state) => state.removeItem);
@@ -17,9 +17,9 @@ export const Checkbox = ({ item }: { item: PokemonCardDetails }) => {
   };
 
   return (
-    <div className="flex items-center gap-5 bg-yellow-100 p-4">
-      <label htmlFor="checked-checkbox" className="ms-2 text-sm font-medium">
-        Select
+    <div className="flex flex-col items-center gap-5 p-4">
+      <label htmlFor="checked-checkbox" className="text-sm font-medium">
+        select
       </label>
       <input
         checked={isSelected}

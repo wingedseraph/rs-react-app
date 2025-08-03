@@ -1,9 +1,10 @@
-import type { PokemonCardDetails } from '@/types';
+import { POKEMON_CSV_HEADERS } from '@/config/apiConfig';
+import type { Card } from '@/types';
 import { create } from 'zustand';
 
 type SelectedfItemsStore = {
-  selectedItems: PokemonCardDetails[];
-  addItem: (item: PokemonCardDetails) => void;
+  selectedItems: Card[];
+  addItem: (item: Card) => void;
   removeItem: (id: string) => void;
   clearItems: () => void;
   downloadItems: () => void;
@@ -22,5 +23,32 @@ export const useSelectedItemsStore = create<SelectedfItemsStore>()((set) => ({
       selectedItems: state.selectedItems.filter((item) => item.id !== id),
     })),
   clearItems: () => set({ selectedItems: [] }),
-  downloadItems: () => set({}),
+  downloadItems: () =>
+    set((state) => {
+      const items = state.selectedItems;
+      if (items.length === 0) return state;
+
+      const csvContent = createCSVContent(items);
+      downloadCSV(csvContent, `${items.length}_items.csv`);
+
+      return state;
+    }),
 }));
+
+const createCSVContent = (items: Card[]) => {
+  const headers = POKEMON_CSV_HEADERS;
+  const rows = items.map((item) => [item.id, item.name].join(','));
+  return [headers, ...rows].join('\n');
+};
+
+const downloadCSV = (content: string, filename: string) => {
+  const blob = new Blob([content], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+
+  window.URL.revokeObjectURL(url);
+};

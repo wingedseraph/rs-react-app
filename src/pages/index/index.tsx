@@ -2,9 +2,9 @@ import { getPokemonByQuery } from '@/api/getPokemonByQuery';
 import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
 import { CardList } from '@/components/CardList';
 import { CardSlider } from '@/components/CardSlider';
+import { Flyout } from '@/components/Flyout/Flyout';
 import { Pagination } from '@/components/Pagination';
 import { Search } from '@/components/Search';
-import { Selected } from '@/components/Selected/Selected';
 import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
@@ -103,7 +103,7 @@ function Index() {
         onClick={handleSearchClick}
       />
       <select
-        className="mt-4"
+        className="mt-4 cursor-pointer"
         onChange={handleThemeChange}
         defaultValue={theme}
       >
@@ -124,7 +124,7 @@ function Index() {
         hasMorePages={hasMorePages}
         onClick={handlePageChange}
       />
-      <Selected />
+      <Flyout />
       <CardSlider
         isOpen={!!cardId}
         onClose={handleSliderClose}
