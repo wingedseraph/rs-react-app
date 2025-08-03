@@ -5,14 +5,18 @@ import { CardSlider } from '@/components/CardSlider';
 import { Pagination } from '@/components/Pagination';
 import { Search } from '@/components/Search';
 import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
+import { THEMES } from '@/config/themeConfig';
+import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { type Card, type PokemonCardDetails } from '@/types';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Index() {
   const { pageId, cardId } = useParams();
   const navigate = useNavigate();
+
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const [value, setValue] = useLocalStorage('', POKEMON_LOCAL_STORAGE_QUERY);
   const [pokemonCards, setPokemonCards] = useState<Card[]>([]);
@@ -82,6 +86,10 @@ function Index() {
     }
   };
 
+  const handleThemeChange = (event_: React.ChangeEvent<HTMLSelectElement>) => {
+    setTheme(event_.target.value as Theme);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Search
@@ -90,6 +98,17 @@ function Index() {
         loading={isLoading}
         onClick={handleSearchClick}
       />
+      <select
+        className="mt-4"
+        onChange={handleThemeChange}
+        defaultValue={theme}
+      >
+        {THEMES.map((theme) => (
+          <option value={theme} key={theme}>
+            {theme}
+          </option>
+        ))}
+      </select>
       <CardList
         data={pokemonCards}
         loading={isLoading}

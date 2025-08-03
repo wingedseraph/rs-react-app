@@ -29,7 +29,7 @@ export function CardSlider({
       />
 
       <div
-        className={`fixed top-0 right-0 z-90 flex min-h-screen w-96 transform flex-col items-center justify-center bg-[#F0CE5F] transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-90 flex min-h-screen w-96 transform flex-col items-center justify-center rounded-4xl bg-inherit backdrop-blur-lg transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
