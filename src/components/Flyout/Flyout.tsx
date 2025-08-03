@@ -22,8 +22,7 @@ export const Flyout = () => {
       ))}
 
       <div className="flex items-center justify-center gap-5">
-        <Button onClick={clearItems}>clear all items</Button>
-
+        <Button onClick={clearItems}>unselect all</Button>
         <DownloadButton />
       </div>
     </form>

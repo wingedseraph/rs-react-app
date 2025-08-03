@@ -18,7 +18,7 @@ export const DownloadButton = () => {
       disabled={selectedItems.length === 0}
       className="cursor-pointer rounded p-4"
     >
-      download csv ({selectedItems.length} items)
+      download
     </Button>
   );
 };
