@@ -13,13 +13,13 @@ export function CardList({ data, loading, onCardClick }: CardListProps) {
   }
 
   return (
-    <div className="p-4 flex flex-row flex-wrap gap-4 justify-center">
+    <div className="flex flex-row flex-wrap justify-center gap-4 p-4">
       {data.map((card: Card) => (
         <CardComponent
           key={card.id}
           {...card}
           onCardClick={onCardClick || (() => {})}
-          className={`${loading ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
+          className={`${loading ? 'pointer-events-none cursor-not-allowed' : 'cursor-pointer'}`}
         />
       ))}
     </div>

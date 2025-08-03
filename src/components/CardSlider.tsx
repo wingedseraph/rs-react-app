@@ -12,24 +12,20 @@ export function CardSlider({
   onClose,
   onImageLoad,
 }: CardSliderProps) {
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
+  if (!cardDetails) return null;
 
   return (
     <>
       <div
         data-testid="backdrop"
-        className={`fixed top-0 left-0 w-full h-full z-1 bg-opacity-50 transition-opacity duration-300 ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`bg-opacity-50 fixed top-0 left-0 z-1 h-full w-full transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         } `}
-        onClick={handleBackdropClick}
+        onClick={onClose}
       />
 
       <div
-        className={`fixed right-0 top-0 min-h-screen flex flex-col items-center justify-center w-96 bg-[#F0CE5F] transform transition-transform duration-300 ease-in-out z-90 ${
+        className={`fixed top-0 right-0 z-90 flex min-h-screen w-96 transform flex-col items-center justify-center rounded-4xl bg-inherit backdrop-blur-lg transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -37,14 +33,14 @@ export function CardSlider({
           close
         </Button>
 
-        <div className="p-4 h-full">
+        <div className="h-full p-4">
           {cardDetails?.image && (
             <div className="mb-4">
               <img
                 src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
                 alt={cardDetails.name}
                 className={`w-full rounded-lg transition-all duration-300 ${
-                  isLoadingImage ? 'blur-sm scale-95' : 'blur-none scale-100'
+                  isLoadingImage ? 'scale-95 blur-sm' : 'scale-100 blur-none'
                 }`}
                 loading="lazy"
                 onLoad={onImageLoad}
@@ -53,7 +49,7 @@ export function CardSlider({
           )}
 
           {cardDetails && isOpen && (
-            <div className="space-y-2 mt-10">
+            <div className="mt-10 space-y-2">
               <div className="flex justify-between">
                 <span className="font-semibold">hp </span>
                 <span>{cardDetails.hp}</span>

@@ -6,7 +6,7 @@ type InputProps = {
 export function Input({ value, onChange }: InputProps) {
   return (
     <input
-      className="text-[#203363] outline-0"
+      className="outline-0"
       type="text"
       value={value}
       onChange={(event_) => onChange(event_.target.value)}

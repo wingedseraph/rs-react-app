@@ -2,18 +2,27 @@ import { getPokemonByQuery } from '@/api/getPokemonByQuery';
 import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
 import { CardList } from '@/components/CardList';
 import { CardSlider } from '@/components/CardSlider';
+import { Flyout } from '@/components/Flyout/Flyout';
 import { Pagination } from '@/components/Pagination';
 import { Search } from '@/components/Search';
+import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
+import { THEMES } from '@/config/themeConfig';
+import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { CONST, type Card, type PokemonCardDetails } from '@/types';
-import { useEffect, useState } from 'react';
+import { type Card, type PokemonCardDetails } from '@/types';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Index() {
   const { pageId, cardId } = useParams();
   const navigate = useNavigate();
 
-  const [value, setValue] = useLocalStorage('', CONST.POKEMON_QUERY);
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  const [value, setValue] = useLocalStorage<string>(
+    '',
+    POKEMON_LOCAL_STORAGE_QUERY
+  );
   const [pokemonCards, setPokemonCards] = useState<Card[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMorePages, setHasMorePages] = useState(false);
@@ -81,6 +90,10 @@ function Index() {
     }
   };
 
+  const handleThemeChange = (event_: React.ChangeEvent<HTMLSelectElement>) => {
+    setTheme(event_.target.value as Theme);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Search
@@ -89,6 +102,17 @@ function Index() {
         loading={isLoading}
         onClick={handleSearchClick}
       />
+      <select
+        className="mt-4 cursor-pointer"
+        onChange={handleThemeChange}
+        defaultValue={theme}
+      >
+        {THEMES.map((theme) => (
+          <option value={theme} key={theme}>
+            {theme}
+          </option>
+        ))}
+      </select>
       <CardList
         data={pokemonCards}
         loading={isLoading}
@@ -100,6 +124,7 @@ function Index() {
         hasMorePages={hasMorePages}
         onClick={handlePageChange}
       />
+      <Flyout />
       <CardSlider
         isOpen={!!cardId}
         onClose={handleSliderClose}

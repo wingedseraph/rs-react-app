@@ -17,7 +17,7 @@ export function Pagination({
 }: PaginationProps) {
   return (
     <div
-      className={`p-4 flex items-center justify-between gap-10 mt-4 ${className}`}
+      className={`mt-4 flex items-center justify-between gap-10 p-4 ${className}`}
     >
       <Button
         onClick={() => onClick(currentPage - 1)}

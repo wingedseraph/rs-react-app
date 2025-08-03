@@ -1,3 +1,4 @@
+import { ThemeContextProvider } from '@/context/ThemeContext.tsx';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App.tsx';
@@ -9,7 +10,9 @@ if (rootElement !== null) {
   createRoot(rootElement).render(
     <StrictMode>
       <ErrorBoundary>
-        <App />
+        <ThemeContextProvider>
+          <App />
+        </ThemeContextProvider>
       </ErrorBoundary>
     </StrictMode>
   );
