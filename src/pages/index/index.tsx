@@ -4,8 +4,9 @@ import { CardList } from '@/components/CardList';
 import { CardSlider } from '@/components/CardSlider';
 import { Pagination } from '@/components/Pagination';
 import { Search } from '@/components/Search';
+import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { CONST, type Card, type PokemonCardDetails } from '@/types';
+import { type Card, type PokemonCardDetails } from '@/types';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ function Index() {
   const { pageId, cardId } = useParams();
   const navigate = useNavigate();
 
-  const [value, setValue] = useLocalStorage('', CONST.POKEMON_QUERY);
+  const [value, setValue] = useLocalStorage('', POKEMON_LOCAL_STORAGE_QUERY);
   const [pokemonCards, setPokemonCards] = useState<Card[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMorePages, setHasMorePages] = useState(false);
