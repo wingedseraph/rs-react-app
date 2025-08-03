@@ -4,6 +4,7 @@ import { CardList } from '@/components/CardList';
 import { CardSlider } from '@/components/CardSlider';
 import { Pagination } from '@/components/Pagination';
 import { Search } from '@/components/Search';
+import { Selected } from '@/components/Selected/Selected';
 import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
@@ -18,7 +19,10 @@ function Index() {
 
   const { theme, setTheme } = useContext(ThemeContext);
 
-  const [value, setValue] = useLocalStorage('', POKEMON_LOCAL_STORAGE_QUERY);
+  const [value, setValue] = useLocalStorage<string>(
+    '',
+    POKEMON_LOCAL_STORAGE_QUERY
+  );
   const [pokemonCards, setPokemonCards] = useState<Card[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMorePages, setHasMorePages] = useState(false);
@@ -120,6 +124,7 @@ function Index() {
         hasMorePages={hasMorePages}
         onClick={handlePageChange}
       />
+      <Selected />
       <CardSlider
         isOpen={!!cardId}
         onClose={handleSliderClose}
