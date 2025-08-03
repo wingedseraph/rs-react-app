@@ -27,12 +27,12 @@ body {
   min-height: 100vh;
 
   background-color: hsl(46, 82%, 90%);
-  color: hsl(220, 51%, 30%);
+  color: hsl(220, 51%, 10%);
   color-scheme: light;
 }
 
 body.dark {
   background-color: hsl(46, 82%, 50%);
-  color: hsl(220, 51%, 20%);
+  color: hsl(220, 51%, 30%);
   color-scheme: dark;
 }

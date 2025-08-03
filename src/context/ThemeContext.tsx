@@ -1,5 +1,6 @@
 import { THEMES, DEFAULT_THEME } from '@/config/themeConfig';
-import { createContext, useEffect, useState, type ReactNode } from 'react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { createContext, useEffect, type ReactNode } from 'react';
 
 export type Theme = (typeof THEMES)[number];
 
@@ -14,7 +15,10 @@ const initialState: {
 const ThemeContext = createContext(initialState);
 
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
+  const [theme, setTheme] = useLocalStorage<Theme>(
+    DEFAULT_THEME,
+    'POKEMON_THEME'
+  );
 
   useEffect(() => {
     if (theme === 'light') {
