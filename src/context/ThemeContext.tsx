@@ -1,4 +1,4 @@
-import { THEMES, DEFAULT_THEME } from '@/config/themeConfig';
+import { DEFAULT_THEME, THEMES } from '@/config/themeConfig';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { createContext, useEffect, type ReactNode } from 'react';
 

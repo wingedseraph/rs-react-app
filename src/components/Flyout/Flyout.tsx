@@ -15,8 +15,11 @@ export const Flyout = () => {
     >
       <p className="font-black">selected:</p>
       {selectedItems?.map((item) => (
-        <p key={item.id}>{item.name}</p>
+        <div key={item.id} className="flex items-center gap-4">
+          <p>{item.name}</p> <p>{item.id}</p>
+        </div>
       ))}
+
       <div className="flex items-center justify-center gap-5">
         <Button onClick={clearItems}>clear all items</Button>
 
