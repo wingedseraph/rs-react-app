@@ -1,7 +1,7 @@
+import { App } from '@/App';
 import type { Card } from '@/types';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { App } from '../App';
 
 const mockResponse: Card[] = [
   {

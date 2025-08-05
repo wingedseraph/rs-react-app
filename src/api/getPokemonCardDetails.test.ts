@@ -1,5 +1,5 @@
-import { mockCardDetails } from '@/__tests__/cardslider-component.test';
 import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
+import { mockCardDetails } from '@/components/CardSlider/CardSlider.test';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 describe('test for getPokemonCardDetails API', () => {

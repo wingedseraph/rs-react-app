@@ -1,7 +1,12 @@
-import type { SearchProps } from '@/types';
+import { Button } from '@/components/Button/Button';
+import { Input } from '@/components/Input/Input';
 import React from 'react';
-import { Button } from './Button';
-import { Input } from './Input';
+export type SearchProps = {
+  value: string;
+  loading?: boolean;
+  onChange: (value: string) => void;
+  onClick: (value: string) => void;
+};
 
 export function Search({ value, onChange, onClick }: SearchProps) {
   const handleSubmit = (event_: React.FormEvent<HTMLFormElement>): void => {

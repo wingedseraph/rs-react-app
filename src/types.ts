@@ -1,15 +1,3 @@
-import type { ReactNode } from 'react';
-
-export type AppProps = Record<string, unknown>;
-
-export type ButtonProps = {
-  className?: string;
-  onClick: () => void;
-  disabled?: boolean;
-  children: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-};
-
 export type Card = {
   id: string;
   image: string;
@@ -31,38 +19,4 @@ export type PokemonCardDetails = {
   types: string[];
   stage: string;
   suffix?: string;
-};
-
-export type CardProps = {
-  card: Card;
-};
-
-export type CardListProps = {
-  loading: boolean;
-  data: Card[] | null;
-  onCardClick?: (cardId: string) => void;
-};
-
-export type CardSliderProps = {
-  isOpen: boolean;
-  cardDetails: PokemonCardDetails | null;
-  className?: string;
-  isLoadingImage?: boolean;
-  onClose: () => void;
-  onImageLoad?: () => void;
-};
-
-export type SearchProps = {
-  value: string;
-  loading?: boolean;
-  onChange: (value: string) => void;
-  onClick: (value: string) => void;
-};
-
-export type ErrorBoundaryProps = {
-  children: ReactNode;
-};
-
-export type ErrorBoundaryState = {
-  hasError: boolean;
 };

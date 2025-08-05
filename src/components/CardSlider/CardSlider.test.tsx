@@ -1,4 +1,4 @@
-import { CardSlider } from '@/components/CardSlider';
+import { CardSlider } from '@/components/CardSlider/CardSlider';
 import type { PokemonCardDetails } from '@/types';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

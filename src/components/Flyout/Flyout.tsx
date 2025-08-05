@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/components/Button/Button';
 import { DownloadButton } from '@/components/DownloadButton/DownloadButton';
 import { useSelectedItemsStore } from '@/store/itemsStore';
 import type { FormEvent } from 'react';

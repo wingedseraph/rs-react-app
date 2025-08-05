@@ -1,10 +1,10 @@
 import { getPokemonByQuery } from '@/api/getPokemonByQuery';
 import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
-import { CardList } from '@/components/CardList';
-import { CardSlider } from '@/components/CardSlider';
+import { CardList } from '@/components/CardList/CardList';
+import { CardSlider } from '@/components/CardSlider/CardSlider';
 import { Flyout } from '@/components/Flyout/Flyout';
-import { Pagination } from '@/components/Pagination';
-import { Search } from '@/components/Search';
+import { Pagination } from '@/components/Pagination/Pagination';
+import { Search } from '@/components/Search/Search';
 import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';

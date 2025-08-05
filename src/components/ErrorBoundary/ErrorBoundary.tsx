@@ -1,5 +1,12 @@
-import type { ErrorBoundaryProps, ErrorBoundaryState } from '@/types';
-import { Component } from 'react';
+import { Component, type ReactNode } from 'react';
+
+export type ErrorBoundaryProps = {
+  children: ReactNode;
+};
+
+export type ErrorBoundaryState = {
+  hasError: boolean;
+};
 
 export class ErrorBoundary extends Component<
   ErrorBoundaryProps,

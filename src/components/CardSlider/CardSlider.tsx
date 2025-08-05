@@ -1,9 +1,17 @@
+import { Button } from '@/components/Button/Button';
 import {
   POKEMON_IMAGE_EXTENSION,
   POKEMON_IMAGE_QUALITY,
 } from '@/config/apiConfig';
-import { type CardSliderProps } from '@/types';
-import { Button } from './Button';
+import { type PokemonCardDetails } from '@/types';
+type CardSliderProps = {
+  isOpen: boolean;
+  cardDetails: PokemonCardDetails | null;
+  className?: string;
+  isLoadingImage?: boolean;
+  onClose: () => void;
+  onImageLoad?: () => void;
+};
 
 export function CardSlider({
   isOpen,

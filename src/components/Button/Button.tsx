@@ -1,4 +1,11 @@
-import type { ButtonProps } from '@/types';
+type ButtonProps = {
+  className?: string;
+  onClick: () => void;
+  disabled?: boolean;
+  children: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset';
+};
+
 export function Button({
   type,
   className,

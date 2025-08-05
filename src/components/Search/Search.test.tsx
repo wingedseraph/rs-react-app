@@ -1,11 +1,11 @@
+import { App } from '@/App';
+import { Button } from '@/components/Button/Button';
+import { Input } from '@/components/Input/Input';
+import { Search } from '@/components/Search/Search';
 import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { App } from '../App';
-import { Button } from '../components/Button';
-import { Input } from '../components/Input';
-import { Search } from '../components/Search';
 
 describe('Rendering Tests', () => {
   afterEach(() => {

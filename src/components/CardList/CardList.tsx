@@ -1,6 +1,12 @@
-import { Card as CardComponent } from '@/components/Card';
-import type { Card, CardListProps } from '@/types';
-import { Spinner } from './Spinner';
+import { Card as CardComponent } from '@/components/Card/Card';
+import { Spinner } from '@/components/Spinner/Spinner';
+import type { Card } from '@/types';
+
+type CardListProps = {
+  loading: boolean;
+  data: Card[] | null;
+  onCardClick?: (cardId: string) => void;
+};
 
 export function CardList({ data, loading, onCardClick }: CardListProps) {
   if (loading) return <Spinner />;
