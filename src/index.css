@@ -1,5 +1,16 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@theme {
+  --color-dark-theme: hsl(220, 51%, 30%);
+  --bg-dark-theme: hsl(46, 82%, 50%);
+
+  --color-white-theme: hsl(220, 51%, 10%);
+  --bg-white-theme: hsl(46, 82%, 90%);
+
+  --accent-dark-theme: hsl(46, 82%, 50%);
+  --accent-white-theme: hsl(46, 82%, 90%);
+}
 :root {
   font-family: Helvetica, Arial, sans-serif;
   line-height: 1.5;

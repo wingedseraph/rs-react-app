@@ -29,18 +29,20 @@ export function Card({
     localId,
   };
   return (
-    <div
-      onClick={handleCardClick}
-      className={`relative z-2 mt-10 flex cursor-pointer flex-col transition-all ${className}`}
-    >
-      {image && (
-        <img
-          className="max-h-[350px] max-w-3xs transition-all hover:scale-105"
-          src={`${image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
-          alt={name}
-          loading="lazy"
-        />
-      )}
+    <div>
+      <div
+        onClick={handleCardClick}
+        className={`relative z-2 mt-10 flex cursor-pointer flex-col transition-all ${className}`}
+      >
+        {image && (
+          <img
+            className="max-h-[350px] max-w-3xs transition-all hover:scale-105"
+            src={`${image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
+            alt={name}
+            loading="lazy"
+          />
+        )}
+      </div>
       <div className="mt-4 transition-all">
         <p className="p-4 text-base">{name}</p>
         <Checkbox item={card} />

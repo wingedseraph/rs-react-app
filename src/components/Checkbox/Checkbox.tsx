@@ -1,7 +1,13 @@
 import { useSelectedItemsStore } from '@/store/itemsStore';
 import type { Card } from '@/types';
 
-export const Checkbox = ({ item }: { item: Card }) => {
+export const Checkbox = ({
+  item,
+  className,
+}: {
+  item: Card;
+  className?: string;
+}) => {
   const selectedItems = useSelectedItemsStore((state) => state.selectedItems);
   const addItem = useSelectedItemsStore((state) => state.addItem);
   const removeItem = useSelectedItemsStore((state) => state.removeItem);
@@ -17,7 +23,7 @@ export const Checkbox = ({ item }: { item: Card }) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-5 p-4">
+    <div className={`flex flex-col items-center gap-5 p-4 ${className}`}>
       <label htmlFor="checked-checkbox" className="text-sm font-medium">
         select
       </label>
@@ -27,7 +33,7 @@ export const Checkbox = ({ item }: { item: Card }) => {
         id="checked-checkbox"
         type="checkbox"
         value=""
-        className="h-4 w-4 rounded-sm"
+        className="accent-white-theme dark:accent-black-theme h-8 w-8 rounded-sm"
       />
     </div>
   );
