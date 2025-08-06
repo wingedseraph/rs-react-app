@@ -1,14 +1,14 @@
 import type { Card } from '@/types';
 import { create } from 'zustand';
 
-type SelectedfItemsStore = {
+type SelectedItemsStore = {
   selectedItems: Card[];
   addItem: (item: Card) => void;
   removeItem: (id: string) => void;
   clearItems: () => void;
 };
 
-export const useSelectedItemsStore = create<SelectedfItemsStore>()((set) => ({
+export const useSelectedItemsStore = create<SelectedItemsStore>()((set) => ({
   selectedItems: [],
   addItem: (item) =>
     set((state) => ({
