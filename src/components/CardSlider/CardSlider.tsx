@@ -10,7 +10,6 @@ type CardSliderProps = {
   className?: string;
   isLoadingImage?: boolean;
   onClose: () => void;
-  onImageLoad?: () => void;
 };
 
 export function CardSlider({
@@ -18,7 +17,6 @@ export function CardSlider({
   cardDetails,
   isLoadingImage,
   onClose,
-  onImageLoad,
 }: CardSliderProps) {
   if (!cardDetails) return null;
 
@@ -51,7 +49,6 @@ export function CardSlider({
                   isLoadingImage ? 'scale-95 blur-sm' : 'scale-100 blur-none'
                 }`}
                 loading="lazy"
-                onLoad={onImageLoad}
               />
             </div>
           )}
