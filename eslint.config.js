@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactCompiler from 'eslint-plugin-react-compiler';
@@ -13,6 +14,7 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strict,
+      ...pluginQuery.configs['flat/recommended'],
       eslintPluginPrettier,
     ],
     files: ['**/*.{ts,tsx}'],

@@ -1,5 +1,6 @@
 import { getPokemonByQuery } from '@/api/getPokemonByQuery';
 import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
+import { queryClient } from '@/api/queryClient';
 import { CardList } from '@/components/CardList/CardList';
 import { CardSlider } from '@/components/CardSlider/CardSlider';
 import { Flyout } from '@/components/Flyout/Flyout';
@@ -10,6 +11,8 @@ import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { type Card, type PokemonCardDetails } from '@/types';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -95,44 +98,47 @@ function Index() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <Search
-        value={value}
-        onChange={handleInputChange}
-        loading={isLoading}
-        onClick={handleSearchClick}
-      />
-      <select
-        className="mt-4 cursor-pointer"
-        onChange={handleThemeChange}
-        defaultValue={theme}
-      >
-        {THEMES.map((theme) => (
-          <option value={theme} key={theme}>
-            {theme}
-          </option>
-        ))}
-      </select>
-      <CardList
-        data={pokemonCards}
-        loading={isLoading}
-        onCardClick={handleCardClick}
-      />
-      <Pagination
-        currentPage={currentPokemonPage}
-        disabled={isLoading}
-        hasMorePages={hasMorePages}
-        onClick={handlePageChange}
-      />
-      <Flyout />
-      <CardSlider
-        isOpen={!!cardId}
-        onClose={handleSliderClose}
-        isLoadingImage={isLoadingImage}
-        cardDetails={selectedCardDetails}
-        onImageLoad={() => setIsLoadingImage(false)}
-      />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="flex flex-col items-center justify-center">
+        <Search
+          value={value}
+          onChange={handleInputChange}
+          loading={isLoading}
+          onClick={handleSearchClick}
+        />
+        <select
+          className="mt-4 cursor-pointer"
+          onChange={handleThemeChange}
+          defaultValue={theme}
+        >
+          {THEMES.map((theme) => (
+            <option value={theme} key={theme}>
+              {theme}
+            </option>
+          ))}
+        </select>
+        <CardList
+          data={pokemonCards}
+          loading={isLoading}
+          onCardClick={handleCardClick}
+        />
+        <Pagination
+          currentPage={currentPokemonPage}
+          disabled={isLoading}
+          hasMorePages={hasMorePages}
+          onClick={handlePageChange}
+        />
+        <Flyout />
+        <CardSlider
+          isOpen={!!cardId}
+          onClose={handleSliderClose}
+          isLoadingImage={isLoadingImage}
+          cardDetails={selectedCardDetails}
+          onImageLoad={() => setIsLoadingImage(false)}
+        />
+      </div>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 export default Index;
