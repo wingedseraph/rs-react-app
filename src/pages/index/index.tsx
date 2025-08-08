@@ -10,9 +10,8 @@ import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { NotFound } from '@/pages/notFound/notFound';
-import { type PokemonCardDetails } from '@/types';
 import { useQuery } from '@tanstack/react-query';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Index() {
@@ -20,11 +19,11 @@ function Index() {
   const navigate = useNavigate();
 
   const { theme, setTheme } = useContext(ThemeContext);
-
   const [value, setValue] = useLocalStorage<string>(
     '',
     POKEMON_LOCAL_STORAGE_QUERY
   );
+
   const [page, setPage] = useState(1);
 
   const {
@@ -36,20 +35,11 @@ function Index() {
     queryFn: () => getPokemonByQuery(value, page),
   });
 
-  const [selectedCardDetails, setSelectedCardDetails] =
-    useState<PokemonCardDetails | null>(null);
-
-  useEffect(() => {
-    if (cardId) {
-      const loadCardDetails = async () => {
-        const details = await getPokemonCardDetails(cardId);
-        setSelectedCardDetails(details);
-      };
-      loadCardDetails();
-    } else {
-      setSelectedCardDetails(null);
-    }
-  }, [cardId]);
+  const { data: cardDetails } = useQuery({
+    queryKey: ['pokemonDetailed', { cardId }],
+    queryFn: () => getPokemonCardDetails(String(cardId)),
+    enabled: cardId !== undefined,
+  });
 
   const handleInputChange = (value: string) => {
     setValue(value);
@@ -64,11 +54,7 @@ function Index() {
     navigate(`/page/${page}/card/${cardId}`);
   };
 
-  const handleSliderClose = () => {
-    navigate(`/page/${page}`);
-  };
-
-  const handleSearchClick = () => {
+  const handlePage = () => {
     navigate(`/page/${page}`);
   };
 
@@ -83,7 +69,7 @@ function Index() {
         value={value}
         onChange={handleInputChange}
         loading={isPending}
-        onClick={handleSearchClick}
+        onClick={handlePage}
       />
       <select
         className="mt-4 cursor-pointer"
@@ -110,9 +96,9 @@ function Index() {
       <Flyout />
       <CardSlider
         isOpen={!!cardId}
-        onClose={handleSliderClose}
+        onClose={handlePage}
         isLoadingImage={isPending}
-        cardDetails={selectedCardDetails}
+        cardDetails={cardDetails || null}
       />
     </div>
   );
