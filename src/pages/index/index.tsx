@@ -1,5 +1,3 @@
-import { getPokemonByQuery } from '@/api/getPokemonByQuery';
-import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
 import { CardList } from '@/components/CardList/CardList';
 import { CardSlider } from '@/components/CardSlider/CardSlider';
 import { Flyout } from '@/components/Flyout/Flyout';
@@ -9,8 +7,9 @@ import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { usePokemonCardDetails } from '@/hooks/usePokemonCardDetails';
+import { usePokemonCards } from '@/hooks/usePokemonCards';
 import { NotFound } from '@/pages/notFound/notFound';
-import { useQuery } from '@tanstack/react-query';
 import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -26,20 +25,9 @@ function Index() {
 
   const [page, setPage] = useState(1);
 
-  const {
-    data: pokemonCards,
-    error,
-    isPending,
-  } = useQuery({
-    queryKey: ['allPokemonCards', { value, page }],
-    queryFn: () => getPokemonByQuery(value, page),
-  });
-
-  const { data: cardDetails, isPending: isDetailedPending } = useQuery({
-    queryKey: ['singlePokemonCard', { cardId }],
-    queryFn: () => getPokemonCardDetails(String(cardId)),
-    enabled: cardId !== undefined,
-  });
+  const { data: pokemonCards, error, isPending } = usePokemonCards(value, page);
+  const { data: cardDetails, isPending: isDetailedPending } =
+    usePokemonCardDetails(cardId);
 
   const handleInputChange = (value: string) => {
     setValue(value);
