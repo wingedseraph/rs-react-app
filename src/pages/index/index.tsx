@@ -31,12 +31,12 @@ function Index() {
     error,
     isPending,
   } = useQuery({
-    queryKey: ['pokemons', { value, page }],
+    queryKey: ['allPokemonCards', { value, page }],
     queryFn: () => getPokemonByQuery(value, page),
   });
 
-  const { data: cardDetails } = useQuery({
-    queryKey: ['pokemonDetailed', { cardId }],
+  const { data: cardDetails, isPending: isDetailedPending } = useQuery({
+    queryKey: ['singlePokemonCard', { cardId }],
     queryFn: () => getPokemonCardDetails(String(cardId)),
     enabled: cardId !== undefined,
   });
@@ -95,9 +95,9 @@ function Index() {
       />
       <Flyout />
       <CardSlider
-        isOpen={!!cardId}
+        isOpen={cardId !== undefined}
         onClose={handlePage}
-        isLoadingImage={isPending}
+        isLoadingData={isDetailedPending}
         cardDetails={cardDetails || null}
       />
     </div>

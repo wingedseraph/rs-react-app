@@ -11,7 +11,7 @@ export const Flyout = () => {
   return (
     <form
       onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
-      className="mt-10 flex flex-col items-center gap-4 rounded-4xl border-2 border-black p-4"
+      className="flex flex-col items-center gap-4 rounded-4xl border-2 border-black p-4 md:fixed md:top-4 md:left-4"
     >
       <p className="font-black">selected {selectedItems.length} pokémon</p>
       {selectedItems?.map((item) => (

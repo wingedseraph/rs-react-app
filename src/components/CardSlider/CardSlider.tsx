@@ -1,4 +1,5 @@
 import { Button } from '@/components/Button/Button';
+import { Spinner } from '@/components/Spinner/Spinner';
 import {
   POKEMON_IMAGE_EXTENSION,
   POKEMON_IMAGE_QUALITY,
@@ -8,18 +9,16 @@ type CardSliderProps = {
   isOpen: boolean;
   cardDetails: PokemonCardDetails | null;
   className?: string;
-  isLoadingImage?: boolean;
+  isLoadingData?: boolean;
   onClose: () => void;
 };
 
 export function CardSlider({
   isOpen,
   cardDetails,
-  isLoadingImage,
+  isLoadingData,
   onClose,
 }: CardSliderProps) {
-  if (!cardDetails) return null;
-
   return (
     <>
       <div
@@ -39,41 +38,43 @@ export function CardSlider({
           close
         </Button>
 
-        <div className="h-full p-4">
-          {cardDetails?.image && (
-            <div className="mb-4">
-              <img
-                src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
-                alt={cardDetails.name}
-                className={`w-full rounded-lg transition-all duration-300 ${
-                  isLoadingImage ? 'scale-95 blur-sm' : 'scale-100 blur-none'
-                }`}
-                loading="lazy"
-              />
-            </div>
-          )}
+        {isLoadingData ? (
+          <Spinner />
+        ) : (
+          <div className="h-full p-4">
+            {cardDetails?.image && (
+              <div className="mb-4">
+                <img
+                  src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
+                  alt={cardDetails.name}
+                  className="w-full rounded-lg transition-all duration-300"
+                  loading="lazy"
+                />
+              </div>
+            )}
 
-          {cardDetails && isOpen && (
-            <div className="mt-10 space-y-2">
-              <div className="flex justify-between">
-                <span className="font-semibold">hp </span>
-                <span>{cardDetails.hp}</span>
+            {cardDetails && isOpen && (
+              <div className="mt-10 space-y-2">
+                <div className="flex justify-between">
+                  <span className="font-semibold">hp </span>
+                  <span>{cardDetails.hp}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-semibold">stage </span>
+                  <span>{cardDetails.stage}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-semibold">rarity </span>
+                  <span>{cardDetails.rarity}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-semibold">category </span>
+                  <span>{cardDetails.category}</span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">stage </span>
-                <span>{cardDetails.stage}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">rarity </span>
-                <span>{cardDetails.rarity}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">category </span>
-                <span>{cardDetails.category}</span>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
