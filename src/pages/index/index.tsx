@@ -25,7 +25,12 @@ function Index() {
 
   const [page, setPage] = useState(1);
 
-  const { data: pokemonCards, error, isPending } = usePokemonCards(value, page);
+  const {
+    data: pokemonCards,
+    error,
+    isPending,
+    isPlaceholderData,
+  } = usePokemonCards(value, page);
   const { data: cardDetails, isPending: isDetailedPending } =
     usePokemonCardDetails(cardId);
 
@@ -74,6 +79,7 @@ function Index() {
         data={pokemonCards?.data || []}
         loading={isPending}
         onCardClick={handleCardClick}
+        className={`${isPlaceholderData ? 'opacity-30' : ''}`}
       />
       <Pagination
         currentPage={page}

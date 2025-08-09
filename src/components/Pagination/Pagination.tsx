@@ -23,7 +23,7 @@ export function Pagination({
         onClick={() => onClick(currentPage - 1)}
         disabled={currentPage === 1 || disabled}
       >
-        previous
+        prev
       </Button>
       <div>{currentPage}</div>
 
