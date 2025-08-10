@@ -79,7 +79,7 @@ function Index() {
         data={pokemonCards?.data || []}
         loading={isPending}
         onCardClick={handleCardClick}
-        className={`${isPlaceholderData ? 'opacity-30' : ''}`}
+        className={`${isPlaceholderData ? 'animate-pulse' : ''}`}
       />
       <Pagination
         currentPage={page}

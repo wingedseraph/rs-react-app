@@ -4,6 +4,7 @@ import {
   POKEMON_IMAGE_QUALITY,
 } from '@/config/apiConfig';
 import { type Card } from '@/types';
+import { useState } from 'react';
 
 type CardProps = Card & {
   onCardClick: (cardId: string) => void;
@@ -18,6 +19,7 @@ export function Card({
   onCardClick,
   className,
 }: CardProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const handleCardClick = () => {
     onCardClick(id);
   };
@@ -28,6 +30,7 @@ export function Card({
     image: image || '',
     localId,
   };
+  console.log(isLoaded);
   return (
     <div>
       <div
@@ -35,9 +38,10 @@ export function Card({
         className={`relative z-2 mt-10 flex min-h-[340px] min-w-[245px] cursor-pointer flex-col transition-all ${className}`}
       >
         <img
-          className="h-full max-h-[350px] w-full max-w-3xs object-cover transition-all hover:scale-105"
+          className={`h-full max-h-[350px] w-full max-w-3xs object-cover transition-all hover:scale-105 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           src={`${image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
           alt={name}
+          onLoad={() => setIsLoaded(true)}
           loading="lazy"
         />
       </div>
