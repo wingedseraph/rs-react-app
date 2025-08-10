@@ -1,3 +1,5 @@
+import { queryClient } from '@/api/queryClient';
+import { Button } from '@/components/Button/Button';
 import { CardList } from '@/components/CardList/CardList';
 import { CardSlider } from '@/components/CardSlider/CardSlider';
 import { Flyout } from '@/components/Flyout/Flyout';
@@ -25,13 +27,15 @@ function Index() {
 
   const [page, setPage] = useState(1);
 
+  const { refetch } = usePokemonCards(value, page);
+
   const {
     data: pokemonCards,
     error,
-    isPending,
+    isLoading,
     isPlaceholderData,
   } = usePokemonCards(value, page);
-  const { data: cardDetails, isPending: isDetailedPending } =
+  const { data: cardDetails, isLoading: isDetailedPending } =
     usePokemonCardDetails(cardId);
 
   const handleInputChange = (value: string) => {
@@ -61,7 +65,7 @@ function Index() {
       <Search
         value={value}
         onChange={handleInputChange}
-        loading={isPending}
+        loading={isLoading}
         onClick={handlePage}
       />
       <select
@@ -71,19 +75,19 @@ function Index() {
       >
         {THEMES.map((theme) => (
           <option value={theme} key={theme}>
-            {theme}
+            {theme} theme
           </option>
         ))}
       </select>
       <CardList
         data={pokemonCards?.data || []}
-        loading={isPending}
+        loading={isLoading}
         onCardClick={handleCardClick}
         className={`${isPlaceholderData ? 'animate-pulse' : ''}`}
       />
       <Pagination
         currentPage={page}
-        disabled={isPending}
+        disabled={isLoading}
         hasMorePages={pokemonCards?.hasMorePages}
         onClick={handlePageChange}
       />
@@ -94,6 +98,18 @@ function Index() {
         isLoadingData={isDetailedPending}
         cardDetails={cardDetails || null}
       />
+
+      <Button onClick={() => refetch()}>refresh current cards</Button>
+
+      <Button
+        onClick={() =>
+          queryClient.invalidateQueries({
+            queryKey: ['allPokemonCards'],
+          })
+        }
+      >
+        refresh all cards
+      </Button>
     </div>
   );
 }
