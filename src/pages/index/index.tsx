@@ -1,70 +1,42 @@
-import { getPokemonByQuery } from '@/api/getPokemonByQuery';
-import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
-import { CardList } from '@/components/CardList';
-import { CardSlider } from '@/components/CardSlider';
+import { queryClient } from '@/api/queryClient';
+import { Button } from '@/components/Button/Button';
+import { CardList } from '@/components/CardList/CardList';
+import { CardSlider } from '@/components/CardSlider/CardSlider';
 import { Flyout } from '@/components/Flyout/Flyout';
-import { Pagination } from '@/components/Pagination';
-import { Search } from '@/components/Search';
+import { Pagination } from '@/components/Pagination/Pagination';
+import { Search } from '@/components/Search/Search';
 import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { type Card, type PokemonCardDetails } from '@/types';
-import { useContext, useEffect, useState } from 'react';
+import { usePokemonCardDetails } from '@/hooks/usePokemonCardDetails';
+import { usePokemonCards } from '@/hooks/usePokemonCards';
+import { NotFound } from '@/pages/notFound/notFound';
+import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Index() {
-  const { pageId, cardId } = useParams();
+  const { cardId } = useParams();
   const navigate = useNavigate();
 
   const { theme, setTheme } = useContext(ThemeContext);
-
   const [value, setValue] = useLocalStorage<string>(
     '',
     POKEMON_LOCAL_STORAGE_QUERY
   );
-  const [pokemonCards, setPokemonCards] = useState<Card[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasMorePages, setHasMorePages] = useState(false);
-  const [isLoadingImage, setIsLoadingImage] = useState(true);
-  const [currentPokemonPage, setCurrentPokemonPage] = useState(1);
 
-  const [selectedCardDetails, setSelectedCardDetails] =
-    useState<PokemonCardDetails | null>(null);
+  const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    const page = pageId ? Number(pageId) : 1;
-    setCurrentPokemonPage(page);
-  }, [pageId]);
+  const { refetch } = usePokemonCards(value, page);
 
-  const fetchPokemonCards = async () => {
-    setIsLoading(true);
-    const query = value.trim();
-    const responseData = await getPokemonByQuery(query, currentPokemonPage);
-    if (responseData) {
-      setPokemonCards(responseData.data);
-      setHasMorePages(responseData.hasMorePages);
-    }
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchPokemonCards();
-  }, [currentPokemonPage]);
-
-  useEffect(() => {
-    if (cardId) {
-      const loadCardDetails = async () => {
-        const details = await getPokemonCardDetails(cardId);
-        setSelectedCardDetails(details);
-        setIsLoadingImage(true);
-      };
-      loadCardDetails();
-    } else {
-      setIsLoadingImage(false);
-      setSelectedCardDetails(null);
-    }
-  }, [cardId]);
+  const {
+    data: pokemonCards,
+    error,
+    isLoading,
+    isPlaceholderData,
+  } = usePokemonCards(value, page);
+  const { data: cardDetails, isLoading: isDetailedPending } =
+    usePokemonCardDetails(cardId);
 
   const handleInputChange = (value: string) => {
     setValue(value);
@@ -72,35 +44,29 @@ function Index() {
 
   const handlePageChange = (page: number) => {
     navigate(`/page/${page}`);
+    setPage(page);
   };
 
   const handleCardClick = (cardId: string) => {
-    navigate(`/page/${currentPokemonPage}/card/${cardId}`);
+    navigate(`/page/${page}/card/${cardId}`);
   };
 
-  const handleSliderClose = () => {
-    navigate(`/page/${currentPokemonPage}`);
-  };
-
-  const handleSearchClick = () => {
-    if (currentPokemonPage === 1) {
-      fetchPokemonCards();
-    } else {
-      navigate('/page/1');
-    }
+  const handlePage = () => {
+    navigate(`/page/${page}`);
   };
 
   const handleThemeChange = (event_: React.ChangeEvent<HTMLSelectElement>) => {
     setTheme(event_.target.value as Theme);
   };
 
+  if (error) return <NotFound error="problem with API" />;
   return (
     <div className="flex flex-col items-center justify-center">
       <Search
         value={value}
         onChange={handleInputChange}
         loading={isLoading}
-        onClick={handleSearchClick}
+        onClick={handlePage}
       />
       <select
         className="mt-4 cursor-pointer"
@@ -109,29 +75,41 @@ function Index() {
       >
         {THEMES.map((theme) => (
           <option value={theme} key={theme}>
-            {theme}
+            {theme} theme
           </option>
         ))}
       </select>
       <CardList
-        data={pokemonCards}
+        data={pokemonCards?.data || []}
         loading={isLoading}
         onCardClick={handleCardClick}
+        className={`${isPlaceholderData ? 'animate-pulse' : ''}`}
       />
       <Pagination
-        currentPage={currentPokemonPage}
+        currentPage={page}
         disabled={isLoading}
-        hasMorePages={hasMorePages}
+        hasMorePages={pokemonCards?.hasMorePages}
         onClick={handlePageChange}
       />
       <Flyout />
       <CardSlider
-        isOpen={!!cardId}
-        onClose={handleSliderClose}
-        isLoadingImage={isLoadingImage}
-        cardDetails={selectedCardDetails}
-        onImageLoad={() => setIsLoadingImage(false)}
+        isOpen={cardId !== undefined}
+        onClose={handlePage}
+        isLoadingData={isDetailedPending}
+        cardDetails={cardDetails || null}
       />
+
+      <Button onClick={() => refetch()}>refresh current cards</Button>
+
+      <Button
+        onClick={() =>
+          queryClient.invalidateQueries({
+            queryKey: ['allPokemonCards'],
+          })
+        }
+      >
+        refresh all cards
+      </Button>
     </div>
   );
 }

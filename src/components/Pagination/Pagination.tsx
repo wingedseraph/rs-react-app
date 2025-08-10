@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/components/Button/Button';
 
 type PaginationProps = {
   currentPage: number;
@@ -23,9 +23,9 @@ export function Pagination({
         onClick={() => onClick(currentPage - 1)}
         disabled={currentPage === 1 || disabled}
       >
-        previous
+        prev
       </Button>
-      <div>{currentPage}</div>
+      <div data-testid="currentPage">{currentPage}</div>
 
       <Button
         onClick={() => onClick(currentPage + 1)}

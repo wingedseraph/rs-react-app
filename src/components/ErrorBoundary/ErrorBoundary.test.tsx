@@ -1,9 +1,9 @@
+import { App } from '@/App';
+import { ErrorBoundary } from '@/components/ErrorBoundary/ErrorBoundary';
 import { NotFound } from '@/pages/notFound/notFound';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, test, vi } from 'vitest';
-import { App } from '../App';
-import { ErrorBoundary } from '../components/ErrorBoundary';
 
 describe('ErrorBoundary Tests', () => {
   test('Shows error boundary UI when throwError is triggered', async () => {

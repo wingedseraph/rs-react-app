@@ -1,4 +1,4 @@
-import { Spinner } from '@/components/Spinner';
+import { Spinner } from '@/components/Spinner/Spinner';
 import { Path } from '@/config/routesConfig';
 import { Suspense } from 'react';
 import { Link, Outlet } from 'react-router-dom';
