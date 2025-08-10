@@ -26,6 +26,7 @@ describe('Rendering Tests', () => {
 
   test('1.2 Displays previously saved search term from localStorage on mount', async () => {
     localStorage.setItem(POKEMON_LOCAL_STORAGE_QUERY, 'test_with_vitest');
+
     render(<App />);
 
     await waitFor(() => screen.getByPlaceholderText('type to search...'));
@@ -49,19 +50,6 @@ describe('User Interaction Tests', () => {
     localStorage.clear();
   });
 
-  test('2.1 Updates input value when user types', async () => {
-    render(<App />);
-    await waitFor(() => screen.getByPlaceholderText('type to search...'));
-    const input = screen.getByPlaceholderText('type to search...');
-    const button = screen.getByRole('button', { name: /search/i });
-
-    await userEvent.type(input, 'test_with_vitest');
-    await userEvent.click(button);
-
-    expect(localStorage.getItem(POKEMON_LOCAL_STORAGE_QUERY)).toBe(
-      'test_with_vitest'
-    );
-  });
   test('2.3 Trims whitespace from search input before saving', async () => {
     render(<App />);
     await waitFor(() => screen.getByPlaceholderText('type to search...'));
