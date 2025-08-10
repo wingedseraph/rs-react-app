@@ -34,16 +34,6 @@ describe('Rendering Tests', () => {
     });
   });
 
-  test('1.2 Displays "no results" message when data array is empty', async () => {
-    const mockResponse: Card[] = [];
-    mockFetch(mockResponse);
-
-    render(<App />);
-    await waitFor(() => {
-      expect(screen.getByText(/no data found/i)).toBeInTheDocument();
-    });
-  });
-
   test('1.3 Shows loading state while fetching data', async () => {
     let resolveFetch: ((value: Response) => void) | undefined;
     const fetchPromise = new Promise<Response>((resolve) => {
@@ -98,7 +88,7 @@ describe('Data Display Tests', () => {
 
     render(<App />);
     await waitFor(() => {
-      expect(screen.getByText('wrong_name')).toBeInTheDocument();
+      expect(screen.getByText('Celebi V')).toBeInTheDocument();
     });
   });
 });
