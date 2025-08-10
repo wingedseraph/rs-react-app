@@ -25,7 +25,7 @@ export function Pagination({
       >
         prev
       </Button>
-      <div>{currentPage}</div>
+      <div data-testid="currentPage">{currentPage}</div>
 
       <Button
         onClick={() => onClick(currentPage + 1)}

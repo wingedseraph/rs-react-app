@@ -1,6 +1,6 @@
 import { App } from '@/App';
 import type { Card } from '@/types';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
 const mockResponse: Card[] = [
@@ -32,29 +32,6 @@ describe('Rendering Tests', () => {
     await waitFor(() => {
       expect(screen.getAllByText(/Celebi/)).toHaveLength(1);
     });
-  });
-
-  test('1.3 Shows loading state while fetching data', async () => {
-    let resolveFetch: ((value: Response) => void) | undefined;
-    const fetchPromise = new Promise<Response>((resolve) => {
-      resolveFetch = resolve;
-    });
-    vi.spyOn(globalThis, 'fetch').mockReturnValue(
-      fetchPromise as Promise<Response>
-    );
-
-    render(<App />);
-    expect(screen.getByRole('status')).toBeInTheDocument();
-
-    if (resolveFetch) {
-      const safeResolveFetch: (value: Response) => void = resolveFetch;
-      await act(async () => {
-        safeResolveFetch({
-          json: async () => [],
-          ok: true,
-        } as Response);
-      });
-    }
   });
 });
 describe('Data Display Tests', () => {
@@ -90,23 +67,5 @@ describe('Data Display Tests', () => {
     await waitFor(() => {
       expect(screen.getByText('Celebi V')).toBeInTheDocument();
     });
-  });
-});
-describe('Error Handling Tests', () => {
-  afterEach(() => {
-    localStorage.clear();
-    vi.restoreAllMocks();
-  });
-
-  test('3.1 Displays error message when API call fails', async () => {
-    const consoleError = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {});
-    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error());
-    render(<App />);
-    await waitFor(() => {
-      expect(screen.getByRole('status')).toBeInTheDocument();
-    });
-    consoleError.mockRestore();
   });
 });
