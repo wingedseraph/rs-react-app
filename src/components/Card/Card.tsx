@@ -30,7 +30,6 @@ export function Card({
     image: image || '',
     localId,
   };
-  console.log(isLoaded);
   return (
     <div>
       <div
