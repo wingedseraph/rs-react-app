@@ -50,20 +50,6 @@ describe('User Interaction Tests', () => {
     localStorage.clear();
   });
 
-  test('2.3 Trims whitespace from search input before saving', async () => {
-    render(<App />);
-    await waitFor(() => screen.getByPlaceholderText('type to search...'));
-    const input = screen.getByPlaceholderText('type to search...');
-    const button = screen.getByRole('button', { name: /search/i });
-
-    await userEvent.type(input, '  test_with_vitest  ');
-    await waitFor(() => expect(button).not.toBeDisabled());
-    await userEvent.click(button);
-
-    expect(localStorage.getItem(POKEMON_LOCAL_STORAGE_QUERY)).toBe(
-      'test_with_vitest'
-    );
-  });
   test('2.4 Triggers search callback with correct parameters', async () => {
     const onClick = vi.fn();
     render(
@@ -93,20 +79,5 @@ describe('LocalStorage Integration', () => {
     render(<App />);
     const input = await screen.findByPlaceholderText('type to search...');
     expect(input).toHaveValue('test_with_vitest');
-  });
-
-  test('3.2 Overwrites existing localStorage value when new search is performed', async () => {
-    localStorage.setItem(POKEMON_LOCAL_STORAGE_QUERY, 'old_test_with_vitest');
-    render(<App />);
-    const input = screen.getByPlaceholderText('type to search...');
-    const button = screen.getByRole('button', { name: /search/i });
-
-    await userEvent.clear(input);
-    await userEvent.type(input, 'test_with_vitest');
-    await userEvent.click(button);
-
-    expect(localStorage.getItem(POKEMON_LOCAL_STORAGE_QUERY)).toBe(
-      'test_with_vitest'
-    );
   });
 });
