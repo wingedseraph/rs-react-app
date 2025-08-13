@@ -12,7 +12,7 @@ type CardListProps = {
 export function CardList({
   data,
   loading,
-  className,
+  className = '',
   onCardClick,
 }: CardListProps) {
   if (loading) return <Spinner />;

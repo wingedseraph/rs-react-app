@@ -19,7 +19,7 @@ export async function getPokemonByQuery(
       throw new Error(`${response.status}`);
     }
 
-    const data = await response.json();
+    const data: Card[] = await response.json();
     const hasMorePages =
       Array.isArray(data) && data.length === POKEMON_PAGE_SIZE;
     return { data, hasMorePages };

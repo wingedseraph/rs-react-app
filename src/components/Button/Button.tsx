@@ -8,7 +8,7 @@ type ButtonProps = {
 
 export function Button({
   type,
-  className,
+  className = '',
   onClick,
   disabled,
   children,

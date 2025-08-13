@@ -12,7 +12,7 @@ export function Pagination({
   currentPage,
   disabled,
   hasMorePages,
-  className,
+  className = '',
   onClick,
 }: PaginationProps) {
   return (

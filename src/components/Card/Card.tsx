@@ -16,8 +16,8 @@ export function Card({
   image,
   name,
   localId,
+  className = '',
   onCardClick,
-  className,
 }: CardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const handleCardClick = () => {

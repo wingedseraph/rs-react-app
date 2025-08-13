@@ -1,3 +1,4 @@
+// @ts-check
 import js from '@eslint/js';
 import pluginQuery from '@tanstack/eslint-plugin-query';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';

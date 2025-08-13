@@ -3,7 +3,7 @@ import type { Card } from '@/types';
 
 export const Checkbox = ({
   item,
-  className,
+  className = '',
 }: {
   item: Card;
   className?: string;
