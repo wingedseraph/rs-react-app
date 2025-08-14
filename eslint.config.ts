@@ -42,10 +42,8 @@ export default tseslint.config(
     // @ts-expect-error nextJS issue with eslint@9
     rules: {
       ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs['core-web-vitals'].rules,
       ...react.configs.recommended.rules,
-      ...nextPlugin.configs['core-web-vitals'].rules,
       ...reactHooks.configs.recommended.rules,
       '@next/next/no-img-element': 'error',
       '@stylistic/padding-line-between-statements': [
