@@ -1,4 +1,7 @@
+'use client';
+
 import { queryClient } from '@/api/queryClient';
+import { NotFound } from '@/app/notFound/notFound';
 import { Button } from '@/components/Button/Button';
 import { CardList } from '@/components/CardList/CardList';
 import { CardSlider } from '@/components/CardSlider/CardSlider';
@@ -9,15 +12,13 @@ import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { usePokemonCardDetails } from '@/hooks/usePokemonCardDetails';
 import { usePokemonCards } from '@/hooks/usePokemonCards';
-import { NotFound } from '@/pages/notFound/notFound';
 import { useContext, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
 
 function Index() {
-  const { cardId } = useParams();
-  const navigate = useNavigate();
+  // const { cardId } = useParams();
+  // const navigate = useNavigate();
 
   const { theme, setTheme } = useContext(ThemeContext);
   const [value, setValue] = useLocalStorage<string>(
@@ -35,25 +36,25 @@ function Index() {
     isLoading,
     isPlaceholderData,
   } = usePokemonCards(value, page);
-  const { data: cardDetails, isLoading: isDetailedPending } =
-    usePokemonCardDetails(cardId);
+  // const { data: cardDetails, isLoading: isDetailedPending } =
+  //   usePokemonCardDetails(cardId);
 
   const handleInputChange = (value: string) => {
     setValue(value);
   };
 
-  const handlePageChange = (page: number) => {
-    navigate(`/page/${page}`);
-    setPage(page);
-  };
+  // const handlePageChange = (page: number) => {
+  //   navigate(`/page/${page}`);
+  //   setPage(page);
+  // };
 
-  const handleCardClick = (cardId: string) => {
-    navigate(`/page/${page}/card/${cardId}`);
-  };
+  // const handleCardClick = (cardId: string) => {
+  //   navigate(`/page/${page}/card/${cardId}`);
+  // };
 
-  const handlePage = () => {
-    navigate(`/page/${page}`);
-  };
+  // const handlePage = () => {
+  //   navigate(`/page/${page}`);
+  // };
 
   const handleThemeChange = (event_: React.ChangeEvent<HTMLSelectElement>) => {
     setTheme(event_.target.value as Theme);
@@ -66,7 +67,8 @@ function Index() {
         value={value}
         onChange={handleInputChange}
         loading={isLoading}
-        onClick={handlePage}
+        // onClick={handlePage}
+        onClick={() => {}}
       />
       <select
         className="mt-4 cursor-pointer"
@@ -82,21 +84,28 @@ function Index() {
       <CardList
         data={pokemonCards?.data || []}
         loading={isLoading}
-        onCardClick={handleCardClick}
+        // onCardClick={handleCardClick}
+        onCardClick={() => {}}
         className={`${isPlaceholderData ? 'animate-pulse' : ''}`}
       />
       <Pagination
         currentPage={page}
         disabled={isLoading}
         hasMorePages={pokemonCards?.hasMorePages}
-        onClick={handlePageChange}
+        // onClick={handlePageChange}
+
+        onClick={() => {}}
       />
       <Flyout />
       <CardSlider
-        isOpen={cardId !== undefined}
-        onClose={handlePage}
-        isLoadingData={isDetailedPending}
-        cardDetails={cardDetails || null}
+        // isOpen={cardId !== false}
+        isOpen={false}
+        // onClose={handlePage}
+        // isLoadingData={isDetailedPending}
+        // cardDetails={cardDetails || null}
+        onClose={() => {}}
+        isLoadingData={false}
+        cardDetails={null}
       />
 
       <Button onClick={() => refetch()}>refresh current cards</Button>

@@ -1,4 +1,4 @@
-import About from '@/pages/about/about';
+import About from '@/app/about/page';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, test } from 'vitest';

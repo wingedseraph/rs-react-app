@@ -1,6 +1,4 @@
 /// <reference types="vitest/config" />
-import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 import { fileURLToPath, URL } from 'node:url';
@@ -12,14 +10,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  server: {
-    open: true,
-    host: '127.0.0.1',
-  },
-  plugins: [react(), tailwindcss()],
-  define: {
-    'process.env': {},
-  },
+
   test: {
     setupFiles: ['src/__tests__/setup.jsdom.ts'],
     globals: true,

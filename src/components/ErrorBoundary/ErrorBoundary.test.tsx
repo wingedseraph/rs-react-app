@@ -1,6 +1,6 @@
 import { App } from '@/App';
+import { NotFound } from '@/app/notFound/notFound';
 import { ErrorBoundary } from '@/components/ErrorBoundary/ErrorBoundary';
-import { NotFound } from '@/pages/notFound/notFound';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, test, vi } from 'vitest';
