@@ -1,14 +1,15 @@
+import React from 'react';
+
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
-import React from 'react';
 export type SearchProps = {
-  value: string;
   loading?: boolean;
   onChange: (value: string) => void;
   onClick: (value: string) => void;
+  value: string;
 };
 
-export function Search({ value, onChange, onClick }: SearchProps) {
+export function Search({ onChange, onClick, value }: SearchProps) {
   const handleSubmit = (event_: React.FormEvent<HTMLFormElement>): void => {
     event_.preventDefault();
     onClick(value);
@@ -20,8 +21,8 @@ export function Search({ value, onChange, onClick }: SearchProps) {
       onSubmit={handleSubmit}
       role="search"
     >
-      <Input value={value} onChange={onChange} />
-      <Button type="submit" onClick={() => onClick(value)}>
+      <Input onChange={onChange} value={value} />
+      <Button onClick={() => onClick(value)} type="submit">
         search
       </Button>
     </form>

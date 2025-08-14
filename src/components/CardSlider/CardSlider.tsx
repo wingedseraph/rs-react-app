@@ -6,26 +6,26 @@ import {
 } from '@/config/apiConfig';
 import { type PokemonCardDetails } from '@/types';
 type CardSliderProps = {
-  isOpen: boolean;
-  cardDetails: PokemonCardDetails | null;
+  cardDetails: null | PokemonCardDetails;
   className?: string;
   isLoadingData?: boolean;
+  isOpen: boolean;
   onClose: () => void;
 };
 
 export function CardSlider({
-  isOpen,
   cardDetails,
   isLoadingData,
+  isOpen,
   onClose,
 }: CardSliderProps) {
   return (
     <>
       <div
-        data-testid="backdrop"
         className={`bg-opacity-50 fixed top-0 left-0 z-1 h-full w-full transition-opacity duration-300 ${
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         } `}
+        data-testid="backdrop"
         onClick={onClose}
       />
 
@@ -45,10 +45,10 @@ export function CardSlider({
             {cardDetails?.image && (
               <div className="mb-4">
                 <img
-                  src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
                   alt={cardDetails.name}
                   className="w-full rounded-lg transition-all duration-300"
                   loading="lazy"
+                  src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
                 />
               </div>
             )}

@@ -1,5 +1,6 @@
-import { POKEMON_BASE_API_URL } from '@/config/apiConfig';
 import type { PokemonCardDetails } from '@/types';
+
+import { POKEMON_BASE_API_URL } from '@/config/apiConfig';
 
 export async function getPokemonCardDetails(
   id: string

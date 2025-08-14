@@ -1,7 +1,8 @@
-import About from '@/app/about/page';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, test } from 'vitest';
+
+import About from '@/app/about/page';
 
 describe('should render about page', () => {
   test('should render about page', async () => {

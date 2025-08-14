@@ -1,6 +1,7 @@
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
 import { mockCardDetails } from '@/components/CardSlider/CardSlider.test';
-import { afterEach, describe, expect, it, vi } from 'vitest';
 
 describe('test for getPokemonCardDetails API', () => {
   afterEach(() => {
@@ -9,8 +10,8 @@ describe('test for getPokemonCardDetails API', () => {
 
   it('should returns data on successful fetch', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-      ok: true,
       json: async () => mockCardDetails,
+      ok: true,
     } as Response);
     const data = await getPokemonCardDetails('swsh1-1');
     expect(data).toEqual(mockCardDetails);
@@ -21,9 +22,9 @@ describe('test for getPokemonCardDetails API', () => {
       .spyOn(console, 'error')
       .mockImplementation(() => {});
     vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      json: async () => ({}),
       ok: false,
       status: 404,
-      json: async () => ({}),
     } as Response);
     const data = await getPokemonCardDetails('wrong_id');
     expect(data).toBeInstanceOf(Error);

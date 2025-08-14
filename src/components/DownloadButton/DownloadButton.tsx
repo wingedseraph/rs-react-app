@@ -1,6 +1,7 @@
+import { useEffect, useRef, useState } from 'react';
+
 import { useSelectedItemsStore } from '@/store/itemsStore';
 import { createCSVContent } from '@/utils/fileDownloadUtils';
-import { useEffect, useRef, useState } from 'react';
 
 export const DownloadButton = () => {
   const [downloadURL, setDownloadURL] = useState('');
@@ -28,11 +29,11 @@ export const DownloadButton = () => {
 
   return (
     <a
-      ref={downloadRef}
-      href={downloadURL}
-      onClick={handleDownload}
       className="p-4"
       download={`${selectedItems.length}_items.csv`}
+      href={downloadURL}
+      onClick={handleDownload}
+      ref={downloadRef}
     >
       download
     </a>

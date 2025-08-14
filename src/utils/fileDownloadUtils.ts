@@ -1,5 +1,6 @@
-import { POKEMON_CSV_HEADERS } from '@/config/apiConfig';
 import type { Card } from '@/types';
+
+import { POKEMON_CSV_HEADERS } from '@/config/apiConfig';
 
 export const createCSVContent = (items: Card[]) => {
   const headers = POKEMON_CSV_HEADERS;

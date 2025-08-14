@@ -1,14 +1,16 @@
-import { App } from '@/App';
-import type { Card } from '@/types';
 import { render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
+
+import type { Card } from '@/types';
+
+import { App } from '@/App';
 
 const mockResponse: Card[] = [
   {
     id: 'swsh1-1',
+    image: 'url',
     localId: '1',
     name: 'Celebi V',
-    image: 'url',
   },
 ];
 
@@ -56,9 +58,9 @@ describe('Data Display Tests', () => {
     const mockResponse: Card[] = [
       {
         id: 'swsh1-1',
+        image: 'https://assets.tcgdex.net/en/swsh/swsh1/1',
         localId: '1',
         name: 'wrong_name',
-        image: 'https://assets.tcgdex.net/en/swsh/swsh1/1',
       },
     ];
     mockFetch(mockResponse);

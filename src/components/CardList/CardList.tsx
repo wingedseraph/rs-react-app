@@ -1,18 +1,19 @@
-import { Card as CardComponent } from '@/components/Card/Card';
-import { Spinner } from '@/components/Spinner/Spinner';
 import type { Card } from '@/types';
 
+import { Card as CardComponent } from '@/components/Card/Card';
+import { Spinner } from '@/components/Spinner/Spinner';
+
 type CardListProps = {
-  loading: boolean;
-  data: Card[] | null;
   className?: string;
+  data: Card[] | null;
+  loading: boolean;
   onCardClick?: (cardId: string) => void;
 };
 
 export function CardList({
+  className = '',
   data,
   loading,
-  className = '',
   onCardClick,
 }: CardListProps) {
   if (loading) return <Spinner />;
@@ -32,8 +33,8 @@ export function CardList({
         <CardComponent
           key={card.id}
           {...card}
-          onCardClick={onCardClick || (() => {})}
           className={`${loading ? 'pointer-events-none cursor-not-allowed' : 'cursor-pointer'}`}
+          onCardClick={onCardClick || (() => {})}
         />
       ))}
     </div>

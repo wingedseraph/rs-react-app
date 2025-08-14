@@ -1,11 +1,12 @@
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { afterEach, describe, expect, test, vi } from 'vitest';
+
 import { App } from '@/App';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { Search } from '@/components/Search/Search';
 import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, test, vi } from 'vitest';
 
 describe('Rendering Tests', () => {
   afterEach(() => {
@@ -13,7 +14,7 @@ describe('Rendering Tests', () => {
   });
 
   test('1.1 Renders search input and search button', () => {
-    render(<Input value="test_with_vitest" onChange={() => {}} />);
+    render(<Input onChange={() => {}} value="test_with_vitest" />);
     render(<Button onClick={() => {}}>test_with_vitest</Button>);
 
     const input = screen.getByPlaceholderText('type to search...');
@@ -54,10 +55,10 @@ describe('User Interaction Tests', () => {
     const onClick = vi.fn();
     render(
       <Search
-        value="test_with_vitest"
-        onChange={() => {}}
         loading={false}
+        onChange={() => {}}
         onClick={onClick}
+        value="test_with_vitest"
       />
     );
 

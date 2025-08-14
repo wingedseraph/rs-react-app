@@ -1,16 +1,16 @@
 type InputProps = {
-  value: string;
   onChange: (value: string) => void;
+  value: string;
 };
 
-export function Input({ value, onChange }: InputProps) {
+export function Input({ onChange, value }: InputProps) {
   return (
     <input
       className="outline-0"
-      type="text"
-      value={value}
       onChange={(event_) => onChange(event_.target.value)}
       placeholder="type to search..."
+      type="text"
+      value={value}
     />
   );
 }

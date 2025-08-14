@@ -1,22 +1,22 @@
 export type Card = {
+  error?: string;
   id: string;
   image: string;
   localId: string;
   name: string;
-  error?: string;
 };
 
 export type PokemonCardDetails = {
   category: string;
+  dexId: number[];
+  hp: number;
   id: string;
   illustrator?: string;
   image: string;
   localId: string;
   name: string;
   rarity: string;
-  dexId: number[];
-  hp: number;
-  types: string[];
   stage: string;
   suffix?: string;
+  types: string[];
 };

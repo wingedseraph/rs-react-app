@@ -1,7 +1,9 @@
 'use client';
 
+import { useContext, useState } from 'react';
+
 import { queryClient } from '@/api/queryClient';
-import { NotFound } from '@/app/notFound/notFound';
+import { NotFound } from '@/app/not-found';
 import { Button } from '@/components/Button/Button';
 import { CardList } from '@/components/CardList/CardList';
 import { CardSlider } from '@/components/CardSlider/CardSlider';
@@ -13,14 +15,13 @@ import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { usePokemonCards } from '@/hooks/usePokemonCards';
-import { useContext, useState } from 'react';
 // import { useNavigate, useParams } from 'react-router-dom';
 
 function Index() {
   // const { cardId } = useParams();
   // const navigate = useNavigate();
 
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { setTheme, theme } = useContext(ThemeContext);
   const [value, setValue] = useLocalStorage<string>(
     '',
     POKEMON_LOCAL_STORAGE_QUERY
@@ -64,29 +65,29 @@ function Index() {
   return (
     <div className="flex flex-col items-center justify-center">
       <Search
-        value={value}
-        onChange={handleInputChange}
         loading={isLoading}
+        onChange={handleInputChange}
         // onClick={handlePage}
         onClick={() => {}}
+        value={value}
       />
       <select
         className="mt-4 cursor-pointer"
-        onChange={handleThemeChange}
         defaultValue={theme}
+        onChange={handleThemeChange}
       >
         {THEMES.map((theme) => (
-          <option value={theme} key={theme}>
+          <option key={theme} value={theme}>
             {theme} theme
           </option>
         ))}
       </select>
       <CardList
+        className={`${isPlaceholderData ? 'animate-pulse' : ''}`}
         data={pokemonCards?.data || []}
         loading={isLoading}
         // onCardClick={handleCardClick}
         onCardClick={() => {}}
-        className={`${isPlaceholderData ? 'animate-pulse' : ''}`}
       />
       <Pagination
         currentPage={page}
@@ -98,14 +99,14 @@ function Index() {
       />
       <Flyout />
       <CardSlider
+        cardDetails={null}
+        isLoadingData={false}
         // isOpen={cardId !== false}
         isOpen={false}
         // onClose={handlePage}
         // isLoadingData={isDetailedPending}
         // cardDetails={cardDetails || null}
         onClose={() => {}}
-        isLoadingData={false}
-        cardDetails={null}
       />
 
       <Button onClick={() => refetch()}>refresh current cards</Button>

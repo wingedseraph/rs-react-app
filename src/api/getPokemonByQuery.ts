@@ -1,5 +1,6 @@
-import { POKEMON_BASE_API_URL, POKEMON_PAGE_SIZE } from '@/config/apiConfig';
 import type { Card } from '@/types';
+
+import { POKEMON_BASE_API_URL, POKEMON_PAGE_SIZE } from '@/config/apiConfig';
 
 export async function getPokemonByQuery(
   query: string,
