@@ -9,6 +9,7 @@ describe('should render DownloadButton component', () => {
     const download = screen.getByRole('generic', {
       name: /download/i,
     });
+
     expect(download).toBeInTheDocument();
   });
 });

@@ -11,6 +11,7 @@ describe('ErrorBoundary Tests', () => {
     const consoleError = vi
       .spyOn(console, 'error')
       .mockImplementation(() => {});
+
     render(
       <ErrorBoundary>
         <App />

@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
-import type { Card } from '@/types';
+import type { Card } from '@/app/types';
 
 import { App } from '@/App';
 
@@ -48,7 +48,8 @@ describe('Data Display Tests', () => {
     render(<App />);
     await waitFor(() => {
       expect(screen.getByText('Celebi V')).toBeInTheDocument();
-      const image = screen.getByAltText('Celebi V') as HTMLImageElement;
+      const image = screen.getByAltText('Celebi V');
+
       expect(image).toBeInTheDocument();
       expect(image.src).toContain('url');
     });
@@ -63,6 +64,7 @@ describe('Data Display Tests', () => {
         name: 'wrong_name',
       },
     ];
+
     mockFetch(mockResponse);
 
     render(<App />);

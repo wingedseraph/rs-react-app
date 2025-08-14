@@ -1,4 +1,4 @@
-import type { Card } from '@/types';
+import type { Card } from '@/app/types';
 
 import { useSelectedItemsStore } from '@/store/itemsStore';
 

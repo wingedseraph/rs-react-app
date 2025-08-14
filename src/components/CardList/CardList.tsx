@@ -1,14 +1,14 @@
-import type { Card } from '@/types';
+import type { Card } from '@/app/types';
 
 import { Card as CardComponent } from '@/components/Card/Card';
 import { Spinner } from '@/components/Spinner/Spinner';
 
-type CardListProps = {
+interface CardListProps {
   className?: string;
   data: Card[] | null;
   loading: boolean;
   onCardClick?: (cardId: string) => void;
-};
+}
 
 export function CardList({
   className = '',
@@ -33,7 +33,11 @@ export function CardList({
         <CardComponent
           key={card.id}
           {...card}
-          className={`${loading ? 'pointer-events-none cursor-not-allowed' : 'cursor-pointer'}`}
+          className={
+            loading
+              ? 'pointer-events-none cursor-not-allowed'
+              : 'cursor-pointer'
+          }
           onCardClick={onCardClick || (() => {})}
         />
       ))}

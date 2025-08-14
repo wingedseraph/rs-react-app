@@ -14,6 +14,7 @@ describe('test for getPokemonCardDetails API', () => {
       ok: true,
     } as Response);
     const data = await getPokemonCardDetails('swsh1-1');
+
     expect(data).toEqual(mockCardDetails);
   });
 
@@ -21,12 +22,14 @@ describe('test for getPokemonCardDetails API', () => {
     const consoleError = vi
       .spyOn(console, 'error')
       .mockImplementation(() => {});
+
     vi.spyOn(globalThis, 'fetch').mockResolvedValue({
       json: async () => ({}),
       ok: false,
       status: 404,
     } as Response);
     const data = await getPokemonCardDetails('wrong_id');
+
     expect(data).toBeInstanceOf(Error);
 
     consoleError.mockRestore();
@@ -36,8 +39,10 @@ describe('test for getPokemonCardDetails API', () => {
     const consoleError = vi
       .spyOn(console, 'error')
       .mockImplementation(() => {});
+
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('wrong_request'));
     const data = await getPokemonCardDetails('wrong_id');
+
     expect(data).toBeInstanceOf(Error);
 
     consoleError.mockRestore();

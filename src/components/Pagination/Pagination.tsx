@@ -1,12 +1,12 @@
 import { Button } from '@/components/Button/Button';
 
-type PaginationProps = {
+interface PaginationProps {
   className?: string;
   currentPage: number;
   disabled: boolean;
   hasMorePages?: boolean;
   onClick: (page: number) => void;
-};
+}
 
 export function Pagination({
   className = '',
@@ -21,7 +21,9 @@ export function Pagination({
     >
       <Button
         disabled={currentPage === 1 || disabled}
-        onClick={() => onClick(currentPage - 1)}
+        onClick={() => {
+          onClick(currentPage - 1);
+        }}
       >
         prev
       </Button>
@@ -29,7 +31,9 @@ export function Pagination({
 
       <Button
         disabled={!hasMorePages || disabled}
-        onClick={() => onClick(currentPage + 1)}
+        onClick={() => {
+          onClick(currentPage + 1);
+        }}
       >
         next
       </Button>

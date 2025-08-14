@@ -1,17 +1,18 @@
+import { type PokemonCardDetails } from '@/app/types';
 import { Button } from '@/components/Button/Button';
 import { Spinner } from '@/components/Spinner/Spinner';
 import {
   POKEMON_IMAGE_EXTENSION,
   POKEMON_IMAGE_QUALITY,
 } from '@/config/apiConfig';
-import { type PokemonCardDetails } from '@/types';
-type CardSliderProps = {
+
+interface CardSliderProps {
   cardDetails: null | PokemonCardDetails;
   className?: string;
   isLoadingData?: boolean;
   isOpen: boolean;
   onClose: () => void;
-};
+}
 
 export function CardSlider({
   cardDetails,

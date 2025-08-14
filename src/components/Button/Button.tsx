@@ -1,10 +1,10 @@
-type ButtonProps = {
+interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   disabled?: boolean;
   onClick: () => void;
   type?: 'button' | 'reset' | 'submit';
-};
+}
 
 export function Button({
   children,

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { PokemonCardDetails } from '@/types';
+import type { PokemonCardDetails } from '@/app/types';
 
 import { CardSlider } from '@/components/CardSlider/CardSlider';
 
@@ -49,6 +49,7 @@ describe('CardSlider', () => {
 
   it('calls onClose when close button is clicked', async () => {
     const onClose = vi.fn();
+
     render(
       <CardSlider cardDetails={mockCardDetails} isOpen onClose={onClose} />
     );
@@ -57,10 +58,12 @@ describe('CardSlider', () => {
   });
   it('calls onClose when backdrop is clicked', async () => {
     const onClose = vi.fn();
+
     render(
       <CardSlider cardDetails={mockCardDetails} isOpen onClose={onClose} />
     );
     const backdrop = screen.getByTestId('backdrop');
+
     await userEvent.click(backdrop);
     expect(onClose).toHaveBeenCalled();
   });

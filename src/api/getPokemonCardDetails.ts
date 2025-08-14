@@ -1,4 +1,4 @@
-import type { PokemonCardDetails } from '@/types';
+import type { PokemonCardDetails } from '@/app/types';
 
 import { POKEMON_BASE_API_URL } from '@/config/apiConfig';
 
@@ -6,6 +6,7 @@ export async function getPokemonCardDetails(
   id: string
 ): Promise<PokemonCardDetails> {
   let data = null;
+
   try {
     const response = await fetch(`${POKEMON_BASE_API_URL}cards/${id}/`);
 
@@ -18,5 +19,6 @@ export async function getPokemonCardDetails(
     console.error('fetchPokemon:', error);
     data = error;
   }
+
   return data;
 }

@@ -1,12 +1,12 @@
-export type Card = {
+export interface Card {
   error?: string;
   id: string;
   image: string;
   localId: string;
   name: string;
-};
+}
 
-export type PokemonCardDetails = {
+export interface PokemonCardDetails {
   category: string;
   dexId: number[];
   hp: number;
@@ -19,4 +19,4 @@ export type PokemonCardDetails = {
   stage: string;
   suffix?: string;
   types: string[];
-};
+}

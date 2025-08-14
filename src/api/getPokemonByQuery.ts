@@ -1,4 +1,4 @@
-import type { Card } from '@/types';
+import type { Card } from '@/app/types';
 
 import { POKEMON_BASE_API_URL, POKEMON_PAGE_SIZE } from '@/config/apiConfig';
 
@@ -23,9 +23,11 @@ export async function getPokemonByQuery(
     const data: Card[] = await response.json();
     const hasMorePages =
       Array.isArray(data) && data.length === POKEMON_PAGE_SIZE;
+
     return { data, hasMorePages };
   } catch (error) {
     console.error('fetchPokemon:', error);
+
     return defaultResponse;
   }
 }

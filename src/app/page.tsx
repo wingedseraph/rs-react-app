@@ -62,6 +62,7 @@ function Index() {
   };
 
   if (error) return <NotFound error="problem with API" />;
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Search
@@ -83,7 +84,7 @@ function Index() {
         ))}
       </select>
       <CardList
-        className={`${isPlaceholderData ? 'animate-pulse' : ''}`}
+        className={isPlaceholderData ? 'animate-pulse' : ''}
         data={pokemonCards?.data || []}
         loading={isLoading}
         // onCardClick={handleCardClick}

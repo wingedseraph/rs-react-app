@@ -1,19 +1,24 @@
 import js from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
+import stylistic from '@stylistic/eslint-plugin';
 import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import tseslint, { configs } from 'typescript-eslint';
 
 export default tseslint.config(
+  configs.stylisticTypeChecked,
+  configs.strictTypeChecked,
   { ignores: ['dist', '.next/*'] },
+
   {
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strict,
+      ...tseslint.configs.recommendedTypeChecked,
       eslintPluginPrettier,
       perfectionist.configs['recommended-natural'],
     ],
@@ -21,10 +26,14 @@ export default tseslint.config(
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: __dirname,
+      },
     },
     plugins: {
       '@next/next': nextPlugin,
-      perfectionistPlugin: perfectionist,
+      '@stylistic': stylistic,
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
@@ -39,6 +48,19 @@ export default tseslint.config(
       ...nextPlugin.configs['core-web-vitals'].rules,
       ...reactHooks.configs.recommended.rules,
       '@next/next/no-img-element': 'error',
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', next: 'return', prev: '*' },
+        { blankLine: 'always', next: '*', prev: ['const', 'let', 'var'] },
+        {
+          blankLine: 'any',
+          next: ['const', 'let', 'var'],
+          prev: ['const', 'let', 'var'],
+        },
+        { blankLine: 'always', next: '*', prev: ['case', 'default'] },
+        { blankLine: 'always', next: '*', prev: 'import' },
+        { blankLine: 'any', next: 'import', prev: 'import' },
+      ],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
@@ -46,7 +68,6 @@ export default tseslint.config(
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
 
-      '@typescript-eslint/no-explicit-any': 2,
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-warning-comments': [
         'warn',
@@ -55,6 +76,7 @@ export default tseslint.config(
           terms: ['todo', 'fix'],
         },
       ],
+      'perfectionist/sort-imports': ['off'],
     },
     settings: {
       react: {

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Path } from '@/config/routesConfig';
+
 function About(): React.ReactNode {
   return (
     <div className="flex flex-col items-center gap-4 p-10 text-4xl">

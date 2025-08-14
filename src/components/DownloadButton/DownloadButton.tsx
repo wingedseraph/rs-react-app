@@ -16,6 +16,7 @@ export const DownloadButton = () => {
     const csvContent = createCSVContent(selectedItems);
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
+
     setDownloadURL(url);
   };
 
