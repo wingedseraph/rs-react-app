@@ -1,4 +1,3 @@
-import '@/app/globals.css';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,7 +5,7 @@ export const metadata: Metadata = {
   title: 'about',
 };
 
-export default async function AboutLayout({
+export default function AboutLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

@@ -1,17 +1,10 @@
-import '@/app/globals.css';
+import { Path } from '@/config/routesConfig';
 import Link from 'next/link';
 
-import { Path } from '@/config/routesConfig';
-
-export default function NotFound({
-  error,
-}: {
-  error: string;
-}): React.ReactNode {
+export default function NotFound(): React.ReactNode {
   return (
     <div className="flex flex-col items-center gap-2 rounded-xl p-10 text-3xl">
-      <h1 className="mb-10 text-4xl font-bold">page not found</h1>
-      <p>error: {error || 404}</p>
+      <h1 className="mb-10 bg-red-500 text-4xl font-bold">page not found</h1>
       <Link className="transition-all" href={Path.index}>
         ← to index page
       </Link>

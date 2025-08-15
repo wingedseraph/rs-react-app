@@ -5,6 +5,7 @@ import {
   POKEMON_IMAGE_EXTENSION,
   POKEMON_IMAGE_QUALITY,
 } from '@/config/apiConfig';
+import Image from 'next/image';
 
 interface CardSliderProps {
   cardDetails: null | PokemonCardDetails;
@@ -45,7 +46,7 @@ export function CardSlider({
           <div className="h-full p-4">
             {cardDetails?.image && (
               <div className="mb-4">
-                <img
+                <Image
                   alt={cardDetails.name}
                   className="w-full rounded-lg transition-all duration-300"
                   loading="lazy"

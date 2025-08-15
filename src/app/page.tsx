@@ -3,7 +3,6 @@
 import { useContext, useState } from 'react';
 
 import { queryClient } from '@/api/queryClient';
-import { NotFound } from '@/app/not-found';
 import { Button } from '@/components/Button/Button';
 import { CardList } from '@/components/CardList/CardList';
 import { CardSlider } from '@/components/CardSlider/CardSlider';
@@ -15,6 +14,7 @@ import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { usePokemonCards } from '@/hooks/usePokemonCards';
+import NotFound from './not-found';
 // import { useNavigate, useParams } from 'react-router-dom';
 
 function Index() {
