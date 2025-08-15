@@ -1,8 +1,13 @@
-interface ButtonProps {
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+
+interface ButtonProps
+  extends DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   children: React.ReactNode;
   className?: string;
   disabled?: boolean;
-  onClick: () => void;
   type?: 'button' | 'reset' | 'submit';
 }
 
@@ -12,6 +17,7 @@ export function Button({
   disabled,
   onClick,
   type,
+  ...props
 }: ButtonProps) {
   return (
     <button
@@ -19,6 +25,7 @@ export function Button({
       disabled={disabled}
       onClick={onClick}
       type={type ?? 'button'}
+      {...props}
     >
       {children}
     </button>
