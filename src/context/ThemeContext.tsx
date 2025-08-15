@@ -1,3 +1,4 @@
+'use client';
 import { createContext, type ReactNode, useEffect } from 'react';
 
 import { DEFAULT_THEME, THEMES } from '@/config/themeConfig';

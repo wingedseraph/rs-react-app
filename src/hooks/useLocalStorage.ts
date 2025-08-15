@@ -5,11 +5,15 @@ export const useLocalStorage = <T extends string>(
   key: string
 ): [T, Dispatch<SetStateAction<T>>] => {
   const [state, setState] = useState<T>(() => {
-    return (localStorage.getItem(key) ?? initialValue) as T;
+    return typeof window !== 'undefined'
+      ? ((localStorage.getItem(key) ?? initialValue) as T)
+      : null;
   });
 
   useEffect(() => {
-    localStorage.setItem(key, state.trim());
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(key, state.trim());
+    }
   }, [state, key]);
 
   return [state, setState];

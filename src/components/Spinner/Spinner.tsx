@@ -10,6 +10,8 @@ export function Spinner() {
         alt="spinner pokemon ball"
         className="h-12 w-12 animate-spin"
         src="/newLogo.svg"
+        height="48"
+        width="48"
       />
     </div>
   );

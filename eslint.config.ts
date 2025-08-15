@@ -1,7 +1,6 @@
 import js from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
 import stylistic from '@stylistic/eslint-plugin';
-import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -20,7 +19,6 @@ export default tseslint.config(
       ...tseslint.configs.strict,
       ...tseslint.configs.recommendedTypeChecked,
       eslintPluginPrettier,
-      perfectionist.configs['recommended-natural'],
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -71,7 +69,6 @@ export default tseslint.config(
           terms: ['todo', 'fix'],
         },
       ],
-      'perfectionist/sort-imports': ['off'],
     },
     settings: {
       react: {
