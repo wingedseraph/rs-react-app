@@ -6,9 +6,6 @@ interface ButtonProps
     HTMLButtonElement
   > {
   children: React.ReactNode;
-  className?: string;
-  disabled?: boolean;
-  type?: 'button' | 'reset' | 'submit';
 }
 
 export function Button({
