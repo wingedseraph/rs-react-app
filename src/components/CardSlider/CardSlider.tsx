@@ -48,6 +48,7 @@ export function CardSlider({
               <div className="mb-4">
                 <Image
                   alt={cardDetails.name}
+                  priority={false}
                   className="w-full rounded-lg transition-all duration-300"
                   loading="lazy"
                   src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}

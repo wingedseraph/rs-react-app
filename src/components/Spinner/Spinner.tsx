@@ -7,6 +7,7 @@ export function Spinner() {
       role="status"
     >
       <Image
+        priority={false}
         alt="spinner pokemon ball"
         className="h-12 w-12 animate-spin"
         src="/newLogo.svg"

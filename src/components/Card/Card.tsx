@@ -40,11 +40,13 @@ export function Card({
         onClick={handleCardClick}
       >
         <Image
+          priority={false}
           alt={name}
           className={`h-full max-h-[350px] w-full max-w-3xs object-cover transition-all hover:scale-105 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           width="100"
           height="350"
           loading="lazy"
+          quality={75}
           onLoad={() => {
             setIsLoaded(true);
           }}
