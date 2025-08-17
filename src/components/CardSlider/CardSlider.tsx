@@ -51,6 +51,8 @@ export function CardSlider({
                   priority={false}
                   className="w-full rounded-lg transition-all duration-300"
                   loading="lazy"
+                  width="200"
+                  height="200"
                   src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
                 />
               </div>
