@@ -13,7 +13,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { usePokemonCardDetails } from '@/hooks/usePokemonCardDetails';
 import { usePokemonCards } from '@/hooks/usePokemonCards';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
 export default function ChildrenWrapper({
   pageId,
@@ -31,19 +31,12 @@ export default function ChildrenWrapper({
     POKEMON_LOCAL_STORAGE_QUERY
   );
   const [page, setPage] = useState(parseInt(pageId, 10) || 1);
-  const [isCardModalOpen, setIsCardModalOpen] = useState(false);
 
   const { data: pokemonCards } = usePokemonCards(value, page);
 
   const { data: cardDetails, isLoading: isCardLoading } = usePokemonCardDetails(
     cardId ?? undefined
   );
-
-  useEffect(() => {
-    if (cardId) {
-      setIsCardModalOpen(true);
-    }
-  }, [cardId]);
 
   const handleInputChange = (value: string) => {
     setValue(value);
@@ -60,7 +53,6 @@ export default function ChildrenWrapper({
 
   const handleCloseCardModal = () => {
     router.push(`/page/${String(page)}`, { scroll: false });
-    setIsCardModalOpen(false);
   };
 
   const handlePage = () => {
@@ -97,15 +89,15 @@ export default function ChildrenWrapper({
       />
       <Pagination
         currentPage={page}
-        disabled={!allCards}
+        disabled={!value}
         hasMorePages={true}
         onClick={handlePageChange}
       />
       <Flyout />
 
-      {cardId && isCardModalOpen && (
+      {cardId && (
         <CardSlider
-          isOpen={isCardModalOpen}
+          isOpen={!!cardId}
           onClose={handleCloseCardModal}
           isLoadingData={isCardLoading}
           cardDetails={cardDetails ?? null}
