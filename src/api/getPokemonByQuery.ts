@@ -13,11 +13,11 @@ export async function getPokemonByQuery(
 
   try {
     const response = await fetch(
-      `${POKEMON_BASE_API_URL}cards?name=*${query}*&image=*&pagination:page=${POKEMON_CURRENT_PAGE}&pagination:itemsPerPage=${POKEMON_PAGE_SIZE}`
+      `${POKEMON_BASE_API_URL}cards?name=*${query}*&image=*&pagination:page=${String(POKEMON_CURRENT_PAGE)}&pagination:itemsPerPage=${String(POKEMON_PAGE_SIZE)}`
     );
 
     if (!response.ok) {
-      throw new Error(`${response.status}`);
+      throw new Error(String(response.status));
     }
 
     const data: Card[] = await response.json();
