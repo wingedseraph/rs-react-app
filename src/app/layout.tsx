@@ -4,8 +4,10 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import '@/app/globals.css';
 import { Tanstack } from '@/app/tanstack';
+import { Path } from '@/config/routesConfig';
 import { ThemeContextProvider } from '@/context/ThemeContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const geistSans = Geist({
   subsets: ['latin'],
@@ -40,13 +42,16 @@ export default function RootLayout({
           <ThemeContextProvider>
             <div id="root">
               <header className="m-auto mb-10 transition-all hover:scale-110 md:w-[40%]">
-                <Image
-                  width={1024}
-                  height={377}
-                  src="/logo.png"
-                  alt="pokemon logo"
-                  loading="lazy"
-                />
+                <Link className="transition-all" href={Path.about}>
+                  <Image
+                    width={1024}
+                    height={377}
+                    src="/logo.png"
+                    alt="pokemon logo"
+                    loading="lazy"
+                  />{' '}
+                  to about page →
+                </Link>
               </header>
               {children}
             </div>

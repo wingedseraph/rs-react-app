@@ -1,5 +1,5 @@
 export const Path = {
-  about: 'about',
+  about: '/about',
   card: '/page/:pageId/card/:cardId',
   index: '/',
   notFound: '*',
