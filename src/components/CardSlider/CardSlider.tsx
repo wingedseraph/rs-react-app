@@ -3,7 +3,7 @@ import { Button } from '@/components/Button/Button';
 import { Spinner } from '@/components/Spinner/Spinner';
 import {
   POKEMON_IMAGE_EXTENSION,
-  POKEMON_IMAGE_QUALITY,
+  POKEMON_IMAGE_HIGH_QUALITY,
 } from '@/config/apiConfig';
 import Image from 'next/image';
 
@@ -51,9 +51,9 @@ export function CardSlider({
                   priority={false}
                   className="w-full rounded-lg transition-all duration-300"
                   loading="lazy"
-                  width="200"
-                  height="200"
-                  src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
+                  width="300"
+                  height="300"
+                  src={`${cardDetails.image}/${POKEMON_IMAGE_HIGH_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
                 />
               </div>
             )}

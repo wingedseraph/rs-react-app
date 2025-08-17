@@ -4,7 +4,7 @@ import { type Card } from '@/app/types';
 import { Checkbox } from '@/components/Checkbox/Checkbox';
 import {
   POKEMON_IMAGE_EXTENSION,
-  POKEMON_IMAGE_QUALITY,
+  POKEMON_IMAGE_LOW_QUALITY,
 } from '@/config/apiConfig';
 import Image from 'next/image';
 
@@ -50,7 +50,7 @@ export function Card({
           onLoad={() => {
             setIsLoaded(true);
           }}
-          src={`${image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
+          src={`${image}/${POKEMON_IMAGE_LOW_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
         />
       </div>
       <div className="mt-4 transition-all">
