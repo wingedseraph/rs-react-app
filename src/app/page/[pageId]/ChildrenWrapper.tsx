@@ -47,21 +47,21 @@ export default function ChildrenWrapper({
   };
 
   const handlePageChange = (page: number) => {
-    router.push(`/page/${String(page)}`);
+    router.push(`/page/${String(page)}`, { scroll: false });
     setPage(page);
   };
 
   const handleCardClick = (cardId: string) => {
-    router.push(`/page/${String(page)}?cardId=${cardId}`);
+    router.push(`/page/${String(page)}?cardId=${cardId}`, { scroll: false });
   };
 
   const handleCloseCardModal = () => {
-    router.push(`/page/${String(page)}`);
+    router.push(`/page/${String(page)}`, { scroll: false });
     setIsCardModalOpen(false);
   };
 
   const handlePage = () => {
-    router.push(`/page/${String(page)}`);
+    router.push(`/page/${String(page)}`, { scroll: false });
   };
 
   const handleThemeChange = (event_: React.ChangeEvent<HTMLSelectElement>) => {

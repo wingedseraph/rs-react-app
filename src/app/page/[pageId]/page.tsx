@@ -3,6 +3,7 @@ import {
   POKEMON_BASE_API_URL,
   POKEMON_MAX_PAGE_SIZE,
 } from '@/config/apiConfig';
+import { notFound } from 'next/navigation';
 import ClientWrapper from './ChildrenWrapper';
 
 export const revalidate = 3600;
@@ -32,6 +33,10 @@ export default async function Index({
   const { cardId } = await searchParams;
 
   const allCards = await getAllCards();
+
+  if (!/^\d+$/.test(pageId)) {
+    notFound();
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
