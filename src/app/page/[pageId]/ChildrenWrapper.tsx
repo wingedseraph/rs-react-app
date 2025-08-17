@@ -17,7 +17,7 @@ import { useContext, useState } from 'react';
 
 export default function ChildrenWrapper({
   pageId,
-  cardId,
+  cardId = null,
   allCards,
 }: {
   pageId: string;
@@ -35,7 +35,7 @@ export default function ChildrenWrapper({
   const { data: pokemonCards } = usePokemonCards(value, page);
 
   const { data: cardDetails, isLoading: isCardLoading } = usePokemonCardDetails(
-    cardId ?? undefined
+    cardId ?? null
   );
 
   const handleInputChange = (value: string) => {

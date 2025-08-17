@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getPokemonCardDetails } from '@/api/getPokemonCardDetails';
 
-export const usePokemonCardDetails = (cardId: string | undefined) => {
+export const usePokemonCardDetails = (cardId: string | null) => {
   return useQuery({
-    enabled: cardId !== undefined,
+    enabled: cardId !== null,
     queryFn: () => getPokemonCardDetails(String(cardId)),
     queryKey: ['singlePokemonCard', { cardId }],
   });
