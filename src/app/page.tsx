@@ -13,13 +13,14 @@ import { POKEMON_LOCAL_STORAGE_QUERY } from '@/config/apiConfig';
 import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { usePokemonCardDetails } from '@/hooks/usePokemonCardDetails';
 import { usePokemonCards } from '@/hooks/usePokemonCards';
-import NotFound from './not-found';
+import { useParams, useRouter } from 'next/navigation';
 // import { useNavigate, useParams } from 'react-router-dom';
 
 function Index() {
-  // const { cardId } = useParams();
-  // const navigate = useNavigate();
+  const cardId = useParams<{ tag: string; item: string }>();
+  const router = useRouter();
 
   const { setTheme, theme } = useContext(ThemeContext);
   const [value, setValue] = useLocalStorage<string>(
@@ -33,43 +34,40 @@ function Index() {
 
   const {
     data: pokemonCards,
-    error,
     isLoading,
     isPlaceholderData,
   } = usePokemonCards(value, page);
-  // const { data: cardDetails, isLoading: isDetailedPending } =
-  //   usePokemonCardDetails(cardId);
+  const { data: cardDetails, isLoading: isDetailedPending } =
+    usePokemonCardDetails(cardId.tag);
 
   const handleInputChange = (value: string) => {
     setValue(value);
   };
 
-  // const handlePageChange = (page: number) => {
-  //   navigate(`/page/${page}`);
-  //   setPage(page);
-  // };
+  const handlePageChange = (page: number) => {
+    router.push(`/page/${String(page)}`);
+    setPage(page);
+  };
 
-  // const handleCardClick = (cardId: string) => {
-  //   navigate(`/page/${page}/card/${cardId}`);
-  // };
+  const handleCardClick = (cardId: string) => {
+    router.push(`/page/${String(page)}/card/${cardId}`);
+  };
 
-  // const handlePage = () => {
-  //   navigate(`/page/${page}`);
-  // };
+  const handlePage = () => {
+    router.push(`/page/${String(page)}`);
+  };
 
   const handleThemeChange = (event_: React.ChangeEvent<HTMLSelectElement>) => {
     setTheme(event_.target.value as Theme);
   };
-
-  if (error) return <NotFound error="problem with API" />;
 
   return (
     <div className="flex flex-col items-center justify-center">
       <Search
         loading={isLoading}
         onChange={handleInputChange}
-        // onClick={handlePage}
-        onClick={() => {}}
+        onClick={handlePage}
+        // onClick={() => {}}
         value={value}
       />
       <select
@@ -85,29 +83,23 @@ function Index() {
       </select>
       <CardList
         className={isPlaceholderData ? 'animate-pulse' : ''}
-        data={pokemonCards?.data || []}
+        data={pokemonCards?.data ?? []}
         loading={isLoading}
-        // onCardClick={handleCardClick}
-        onCardClick={() => {}}
+        onCardClick={handleCardClick}
+        // onCardClick={() => {}}
       />
       <Pagination
         currentPage={page}
         disabled={isLoading}
         hasMorePages={pokemonCards?.hasMorePages}
-        // onClick={handlePageChange}
-
-        onClick={() => {}}
+        onClick={handlePageChange}
       />
       <Flyout />
       <CardSlider
-        cardDetails={null}
-        isLoadingData={false}
-        // isOpen={cardId !== false}
-        isOpen={false}
-        // onClose={handlePage}
-        // isLoadingData={isDetailedPending}
-        // cardDetails={cardDetails || null}
-        onClose={() => {}}
+        isOpen={!!cardId}
+        onClose={handlePage}
+        isLoadingData={isDetailedPending}
+        cardDetails={cardDetails ?? null}
       />
 
       <Button onClick={() => refetch()}>refresh current cards</Button>
