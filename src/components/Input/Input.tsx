@@ -1,21 +1,18 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
-
-interface InputProps
-  extends DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
+type InputProps = {
   value: string;
-}
+  onChange: (value: string) => void;
+};
 
-export function Input({ value, ...props }: InputProps) {
+export function Input({ value, onChange }: InputProps) {
   return (
     <input
       className="outline-0"
-      placeholder="type to search..."
       type="text"
       value={value}
-      {...props}
+      onChange={(event_) => {
+        onChange(event_.target.value);
+      }}
+      placeholder="type to search..."
     />
   );
 }

@@ -11,6 +11,7 @@ import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { usePokemonCardDetails } from '@/hooks/usePokemonCardDetails';
+import { usePokemonCards } from '@/hooks/usePokemonCards';
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
@@ -31,6 +32,8 @@ export default function ChildrenWrapper({
   );
   const [page, setPage] = useState(parseInt(pageId, 10) || 1);
   const [isCardModalOpen, setIsCardModalOpen] = useState(false);
+
+  const { data: pokemonCards } = usePokemonCards(value, page);
 
   const { data: cardDetails, isLoading: isCardLoading } = usePokemonCardDetails(
     cardId ?? undefined
@@ -88,7 +91,7 @@ export default function ChildrenWrapper({
         ))}
       </select>
       <CardList
-        data={allCards}
+        data={value ? (pokemonCards?.data ?? []) : allCards}
         loading={!allCards}
         onCardClick={handleCardClick}
       />

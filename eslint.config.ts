@@ -62,6 +62,7 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
 
       '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-warning-comments': [
         'warn',

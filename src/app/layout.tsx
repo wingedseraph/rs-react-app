@@ -49,6 +49,7 @@ export default function RootLayout({
                     src="/logo.png"
                     alt="pokemon logo"
                     loading="lazy"
+                    priority={false}
                   />{' '}
                   to about page →
                 </Link>

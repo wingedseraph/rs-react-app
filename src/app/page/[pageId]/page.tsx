@@ -11,8 +11,6 @@ export const revalidate = 3600;
 async function getAllCards() {
   const response = await fetch(
     `${POKEMON_BASE_API_URL}cards?name=*&image=*&pagination:itemsPerPage=${String(POKEMON_MAX_PAGE_SIZE)}`,
-    // https://api.tcgdex.net/v2/en/cards?name=*&image=*&pagination:itemsPerPage=100
-
     {
       next: { revalidate: 3600 },
     }
