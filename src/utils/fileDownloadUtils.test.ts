@@ -1,10 +1,11 @@
-import { createCSVContent } from '@/utils/fileDownloadUtils';
 import { describe, expect, it } from 'vitest';
+
+import { createCSVContent } from '@/utils/fileDownloadUtils';
 
 describe('fileDownloadUtils', () => {
   const mockCards = [
-    { id: 'fut2020-1', name: 'Pikachu on the Ball', image: '', localId: '' },
-    { id: 'basep-1', name: 'Pikachu', image: '', localId: '' },
+    { id: 'fut2020-1', image: '', localId: '', name: 'Pikachu on the Ball' },
+    { id: 'basep-1', image: '', localId: '', name: 'Pikachu' },
   ];
 
   it('should generate CSV', () => {

@@ -1,15 +1,19 @@
+'use client';
+import { createContext, type ReactNode, useEffect } from 'react';
+
 import { DEFAULT_THEME, THEMES } from '@/config/themeConfig';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { createContext, useEffect, type ReactNode } from 'react';
 
 export type Theme = (typeof THEMES)[number];
 
 const initialState: {
-  theme: Theme;
   setTheme: (selectedTheme: Theme) => void;
+  theme: Theme;
 } = {
+  setTheme: () => {
+    throw new Error('setTheme called outside of ThemeContextProvider');
+  },
   theme: DEFAULT_THEME,
-  setTheme: () => {},
 };
 
 const ThemeContext = createContext(initialState);
@@ -31,10 +35,10 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
   }, [theme]);
 
   const value = {
-    theme,
     setTheme: (selectedTheme: Theme) => {
       setTheme(selectedTheme);
     },
+    theme,
   };
 
   return <ThemeContext value={value}>{children}</ThemeContext>;

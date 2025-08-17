@@ -1,5 +1,10 @@
-import { POKEMON_BASE_API_URL, POKEMON_PAGE_SIZE } from '@/config/apiConfig';
-import type { Card } from '@/types';
+import type { Card } from '@/app/types';
+
+import {
+  POKEMON_BASE_API_URL,
+  POKEMON_MAX_PAGE_SIZE,
+  POKEMON_PAGE_SIZE,
+} from '@/config/apiConfig';
 
 export async function getPokemonByQuery(
   query: string,
@@ -12,19 +17,21 @@ export async function getPokemonByQuery(
 
   try {
     const response = await fetch(
-      `${POKEMON_BASE_API_URL}cards?name=*${query}*&image=*&pagination:page=${POKEMON_CURRENT_PAGE}&pagination:itemsPerPage=${POKEMON_PAGE_SIZE}`
+      `${POKEMON_BASE_API_URL}cards?name=*${query}*&image=*&pagination:page=${String(POKEMON_CURRENT_PAGE)}&pagination:itemsPerPage=${String(POKEMON_MAX_PAGE_SIZE)}`
     );
 
     if (!response.ok) {
-      throw new Error(`${response.status}`);
+      throw new Error(String(response.status));
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as Card[];
     const hasMorePages =
       Array.isArray(data) && data.length === POKEMON_PAGE_SIZE;
+
     return { data, hasMorePages };
   } catch (error) {
     console.error('fetchPokemon:', error);
+
     return defaultResponse;
   }
 }

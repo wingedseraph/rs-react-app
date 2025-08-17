@@ -1,31 +1,33 @@
+import { type PokemonCardDetails } from '@/app/types';
 import { Button } from '@/components/Button/Button';
 import { Spinner } from '@/components/Spinner/Spinner';
 import {
   POKEMON_IMAGE_EXTENSION,
-  POKEMON_IMAGE_QUALITY,
+  POKEMON_IMAGE_HIGH_QUALITY,
 } from '@/config/apiConfig';
-import { type PokemonCardDetails } from '@/types';
+import Image from 'next/image';
+
 type CardSliderProps = {
-  isOpen: boolean;
-  cardDetails: PokemonCardDetails | null;
+  cardDetails: null | PokemonCardDetails;
   className?: string;
   isLoadingData?: boolean;
+  isOpen: boolean;
   onClose: () => void;
 };
 
 export function CardSlider({
-  isOpen,
   cardDetails,
   isLoadingData,
+  isOpen,
   onClose,
 }: CardSliderProps) {
   return (
     <>
       <div
-        data-testid="backdrop"
         className={`bg-opacity-50 fixed top-0 left-0 z-1 h-full w-full transition-opacity duration-300 ${
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         } `}
+        data-testid="backdrop"
         onClick={onClose}
       />
 
@@ -44,11 +46,14 @@ export function CardSlider({
           <div className="h-full p-4">
             {cardDetails?.image && (
               <div className="mb-4">
-                <img
-                  src={`${cardDetails.image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
+                <Image
                   alt={cardDetails.name}
+                  priority={false}
                   className="w-full rounded-lg transition-all duration-300"
                   loading="lazy"
+                  width="300"
+                  height="300"
+                  src={`${cardDetails.image}/${POKEMON_IMAGE_HIGH_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
                 />
               </div>
             )}

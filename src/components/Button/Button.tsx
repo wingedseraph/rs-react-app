@@ -1,24 +1,27 @@
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+
 type ButtonProps = {
-  className?: string;
-  onClick: () => void;
-  disabled?: boolean;
   children: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-};
+} & DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
 
 export function Button({
-  type,
-  className,
-  onClick,
-  disabled,
   children,
+  className = '',
+  disabled,
+  onClick,
+  type,
+  ...props
 }: ButtonProps) {
   return (
     <button
-      type={type ?? 'button'}
       className={`cursor-pointer transition-all disabled:pointer-events-none disabled:cursor-not-allowed disabled:text-neutral-500 ${className}`}
-      onClick={onClick}
       disabled={disabled}
+      onClick={onClick}
+      type={type ?? 'button'}
+      {...props}
     >
       {children}
     </button>

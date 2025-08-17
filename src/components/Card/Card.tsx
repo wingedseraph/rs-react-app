@@ -1,47 +1,56 @@
+import { useState } from 'react';
+
+import { type Card } from '@/app/types';
 import { Checkbox } from '@/components/Checkbox/Checkbox';
 import {
   POKEMON_IMAGE_EXTENSION,
-  POKEMON_IMAGE_QUALITY,
+  POKEMON_IMAGE_LOW_QUALITY,
 } from '@/config/apiConfig';
-import { type Card } from '@/types';
-import { useState } from 'react';
+import Image from 'next/image';
 
 type CardProps = Card & {
-  onCardClick: (cardId: string) => void;
   className?: string;
+  onCardClick?: (cardId: string) => void;
 };
 
 export function Card({
+  className = '',
   id,
   image,
-  name,
   localId,
+  name,
   onCardClick,
-  className,
 }: CardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const handleCardClick = () => {
-    onCardClick(id);
+    if (onCardClick) onCardClick(id);
   };
 
   const card = {
     id,
-    name,
     image: image || '',
     localId,
+    name,
   };
+
   return (
     <div>
       <div
-        onClick={handleCardClick}
         className={`relative z-2 mt-10 flex min-h-[340px] min-w-[245px] cursor-pointer flex-col transition-all ${className}`}
+        onClick={handleCardClick}
       >
-        <img
-          className={`h-full max-h-[350px] w-full max-w-3xs object-cover transition-all hover:scale-105 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-          src={`${image}/${POKEMON_IMAGE_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
+        <Image
+          priority={false}
           alt={name}
-          onLoad={() => setIsLoaded(true)}
+          className={`h-full max-h-[350px] w-full max-w-3xs object-cover transition-all hover:scale-105 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          width="100"
+          height="350"
           loading="lazy"
+          quality={75}
+          onLoad={() => {
+            setIsLoaded(true);
+          }}
+          src={`${image}/${POKEMON_IMAGE_LOW_QUALITY}.${POKEMON_IMAGE_EXTENSION}`}
         />
       </div>
       <div className="mt-4 transition-all">

@@ -1,7 +1,8 @@
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import React from 'react';
-export type SearchProps = {
+
+type SearchProps = {
   value: string;
   loading?: boolean;
   onChange: (value: string) => void;
@@ -21,7 +22,12 @@ export function Search({ value, onChange, onClick }: SearchProps) {
       role="search"
     >
       <Input value={value} onChange={onChange} />
-      <Button type="submit" onClick={() => onClick(value)}>
+      <Button
+        type="submit"
+        onClick={() => {
+          onClick(value);
+        }}
+      >
         search
       </Button>
     </form>

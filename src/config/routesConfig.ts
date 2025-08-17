@@ -1,7 +1,7 @@
-export enum Path {
-  index = '/',
-  page = '/page/:pageId',
-  card = '/page/:pageId/card/:cardId',
-  about = 'about',
-  notFound = '*',
-}
+export const Path = {
+  about: '/about',
+  card: '/page/:pageId/card/:cardId',
+  index: '/',
+  notFound: '*',
+  page: '/page/:pageId',
+} as const;

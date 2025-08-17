@@ -1,24 +1,29 @@
-import type { Card } from '@/types';
 import { create } from 'zustand';
 
+import type { Card } from '@/app/types';
+
 type SelectedItemsStore = {
-  selectedItems: Card[];
   addItem: (item: Card) => void;
-  removeItem: (id: string) => void;
   clearItems: () => void;
+  removeItem: (id: string) => void;
+  selectedItems: Card[];
 };
 
 export const useSelectedItemsStore = create<SelectedItemsStore>()((set) => ({
-  selectedItems: [],
-  addItem: (item) =>
+  addItem: (item) => {
     set((state) => ({
       selectedItems: state.selectedItems.some((i) => i.id === item.id)
         ? state.selectedItems
         : [...state.selectedItems, item],
-    })),
-  removeItem: (id) =>
+    }));
+  },
+  clearItems: () => {
+    set({ selectedItems: [] });
+  },
+  removeItem: (id) => {
     set((state) => ({
       selectedItems: state.selectedItems.filter((item) => item.id !== id),
-    })),
-  clearItems: () => set({ selectedItems: [] }),
+    }));
+  },
+  selectedItems: [],
 }));
