@@ -51,6 +51,8 @@ export default tseslint.config(
       ...nextPlugin.configs['core-web-vitals'].rules,
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      ...react.configs['jsx-runtime'].rules,
+
       '@next/next/no-img-element': 'error',
       '@stylistic/padding-line-between-statements': [
         'error',
@@ -65,9 +67,6 @@ export default tseslint.config(
         { blankLine: 'always', next: '*', prev: 'import' },
         { blankLine: 'any', next: 'import', prev: 'import' },
       ],
-
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
 
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
