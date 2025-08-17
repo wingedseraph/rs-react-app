@@ -2,12 +2,12 @@ import { create } from 'zustand';
 
 import type { Card } from '@/app/types';
 
-interface SelectedItemsStore {
+type SelectedItemsStore = {
   addItem: (item: Card) => void;
   clearItems: () => void;
   removeItem: (id: string) => void;
   selectedItems: Card[];
-}
+};
 
 export const useSelectedItemsStore = create<SelectedItemsStore>()((set) => ({
   addItem: (item) => {

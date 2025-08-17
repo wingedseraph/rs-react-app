@@ -1,12 +1,12 @@
 import { Button } from '@/components/Button/Button';
 
-interface PaginationProps {
+type PaginationProps = {
   className?: string;
   currentPage: number;
   disabled: boolean;
   hasMorePages?: boolean;
   onClick: (page: number) => void;
-}
+};
 
 export function Pagination({
   className = '',

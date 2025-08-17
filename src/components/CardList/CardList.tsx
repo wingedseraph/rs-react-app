@@ -34,7 +34,7 @@ export function CardList({
           key={card.id}
           {...card}
           className="cursor-pointer"
-          onCardClick={onCardClick ?? (() => {})}
+          onCardClick={onCardClick ?? undefined}
         />
       ))}
     </div>

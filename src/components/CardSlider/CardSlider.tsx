@@ -7,13 +7,13 @@ import {
 } from '@/config/apiConfig';
 import Image from 'next/image';
 
-interface CardSliderProps {
+type CardSliderProps = {
   cardDetails: null | PokemonCardDetails;
   className?: string;
   isLoadingData?: boolean;
   isOpen: boolean;
   onClose: () => void;
-}
+};
 
 export function CardSlider({
   cardDetails,

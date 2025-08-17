@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 type CardProps = Card & {
   className?: string;
-  onCardClick: (cardId: string) => void;
+  onCardClick?: (cardId: string) => void;
 };
 
 export function Card({
@@ -23,7 +23,7 @@ export function Card({
 }: CardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const handleCardClick = () => {
-    onCardClick(id);
+    if (onCardClick) onCardClick(id);
   };
 
   const card = {

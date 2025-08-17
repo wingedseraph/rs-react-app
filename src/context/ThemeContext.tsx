@@ -10,7 +10,9 @@ const initialState: {
   setTheme: (selectedTheme: Theme) => void;
   theme: Theme;
 } = {
-  setTheme: () => {},
+  setTheme: () => {
+    throw new Error('setTheme called outside of ThemeContextProvider');
+  },
   theme: DEFAULT_THEME,
 };
 

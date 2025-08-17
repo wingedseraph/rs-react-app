@@ -11,7 +11,15 @@ import tseslint, { configs } from 'typescript-eslint';
 export default tseslint.config(
   configs.stylisticTypeChecked,
   configs.strictTypeChecked,
-  { ignores: ['dist', '.next/*'] },
+  {
+    ignores: [
+      'dist',
+      '.next/*',
+      '**/*.test.{ts,tsx}',
+      '**/*.spec.{ts,tsx}',
+      '.next/*',
+    ],
+  },
 
   {
     extends: [

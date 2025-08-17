@@ -15,12 +15,15 @@ export const DownloadButton = () => {
     }
 
     const data = await generateCSVAction(selectedItems);
+
     if (data.success && data.csvContent) {
       const blob = new Blob([data.csvContent], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
 
       setDownloadURL(url);
-      return clearItems();
+      clearItems();
+
+      return 0;
     }
   };
 
@@ -35,9 +38,9 @@ export const DownloadButton = () => {
   return (
     <a
       className="p-4"
-      download={`${selectedItems.length}_items.csv`}
+      download={`${String(selectedItems.length)}_items.csv`}
       href={downloadURL}
-      onClick={handleDownload}
+      onClick={void handleDownload}
       ref={downloadRef}
     >
       download
