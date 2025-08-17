@@ -1,5 +1,6 @@
 'use client';
 
+import { Card } from '@/app/types';
 import { CardList } from '@/components/CardList/CardList';
 import { CardSlider } from '@/components/CardSlider/CardSlider';
 import { Flyout } from '@/components/Flyout/Flyout';
@@ -10,16 +11,17 @@ import { THEMES } from '@/config/themeConfig';
 import ThemeContext, { type Theme } from '@/context/ThemeContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { usePokemonCardDetails } from '@/hooks/usePokemonCardDetails';
-import { usePokemonCards } from '@/hooks/usePokemonCards';
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
 export default function ChildrenWrapper({
   pageId,
   cardId,
+  allCards,
 }: {
   pageId: string;
   cardId: string | null;
+  allCards: Card[];
 }) {
   const router = useRouter();
   const { setTheme, theme } = useContext(ThemeContext);
@@ -30,11 +32,6 @@ export default function ChildrenWrapper({
   const [page, setPage] = useState(parseInt(pageId, 10) || 1);
   const [isCardModalOpen, setIsCardModalOpen] = useState(false);
 
-  const {
-    data: pokemonCards,
-    isLoading,
-    isPlaceholderData,
-  } = usePokemonCards(value, page);
   const { data: cardDetails, isLoading: isCardLoading } = usePokemonCardDetails(
     cardId ?? undefined
   );
@@ -44,14 +41,6 @@ export default function ChildrenWrapper({
       setIsCardModalOpen(true);
     }
   }, [cardId]);
-
-  useEffect(() => {
-    const pageNumber = parseInt(pageId, 10);
-
-    if (!isNaN(pageNumber) && pageNumber !== page) {
-      setPage(pageNumber);
-    }
-  }, [pageId, page]);
 
   const handleInputChange = (value: string) => {
     setValue(value);
@@ -82,7 +71,7 @@ export default function ChildrenWrapper({
   return (
     <>
       <Search
-        loading={isLoading}
+        loading={!allCards}
         onChange={handleInputChange}
         onClick={handlePage}
         value={value}
@@ -99,15 +88,14 @@ export default function ChildrenWrapper({
         ))}
       </select>
       <CardList
-        className={isPlaceholderData ? 'animate-pulse' : ''}
-        data={pokemonCards?.data ?? []}
-        loading={isLoading}
+        data={allCards}
+        loading={!allCards}
         onCardClick={handleCardClick}
       />
       <Pagination
         currentPage={page}
-        disabled={isLoading}
-        hasMorePages={pokemonCards?.hasMorePages}
+        disabled={!allCards}
+        hasMorePages={true}
         onClick={handlePageChange}
       />
       <Flyout />

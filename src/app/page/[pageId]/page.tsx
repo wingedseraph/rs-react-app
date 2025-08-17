@@ -1,4 +1,25 @@
+import { Card } from '@/app/types';
+import {
+  POKEMON_BASE_API_URL,
+  POKEMON_MAX_PAGE_SIZE,
+} from '@/config/apiConfig';
 import ClientWrapper from './ChildrenWrapper';
+
+export const revalidate = 3600;
+
+async function getAllCards() {
+  const response = await fetch(
+    `${POKEMON_BASE_API_URL}cards?name=*&image=*&pagination:itemsPerPage=${String(POKEMON_MAX_PAGE_SIZE)}`,
+    // https://api.tcgdex.net/v2/en/cards?name=*&image=*&pagination:itemsPerPage=100
+
+    {
+      next: { revalidate: 3600 },
+    }
+  );
+  const data = (await response.json()) as Card[];
+
+  return data;
+}
 
 export default async function Index({
   params,
@@ -10,9 +31,15 @@ export default async function Index({
   const { pageId } = await params;
   const { cardId } = await searchParams;
 
+  const allCards = await getAllCards();
+
   return (
     <div className="flex flex-col items-center justify-center">
-      <ClientWrapper pageId={pageId} cardId={cardId ?? null} />
+      <ClientWrapper
+        allCards={allCards}
+        pageId={pageId}
+        cardId={cardId ?? null}
+      />
     </div>
   );
 }
