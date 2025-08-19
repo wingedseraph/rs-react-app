@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
+import importPlugin from 'eslint-plugin-import';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -31,6 +32,7 @@ export default tseslint.config(
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      import: importPlugin,
     },
     rules: {
       ...react.configs.recommended.rules,
@@ -53,6 +55,25 @@ export default tseslint.config(
 
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal'],
+          pathGroups: [
+            {
+              pattern: 'react',
+              group: 'external',
+              position: 'before',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['react'],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-warning-comments': [
         'warn',
