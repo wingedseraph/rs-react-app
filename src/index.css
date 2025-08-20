@@ -1,18 +1,59 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-display: 'OldStandardTT', sans-serif;
+  --animate-slideDown: slideDown 1s ease forwards;
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+@font-face {
+  font-family: 'OldStandardTT';
+  src: url('/fonts/OldStandardTT-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OldStandardTT';
+  src: url('/fonts/OldStandardTT-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OldStandardTT';
+  src: url('/fonts/OldStandardTT-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: OldStandardTT, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
+  color: hsl(330, 89%, 100%);
+  background-color: hsl(0, 0%, 0%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 body {
@@ -21,4 +62,17 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  cursor: none;
+}
+
+* {
+  cursor: none;
+}
+
+button:hover,
+a:hover {
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 0%);
+  border-radius: 9999px;
+  transition: 0.15s all cubic-bezier(0.4, 0, 0.2, 1);
 }
