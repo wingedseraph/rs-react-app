@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 
+import { createPortal } from 'react-dom';
+
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -24,10 +26,11 @@ export default function CustomCursor() {
     };
   }, []);
 
-  return (
+  return createPortal(
     <div
       ref={cursorRef}
-      className={`pointer-events-none absolute h-[90px] w-[90px] rounded-full border border-white bg-white mix-blend-difference`}
-    />
+      className={`pointer-events-none fixed top-0 left-0 z-50 h-[90px] w-[90px] rounded-full border border-white bg-white mix-blend-difference will-change-transform`}
+    />,
+    document.body
   );
 }
