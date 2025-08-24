@@ -21,7 +21,7 @@ export default function Select({
       <select
         {...props}
         className={clsx(
-          'rounded-4xl border-0 py-5 focus:outline-0 focus-visible:outline-0',
+          'focus:outline-secondary rounded-4xl border-0 py-5',
           classNames,
           disabled && 'cursor-not-allowed opacity-50'
         )}
