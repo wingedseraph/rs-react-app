@@ -1,13 +1,12 @@
-import type { DetailsHTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 
 import clsx from 'clsx';
 
-type DatalistProps = DetailsHTMLAttributes<HTMLDataListElement> & {
+type DatalistProps = HTMLAttributes<HTMLDataListElement> & {
   classNames?: string;
   value: string[];
 };
 
-// todo: datalist for countries?
 export default function Datalist({
   classNames = '',
   value,
