@@ -18,9 +18,10 @@ export const Card = ({ data }: CardProps) => {
       )}
     >
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-xl font-bold capitalize">{data.formType} Form</h2>
+        <h2 className="text-xl font-bold capitalize italic">
+          {data.formType} Form
+        </h2>
       </div>
-
       <div className="space-y-2">
         <div className="flex justify-between">
           <span className="font-medium">Name:</span>
@@ -50,7 +51,7 @@ export const Card = ({ data }: CardProps) => {
           <img
             src={imageSrc}
             alt="form submitted file"
-            className="mt-4 max-h-48 max-w-48 rounded-lg"
+            className="mt-4 max-h-48 w-full rounded-lg"
           />
         ) : (
           <span className="text-sm">{error}</span>

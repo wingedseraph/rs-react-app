@@ -10,8 +10,6 @@ type LabelInputProps = InputHTMLAttributes<HTMLInputElement> &
     id: string;
   };
 
-// todo: datalist for countries?
-
 export default function LabelInput({
   classNames = '',
   disabled,

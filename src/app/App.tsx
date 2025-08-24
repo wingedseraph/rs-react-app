@@ -1,14 +1,13 @@
 import { appStore } from '@/app/store';
 import HookForm from '@/features/forms/HookForm/HookForm';
 import UncontrolledForm from '@/features/forms/UncontrolledForm/UncontrolledForm';
-import { Card } from '@/shared/ui/Card/Card';
+import CardList from '@/shared/ui/CardList/CardList';
 import CustomCursor from '@/shared/ui/CustomCursor/CustomCursor';
 import Footer from '@/shared/ui/Footer/Footer';
 import Modal from '@/shared/ui/Modal/Modal';
 
 export default function App() {
-  const { isModalOpen, modalType, openModal, closeModal, formSubmissions } =
-    appStore();
+  const { isModalOpen, modalType, openModal, closeModal } = appStore();
 
   const renderModalContent = () => {
     switch (modalType) {
@@ -41,7 +40,6 @@ export default function App() {
       <CustomCursor />
       <div className="animate-slideDown flex flex-col gap-10">
         <div className="flex flex-col gap-4">
-          {/* refactor: use Button component!! with builder to add italic on need */}
           <button
             onClick={() => {
               openModal('uncontrolled');
@@ -59,18 +57,7 @@ export default function App() {
             react <span className="italic">ho</span>ok form
           </button>
         </div>
-
-        {/* todo: cardList component */}
-        {formSubmissions.length > 0 && (
-          <div className="mt-8">
-            <div className="flex flex-col md:flex-row">
-              {formSubmissions.map((submission) => (
-                <Card key={submission.id} data={submission} />
-              ))}
-            </div>
-          </div>
-        )}
-
+        <CardList />
         <Footer />
       </div>
 
