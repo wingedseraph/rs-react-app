@@ -16,7 +16,7 @@ export default function UncontrolledForm() {
 
   const [errors, setErrors] = useState<FormErrors>({});
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
@@ -56,7 +56,7 @@ export default function UncontrolledForm() {
         console.error(error.issues);
       }
     }
-  }
+  };
 
   return (
     <form

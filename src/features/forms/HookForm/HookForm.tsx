@@ -36,9 +36,7 @@ export default function HookForm() {
 
   return (
     <form
-      onSubmit={() => {
-        handleSubmit(onSubmit);
-      }}
+      onSubmit={handleSubmit(onSubmit) as React.FormEventHandler}
       className="flex flex-col gap-10 text-base md:text-2xl"
     >
       <div className="flex flex-row justify-between gap-4">
@@ -113,7 +111,7 @@ export default function HookForm() {
             type="file"
             label="upload image:"
             id="fileHook"
-            error={errors.file?.message}
+            error={errors.file?.message?.toString()}
             {...register('file')}
           />
 
