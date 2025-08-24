@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-
 import { createPortal } from 'react-dom';
+
+import { useModal } from '../../hooks/useModal';
 
 type ModalProps = {
   children: React.ReactNode;
@@ -15,36 +15,7 @@ export default function Modal({
   onClose,
   title,
 }: ModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  // todo: refactor to use customHook
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target;
-
-      if (target instanceof Node) {
-        if (modalRef.current && !modalRef.current.contains(target)) {
-          onClose();
-        }
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, onClose]);
+  const modalRef = useModal(isOpen, onClose);
 
   if (!isOpen) return null;
 
