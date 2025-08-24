@@ -6,6 +6,7 @@ import { appStore } from '@/app/store';
 import { formSchema } from '@/lib/validation/formSchema';
 import Datalist from '@/shared/ui/Datalist/Datalist';
 import LabelInput from '@/shared/ui/LabelInput/LabelInput';
+import PasswordStrength from '@/shared/ui/PasswordStrength/PasswordStrength';
 import Select from '@/shared/ui/Select/Select';
 
 type FormErrors = Record<string, string>;
@@ -15,6 +16,7 @@ export default function UncontrolledForm() {
   const { countries, addFormSubmission, closeModal } = appStore();
 
   const [errors, setErrors] = useState<FormErrors>({});
+  const [password, setPassword] = useState('');
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -93,15 +95,23 @@ export default function UncontrolledForm() {
             error={errors.email}
           />
 
-          <LabelInput
-            type="password"
-            name="password"
-            id="passwordUncontrolled"
-            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-            label="password:"
-            autoComplete="new-password"
-            error={errors.password}
-          />
+          <div>
+            <LabelInput
+              type="password"
+              name="password"
+              id="passwordUncontrolled"
+              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+              label="password:"
+              autoComplete="new-password"
+              error={errors.password}
+              onChange={(e) => {
+                if (e.target instanceof HTMLInputElement) {
+                  setPassword(e.target.value);
+                }
+              }}
+            />
+            <PasswordStrength password={password} />
+          </div>
           <LabelInput
             type="password"
             name="secondPassword"

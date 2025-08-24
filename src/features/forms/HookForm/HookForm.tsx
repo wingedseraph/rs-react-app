@@ -6,6 +6,7 @@ import { appStore } from '@/app/store';
 import { formSchema } from '@/lib/validation/formSchema';
 import Datalist from '@/shared/ui/Datalist/Datalist';
 import LabelInput from '@/shared/ui/LabelInput/LabelInput';
+import PasswordStrength from '@/shared/ui/PasswordStrength/PasswordStrength';
 import Select from '@/shared/ui/Select/Select';
 
 type FormData = z.input<typeof formSchema>;
@@ -18,6 +19,7 @@ export default function HookForm() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -70,15 +72,18 @@ export default function HookForm() {
             {...register('email')}
           />
 
-          <LabelInput
-            type="password"
-            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-            label="password:"
-            id="passwordHook"
-            autoComplete="new-password"
-            error={errors.password?.message}
-            {...register('password')}
-          />
+          <div>
+            <LabelInput
+              type="password"
+              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+              label="password:"
+              id="passwordHook"
+              autoComplete="new-password"
+              error={errors.password?.message}
+              {...register('password')}
+            />
+            <PasswordStrength password={watch('password') || ''} />
+          </div>
 
           <LabelInput
             type="password"
