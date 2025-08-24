@@ -4,20 +4,19 @@ import clsx from 'clsx';
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   classNames?: string;
-  options: string[];
+  value: string[];
   label: string;
 };
 
-// todo: datalist for countries?
 export default function Select({
   classNames = '',
   disabled,
-  options,
+  value,
   label,
   ...props
 }: SelectProps) {
   return (
-    <div className="flex flex-row items-center justify-center gap-4">
+    <div className="flex flex-row items-center justify-between gap-4">
       <p>{label}</p>
       <select
         {...props}
@@ -27,9 +26,9 @@ export default function Select({
           disabled && 'cursor-not-allowed opacity-50'
         )}
       >
-        {options.map((option, i) => (
-          <option value={option} key={i}>
-            {option}
+        {value.map((value) => (
+          <option value={value} key={value}>
+            {value}
           </option>
         ))}
       </select>
