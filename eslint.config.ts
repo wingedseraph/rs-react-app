@@ -77,7 +77,7 @@ export default tseslint.config(
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-warning-comments': [
         'warn',
-        { terms: ['todo', 'fix'], location: 'start' },
+        { terms: ['todo', 'fix', 'refactor'], location: 'start' },
       ],
     },
     settings: {
