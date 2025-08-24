@@ -1,1 +1,1 @@
-npm lint:warning;npm run test
+npm run lint:warning;npm run test
