@@ -28,7 +28,7 @@ export default function UncontrolledForm() {
       secondPassword: formData.get('secondPassword'),
       gender: formData.get('gender'),
       checkbox: formData.has('checkbox'),
-      file: formData.getAll('file'),
+      file: formData.getAll('file')[0] as File,
       country: formData.get('country'),
     };
 
@@ -37,15 +37,7 @@ export default function UncontrolledForm() {
 
       addFormSubmission({
         formType: 'uncontrolled',
-        data: {
-          name: data.name,
-          age: Number(data.age),
-          email: data.email,
-          gender: data.gender,
-          country: data.country,
-          checkbox: data.checkbox,
-          file: data.file,
-        },
+        data: data,
       });
 
       setErrors({});
@@ -133,7 +125,7 @@ export default function UncontrolledForm() {
             name="checkbox"
             id="termsUncontrolled"
             label="accept terms:"
-            error={errors.terms}
+            error={errors.checkbox}
           />
 
           <LabelInput
@@ -150,7 +142,7 @@ export default function UncontrolledForm() {
             id="countryUncontrolled"
             label="select country:"
             list="countryListUncontrolled"
-            error={errors.countries}
+            error={errors.country}
           />
           <Datalist id="countryListUncontrolled" value={countries} />
         </div>
@@ -160,14 +152,14 @@ export default function UncontrolledForm() {
           type="submit"
           className="focus:outline-secondary w-fit self-center"
         >
-          submit {/*todo: block button if not all input's if data is unfull*/}
+          submit
         </button>
         <button
           type="button"
           onClick={closeModal}
           className="focus:outline-secondary w-fit self-center"
         >
-          close {/* refactor: make smoothly close */}
+          close
         </button>
       </div>
     </form>

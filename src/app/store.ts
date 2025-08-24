@@ -1,17 +1,14 @@
+import { z } from 'zod';
 import { create } from 'zustand';
+
+import { formSchema } from '../lib/validation/formSchema';
+
+export type FormData = z.infer<typeof formSchema>;
 
 export type FormSubmission = {
   id: string;
   formType: 'uncontrolled' | 'hook';
-  data: {
-    name: string;
-    age: number;
-    email: string;
-    gender: string;
-    country: string;
-    checkbox: boolean;
-    file?: FileList; //todo: fix file submit
-  };
+  data: FormData;
   isNew?: boolean;
 };
 

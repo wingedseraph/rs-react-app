@@ -26,6 +26,7 @@ export default function CustomCursor() {
     };
   }, []);
 
+  //todo: во время скролла смещается y-axis и некорректно отображается местоположение курсора
   return createPortal(
     <div
       ref={cursorRef}

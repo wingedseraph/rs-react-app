@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+const MAX_FILE_SIZE = 1024 * 1024 * 10;
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
+
 export const formSchema = z
   .object({
     name: z
@@ -28,7 +31,16 @@ export const formSchema = z
     secondPassword: z.string().min(1, 'please confirm your password'),
     gender: z.string().min(1, 'please select a gender'),
     checkbox: z.boolean().refine((val) => val, 'you must accept the terms'),
-    file: z.instanceof(FileList).optional(),
+    file: z
+      .instanceof(File)
+      .refine(
+        (file) => file.size <= MAX_FILE_SIZE,
+        'file size must be less than 10MB.'
+      )
+      .refine(
+        (file) => IMAGE_TYPES.includes(file.type),
+        'only .jpg, .jpeg, and .png formats are supported.'
+      ),
     country: z.string().min(1, 'please select a country'),
   })
   .refine((data) => data.password === data.secondPassword, {

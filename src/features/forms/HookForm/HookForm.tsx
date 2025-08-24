@@ -27,15 +27,7 @@ export default function HookForm() {
 
     addFormSubmission({
       formType: 'hook',
-      data: {
-        name: parsedData.name,
-        age: Number(parsedData.age),
-        email: parsedData.email,
-        gender: parsedData.gender,
-        country: parsedData.country,
-        checkbox: parsedData.checkbox,
-        file: parsedData.file,
-      },
+      data: parsedData,
     });
 
     reset();
