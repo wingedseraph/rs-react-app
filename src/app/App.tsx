@@ -37,7 +37,7 @@ export default function App() {
             </tr>
           </tbody>
         </Table>
-        {/*todo: <CustomCursor /> */}
+        <CustomCursor />
       </Layout>
     </>
   );
