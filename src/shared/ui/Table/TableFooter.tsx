@@ -1,22 +1,19 @@
-import type { HTMLAttributes, ReactElement } from "react";
+import type { HTMLAttributes } from "react";
 
 import clsx from "clsx";
 
 type TableProps = HTMLAttributes<HTMLTableSectionElement> & {
   classNames?: string;
-  children:
-    | ReactElement<HTMLTableRowElement>
-    | ReactElement<HTMLTableRowElement>[];
 };
 
-export default function TableFooter({
-  classNames = "",
-  children,
-  ...props
-}: TableProps) {
+export default function TableFooter({ classNames = "", ...props }: TableProps) {
   return (
-    <tfoot className={clsx("table-auto w-full", classNames)} {...props}>
-      <tr>{children}</tr>
-    </tfoot>
+    <tfoot
+      className={clsx(
+        "w-full border-t font-medium [&>tr]:last:border-b-0",
+        classNames
+      )}
+      {...props}
+    ></tfoot>
   );
 }

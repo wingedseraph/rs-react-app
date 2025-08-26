@@ -1,25 +1,16 @@
-import type { HTMLAttributes, ReactElement } from "react";
+import type { HTMLAttributes } from "react";
 
 import clsx from "clsx";
 
 type TableProps = HTMLAttributes<HTMLTableSectionElement> & {
   classNames?: string;
-  children:
-    | ReactElement<HTMLTableRowElement>
-    | ReactElement<HTMLTableRowElement>[];
 };
 
-export default function TableHead({
-  classNames = "",
-  children,
-  ...props
-}: TableProps) {
+export default function TableHead({ classNames = "", ...props }: TableProps) {
   return (
     <thead
-      className={clsx("table-auto w-full relative overflow-x-auto", classNames)}
+      className={clsx("[&_tr]:border-b w-full", classNames)}
       {...props}
-    >
-      <tr>{children}</tr>
-    </thead>
+    ></thead>
   );
 }
