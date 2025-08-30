@@ -1,6 +1,5 @@
-import type { HTMLAttributes } from "react";
-
 import clsx from "clsx";
+import type { HTMLAttributes } from "react";
 
 type TableProps = HTMLAttributes<HTMLTableSectionElement> & {
   classNames?: string;
@@ -9,7 +8,7 @@ type TableProps = HTMLAttributes<HTMLTableSectionElement> & {
 export default function TableBody({ classNames = "", ...props }: TableProps) {
   return (
     <tbody
-      className={clsx("[&_tr:last-child]:border-0 w-full", classNames)}
+      className={clsx("w-full [&_tr:last-child]:border-0", classNames)}
       {...props}
     ></tbody>
   );

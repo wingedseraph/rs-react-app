@@ -1,6 +1,5 @@
-import type { HTMLAttributes } from "react";
-
 import clsx from "clsx";
+import type { HTMLAttributes } from "react";
 
 type TableProps = HTMLAttributes<HTMLTableSectionElement> & {
   classNames?: string;
