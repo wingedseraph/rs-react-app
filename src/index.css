@@ -88,15 +88,10 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  overflow: hidden;
 }
 
-/* * { */
-/*   cursor: none; */
-/* } */
 button:hover,
 a:hover {
-  /* cursor: none; */
   background-color: var(--secondary-color);
   color: var(--primary-color);
   border-radius: 9999px;
@@ -117,7 +112,8 @@ input[type="checkbox"]:checked::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='hsl(0, 0%, 11%)' d='M6.173 12.414L2.05 8.293l1.414-1.414L6.173 9.586l6.364-6.364 1.414 1.414z'/></svg>") no-repeat center center;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='hsl(0, 0%, 11%)' d='M6.173 12.414L2.05 8.293l1.414-1.414L6.173 9.586l6.364-6.364 1.414 1.414z'/></svg>")
+    no-repeat center center;
   background-size: 1em;
 }
 
