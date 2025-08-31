@@ -5,7 +5,7 @@ import Footer from "@/widgets/layout/Footer/Footer";
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <main>{children}</main>
+      <main className="animate-slideDown">{children}</main>
       <Footer />
     </>
   );
