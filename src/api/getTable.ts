@@ -1,10 +1,11 @@
 import { ApiResponseSchema, type Countries } from "@/lib/apiTypes";
 
+const JSON_URL =
+  "https://raw.githubusercontent.com/wingedseraph/dump/refs/heads/gh-pages/assets/owid-co2-data.json?raw=true" as const;
+
 export async function getTable(): Promise<Countries> {
   try {
-    const response = await fetch(
-      "https://raw.githubusercontent.com/wingedseraph/dump/refs/heads/gh-pages/assets/owid-co2-data.json?raw=true"
-    );
+    const response = await fetch(JSON_URL);
     const result: unknown = await response.json();
 
     const validatedData = ApiResponseSchema.parse(result);
