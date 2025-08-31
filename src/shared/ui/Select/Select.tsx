@@ -4,6 +4,7 @@ import type { SelectHTMLAttributes } from "react";
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   classNames?: string;
   value: string[];
+  selectedValue?: string;
   label: string;
 };
 
@@ -11,6 +12,7 @@ export default function Select({
   classNames = "",
   disabled,
   value,
+  selectedValue,
   label,
   ...props
 }: SelectProps) {
@@ -19,6 +21,7 @@ export default function Select({
       <p>{label}</p>
       <select
         {...props}
+        value={selectedValue}
         className={clsx(
           "focus:outline-secondary rounded-4xl border-0 py-5",
           classNames,

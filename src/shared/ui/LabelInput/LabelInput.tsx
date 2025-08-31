@@ -25,7 +25,7 @@ export default function LabelInput({
         <input
           {...props}
           className={clsx(
-            "focus:outline-secondary border-border-primary outline-primary max-w-[360px] rounded-4xl border-1 p-5 transition-all",
+            "focus:outline-secondary border-border-primary outline-primary max-w-[360px] rounded-4xl border-1 p-2 transition-all",
             classNames,
             disabled && "cursor-not-allowed opacity-50",
             error && "border-red-400"
