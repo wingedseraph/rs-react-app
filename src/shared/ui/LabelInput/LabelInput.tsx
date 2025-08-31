@@ -1,13 +1,16 @@
 import clsx from "clsx";
-import type { InputHTMLAttributes, LabelHTMLAttributes } from "react";
+import type { InputHTMLAttributes } from "react";
 
-type LabelInputProps = InputHTMLAttributes<HTMLInputElement> &
-  LabelHTMLAttributes<HTMLLabelElement> & {
-    classNames?: string;
-    error?: string;
-    label: string;
-    id: string;
-  };
+type LabelInputProps = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "onChange"
+> & {
+  classNames?: string;
+  error?: string;
+  label: string;
+  id: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
 export default function LabelInput({
   classNames = "",
@@ -16,6 +19,7 @@ export default function LabelInput({
   label,
   id,
   error,
+  onChange,
   ...props
 }: LabelInputProps) {
   return (
@@ -24,6 +28,7 @@ export default function LabelInput({
         <label htmlFor={id}>{label}</label>
         <input
           {...props}
+          onChange={onChange}
           className={clsx(
             "focus:outline-secondary border-border-primary outline-primary max-w-[360px] rounded-4xl border-1 p-2 transition-all",
             classNames,
