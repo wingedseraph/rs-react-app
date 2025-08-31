@@ -8,14 +8,14 @@ export const createColumnSlice: StateCreator<
   [],
   ColumnSlice
 > = (set, get) => ({
-  selectedColumns: ["population"],
+  selectedColumns: ["iso", "name", "population", "year"],
   toggleColumn: (column) => {
     const { selectedColumns } = get();
     const exists = selectedColumns.includes(column);
 
     if (exists) {
       set({
-        selectedColumns: selectedColumns.filter((column) => column !== column),
+        selectedColumns: selectedColumns.filter((item) => item !== column),
       });
     } else {
       set({ selectedColumns: [...selectedColumns, column] });
