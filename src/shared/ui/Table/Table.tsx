@@ -1,9 +1,7 @@
 import clsx from "clsx";
-import type { TableHTMLAttributes } from "react";
+import { type TableHTMLAttributes, memo } from "react";
 
-export default function Table({
-  ...props
-}: TableHTMLAttributes<HTMLTableElement>) {
+function Table({ ...props }: TableHTMLAttributes<HTMLTableElement>) {
   return (
     <div className="relative w-full overflow-x-auto p-10">
       <table
@@ -13,3 +11,4 @@ export default function Table({
     </div>
   );
 }
+export default memo(Table);

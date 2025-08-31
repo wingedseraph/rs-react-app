@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type { Countries, Country } from "@/lib/apiTypes";
 import type { CountryWithYearData } from "@/lib/utils";
@@ -21,7 +21,7 @@ import {
   TableRow,
 } from "@/shared/ui/Table";
 
-export default function TableContent({ countries }: { countries: Countries }) {
+function TableContent({ countries }: { countries: Countries }) {
   const {
     searchQuery,
     setSearchQuery,
@@ -41,7 +41,10 @@ export default function TableContent({ countries }: { countries: Countries }) {
   const countryEntries: [string, Country][] = Object.entries(countries);
   const allYears = getAllYears(countryEntries);
   const validYear = allYears.includes(year) ? year : allYears[0] || 1900;
-  const yearData = getDataForYear(countryEntries, validYear);
+  const yearData = useMemo(
+    () => getDataForYear(countryEntries, validYear),
+    [countryEntries, validYear]
+  );
 
   useEffect(() => {
     const countryEntries: [string, Country][] = Object.entries(countries);
@@ -64,24 +67,52 @@ export default function TableContent({ countries }: { countries: Countries }) {
     prevYearDataRef.current = currentYearData;
   }, [year, countries]);
 
-  const filtered = yearData.filter(([countryName]) =>
-    countryName.toLowerCase().includes(searchQuery.toLowerCase())
+  const filtered = useMemo(
+    () =>
+      yearData.filter(([countryName]) =>
+        countryName.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [yearData, searchQuery]
   );
 
-  const sortedCountries = [...filtered].sort(
-    ([firstName, firstCountry], [secondName, secondCountry]) => {
-      if (sortBy === "name") {
-        return sortOrder === "asc"
-          ? firstName.localeCompare(secondName)
-          : secondName.localeCompare(firstName);
-      }
+  const sortedCountries = useMemo(
+    () =>
+      [...filtered].sort(
+        ([firstName, firstCountry], [secondName, secondCountry]) => {
+          if (sortBy === "name") {
+            return sortOrder === "asc"
+              ? firstName.localeCompare(secondName)
+              : secondName.localeCompare(firstName);
+          }
 
-      const first = firstCountry.yearData?.population ?? 0;
-      const second = secondCountry.yearData?.population ?? 0;
+          const first = firstCountry.yearData?.population ?? 0;
+          const second = secondCountry.yearData?.population ?? 0;
 
-      return sortOrder === "asc" ? first - second : second - first;
-    }
+          return sortOrder === "asc" ? first - second : second - first;
+        }
+      ),
+    [filtered, sortBy, sortOrder]
   );
+
+  const handleSearch = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(e.target.value);
+    },
+    [setSearchQuery]
+  );
+  const handleYearChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setYear(Number(e.target.value));
+    },
+    [setYear]
+  );
+  const handleSortPopulation = useCallback(() => {
+    setSortOrder("population", sortOrder === "asc" ? "desc" : "asc");
+  }, [setSortOrder, sortOrder]);
+
+  const handleSortName = useCallback(() => {
+    setSortOrder("name", sortOrder === "asc" ? "desc" : "asc");
+  }, [setSortOrder, sortOrder]);
 
   return (
     <Container>
@@ -93,33 +124,19 @@ export default function TableContent({ countries }: { countries: Countries }) {
           label="search countries:"
           placeholder="country..."
           value={searchQuery}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchQuery(e.target.value);
-          }}
+          onChange={handleSearch}
         />
         <Select
           label="select year"
           id="selectYear"
           value={allYears.map((year: number) => year.toString())}
           selectedValue={validYear.toString()}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            setYear(Number(e.target.value));
-          }}
+          onChange={handleYearChange}
         />
-        <Button
-          onClick={() => {
-            setSortOrder("population", sortOrder === "asc" ? "desc" : "asc");
-          }}
-        >
+        <Button onClick={handleSortPopulation}>
           sort population ({sortOrder})
         </Button>
-        <Button
-          onClick={() => {
-            setSortOrder("name", sortOrder === "asc" ? "desc" : "asc");
-          }}
-        >
-          sort name ({sortOrder})
-        </Button>
+        <Button onClick={handleSortName}>sort name ({sortOrder})</Button>
         <Button
           onClick={() => {
             setIsColumnModalOpen(true);
@@ -221,3 +238,4 @@ export default function TableContent({ countries }: { countries: Countries }) {
     </Container>
   );
 }
+export default memo(TableContent);

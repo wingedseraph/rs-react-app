@@ -1,6 +1,7 @@
 import clsx from "clsx";
+import { memo } from "react";
 
-export default function TableCell({ ...props }: React.ComponentProps<"td">) {
+function TableCell({ ...props }: React.ComponentProps<"td">) {
   return (
     <td
       className={clsx(
@@ -10,3 +11,4 @@ export default function TableCell({ ...props }: React.ComponentProps<"td">) {
     />
   );
 }
+export default memo(TableCell);

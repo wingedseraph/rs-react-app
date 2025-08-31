@@ -1,8 +1,7 @@
 import clsx from "clsx";
+import { memo } from "react";
 
-export default function TableHeaderCell({
-  ...props
-}: React.ComponentProps<"th">) {
+function TableHeaderCell({ ...props }: React.ComponentProps<"th">) {
   return (
     <th
       className={clsx(
@@ -12,3 +11,5 @@ export default function TableHeaderCell({
     />
   );
 }
+
+export default memo(TableHeaderCell);

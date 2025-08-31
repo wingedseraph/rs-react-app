@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { SelectHTMLAttributes } from "react";
+import { type SelectHTMLAttributes, memo } from "react";
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   classNames?: string;
@@ -8,7 +8,7 @@ type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   label: string;
 };
 
-export default function Select({
+function Select({
   classNames = "",
   disabled,
   value,
@@ -37,3 +37,5 @@ export default function Select({
     </div>
   );
 }
+
+export default memo(Select);

@@ -1,9 +1,7 @@
 import clsx from "clsx";
-import type { HTMLAttributes } from "react";
+import { type HTMLAttributes, memo } from "react";
 
-export default function TableBody({
-  ...props
-}: HTMLAttributes<HTMLTableSectionElement>) {
+function TableBody({ ...props }: HTMLAttributes<HTMLTableSectionElement>) {
   return (
     <tbody
       className={clsx("w-full [&_tr:last-child]:border-0")}
@@ -11,3 +9,4 @@ export default function TableBody({
     ></tbody>
   );
 }
+export default memo(TableBody);

@@ -1,9 +1,7 @@
 import clsx from "clsx";
-import type { HTMLAttributes } from "react";
+import { type HTMLAttributes, memo } from "react";
 
-export default function TableFooter({
-  ...props
-}: HTMLAttributes<HTMLTableSectionElement>) {
+function TableFooter({ ...props }: HTMLAttributes<HTMLTableSectionElement>) {
   return (
     <tfoot
       className={clsx("w-full border-t font-medium [&>tr]:last:border-b-0")}
@@ -11,3 +9,4 @@ export default function TableFooter({
     ></tfoot>
   );
 }
+export default memo(TableFooter);

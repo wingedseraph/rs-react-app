@@ -1,8 +1,8 @@
 import clsx from "clsx";
-import type { HTMLAttributes } from "react";
+import { type HTMLAttributes, memo } from "react";
 
-export default function TableHead({
-  ...props
-}: HTMLAttributes<HTMLTableSectionElement>) {
+function TableHead({ ...props }: HTMLAttributes<HTMLTableSectionElement>) {
   return <thead className={clsx("w-full [&_tr]:border-b")} {...props}></thead>;
 }
+
+export default memo(TableHead);
