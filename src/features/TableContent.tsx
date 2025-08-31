@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { Countries, Country } from "@/lib/apiTypes";
 import type { CountryWithYearData } from "@/lib/utils";
-import { getAllYears, getDataForYear } from "@/lib/utils";
+import { getAllYears, getDataForYear, getUpdatedDataPoints } from "@/lib/utils";
 
 import { useCountriesStore } from "@/app/stores/countryStore";
 
@@ -27,24 +27,47 @@ export default function TableContent({ countries }: { countries: Countries }) {
     setSearchQuery,
     sortBy,
     sortOrder,
-    setSortBy,
     setSortOrder,
     year,
     setYear,
     selectedColumns,
   } = useCountriesStore();
   const [isColumnModalOpen, setIsColumnModalOpen] = useState(false);
+  const [updatedDataPoints, setUpdatedDataPoints] = useState<
+    Map<string, string[]>
+  >(new Map());
+  const prevYearDataRef = useRef<[string, CountryWithYearData][]>([]);
 
   const countryEntries: [string, Country][] = Object.entries(countries);
   const allYears = getAllYears(countryEntries);
   const validYear = allYears.includes(year) ? year : allYears[0] || 1900;
   const yearData = getDataForYear(countryEntries, validYear);
 
+  useEffect(() => {
+    const countryEntries: [string, Country][] = Object.entries(countries);
+    const currentYearData = getDataForYear(countryEntries, year);
+    if (prevYearDataRef.current.length > 0) {
+      const updated = getUpdatedDataPoints(
+        prevYearDataRef.current,
+        currentYearData
+      );
+      setUpdatedDataPoints(updated);
+
+      const timeout = setTimeout(() => {
+        setUpdatedDataPoints(new Map<string, string[]>());
+      }, 1000);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+    prevYearDataRef.current = currentYearData;
+  }, [year, countries]);
+
   const filtered = yearData.filter(([countryName]) =>
     countryName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  //fix: move to utils
   const sortedCountries = [...filtered].sort(
     ([firstName, firstCountry], [secondName, secondCountry]) => {
       if (sortBy === "name") {
@@ -85,16 +108,14 @@ export default function TableContent({ countries }: { countries: Countries }) {
         />
         <Button
           onClick={() => {
-            setSortBy("population");
-            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+            setSortOrder("population", sortOrder === "asc" ? "desc" : "asc");
           }}
         >
           sort population ({sortOrder})
         </Button>
         <Button
           onClick={() => {
-            setSortBy("name");
-            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+            setSortOrder("name", sortOrder === "asc" ? "desc" : "asc");
           }}
         >
           sort name ({sortOrder})
@@ -138,23 +159,57 @@ export default function TableContent({ countries }: { countries: Countries }) {
               <TableRow key={countryData.iso_code ?? countryName}>
                 <TableCell>{countryData.iso_code ?? "N/A"}</TableCell>
                 <TableCell>{countryName}</TableCell>
-                <TableCell>
+                <TableCell
+                  className={
+                    updatedDataPoints.get(countryName)?.includes("population")
+                      ? "text-primary bg-white transition-colors duration-1000"
+                      : ""
+                  }
+                >
                   {countryData.yearData?.population ?? "N/A"}
                 </TableCell>
                 <TableCell>{countryData.yearData?.year ?? "N/A"}</TableCell>
-                <TableCell>
-                  {countryData.yearData?.total_ghg ?? "N/A"}
+                <TableCell
+                  className={
+                    updatedDataPoints.get(countryName)?.includes("cement_co2")
+                      ? "text-primary bg-white transition-colors duration-1000"
+                      : ""
+                  }
+                >
+                  {countryData.yearData?.cement_co2 ?? "N/A"}
                 </TableCell>
-                <TableCell>
+                <TableCell
+                  className={
+                    updatedDataPoints
+                      .get(countryName)
+                      ?.includes("cement_co2_per_capita")
+                      ? "text-primary bg-white transition-colors duration-1000"
+                      : ""
+                  }
+                >
                   {countryData.yearData?.cement_co2_per_capita ?? "N/A"}
                 </TableCell>
                 {selectedColumns.includes("total_ghg") && (
-                  <TableCell>
+                  <TableCell
+                    className={
+                      updatedDataPoints.get(countryName)?.includes("total_ghg")
+                        ? "text-primary bg-white transition-colors duration-1000"
+                        : ""
+                    }
+                  >
                     {countryData.yearData?.total_ghg ?? "N/A"}
                   </TableCell>
                 )}
                 {selectedColumns.includes("total_ghg_excluding_lucf") && (
-                  <TableCell>
+                  <TableCell
+                    className={
+                      updatedDataPoints
+                        .get(countryName)
+                        ?.includes("total_ghg_excluding_lucf")
+                        ? "text-primary bg-white transition-colors duration-1000"
+                        : ""
+                    }
+                  >
                     {countryData.yearData?.total_ghg_excluding_lucf ?? "N/A"}
                   </TableCell>
                 )}

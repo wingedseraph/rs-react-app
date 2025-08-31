@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import Footer from "@/widgets/layout/Footer/Footer";
+import Footer from "@/widgets/Layout/Footer/Footer";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

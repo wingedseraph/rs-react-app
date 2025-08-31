@@ -7,10 +7,8 @@ export const createSortSlice: StateCreator<SortSlice, [], [], SortSlice> = (
 ) => ({
   sortBy: "name",
   sortOrder: "asc",
-  setSortBy: (field) => {
-    set({ sortBy: field });
-  },
-  setSortOrder: (order) => {
-    set({ sortOrder: order });
+
+  setSortOrder: (field, order) => {
+    set({ sortBy: field, sortOrder: order });
   },
 });

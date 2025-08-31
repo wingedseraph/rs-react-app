@@ -4,7 +4,7 @@ import { Provider } from "@/app/provider";
 
 import TableContent from "@/features/TableContent";
 import Spinner from "@/shared/ui/Spinner/Spinner";
-import Layout from "@/widgets/layout/layout";
+import Layout from "@/widgets/Layout/Layout";
 
 export default function App() {
   return (

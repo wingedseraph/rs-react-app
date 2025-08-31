@@ -13,8 +13,7 @@ export type SearchSlice = {
 export type SortSlice = {
   sortBy: "name" | "population";
   sortOrder: "asc" | "desc";
-  setSortBy: (field: "name" | "population") => void;
-  setSortOrder: (order: "asc" | "desc") => void;
+  setSortOrder: (field: "name" | "population", order: "asc" | "desc") => void;
 };
 export type ColumnSlice = {
   selectedColumns: string[];
