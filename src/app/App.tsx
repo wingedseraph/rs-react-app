@@ -1,5 +1,5 @@
 import { appStore } from '@/app/store';
-import HookForm from '@/features/forms/HookForm/HookForm';
+import ControlledForm from '@/features/forms/ControlledForm/ControlledForm';
 import UncontrolledForm from '@/features/forms/UncontrolledForm/UncontrolledForm';
 import CardList from '@/shared/ui/CardList/CardList';
 import CustomCursor from '@/shared/ui/CustomCursor/CustomCursor';
@@ -15,7 +15,7 @@ export default function App() {
         return <UncontrolledForm />;
 
       case 'hook':
-        return <HookForm />;
+        return <ControlledForm />;
 
       default:
         return null;

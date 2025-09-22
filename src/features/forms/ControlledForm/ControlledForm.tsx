@@ -11,16 +11,17 @@ import Select from '@/shared/ui/Select/Select';
 
 type FormData = z.input<typeof formSchema>;
 
-export default function HookForm() {
+export default function ControlledForm() {
   const { countries, addFormSubmission, closeModal } = appStore();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
     watch,
   } = useForm<FormData>({
+    mode: 'onChange',
     resolver: zodResolver(formSchema),
   });
 
@@ -139,8 +140,12 @@ export default function HookForm() {
         >
           close
         </button>
-        <button type="submit" className="w-fit self-center">
-          submit
+        <button
+          disabled={!isValid}
+          type="submit"
+          className="w-fit self-center rounded-4xl disabled:text-red-400"
+        >
+          {!isValid ? 'cannot submit :(' : 'submit'}
         </button>
       </div>
     </form>

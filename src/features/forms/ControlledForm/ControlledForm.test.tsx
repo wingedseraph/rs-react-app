@@ -3,7 +3,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { defaultMockStoreData } from '@/__tests__/utils';
 import { appStore } from '@/app/store';
-import HookForm from './HookForm';
+import ControlledForm from '@/features/forms/ControlledForm/ControlledForm';
+
 
 vi.mock('@/app/store', () => ({
   appStore: vi.fn(),
@@ -11,7 +12,7 @@ vi.mock('@/app/store', () => ({
 
 const mockAppStore = vi.mocked(appStore);
 
-describe('HookForm component', () => {
+describe('ControlledForm component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -22,7 +23,7 @@ describe('HookForm component', () => {
       countries: ['usa', 'germany'],
     });
 
-    render(<HookForm />);
+    render(<ControlledForm />);
 
     expect(screen.getByText('name:')).toBeInTheDocument();
     expect(screen.getByText('age:')).toBeInTheDocument();
