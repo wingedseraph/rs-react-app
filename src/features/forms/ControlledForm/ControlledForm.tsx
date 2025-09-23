@@ -42,7 +42,7 @@ export default function ControlledForm() {
       onSubmit={handleSubmit(onSubmit) as React.FormEventHandler}
       className="flex flex-col gap-10 text-base md:text-2xl"
     >
-      <div className="flex flex-row justify-between gap-4">
+      <div className="flex flex-col justify-between gap-4 xl:flex-row">
         <div className="flex flex-col gap-4">
           <LabelInput
             type="text"
@@ -143,7 +143,7 @@ export default function ControlledForm() {
         <button
           disabled={!isValid}
           type="submit"
-          className="w-fit self-center rounded-4xl disabled:text-red-400"
+          className="w-fit self-center rounded-4xl disabled:pointer-events-none disabled:text-red-400"
         >
           {!isValid ? 'cannot submit :(' : 'submit'}
         </button>

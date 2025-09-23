@@ -27,7 +27,7 @@ export default function Modal({
     >
       <div
         ref={modalRef}
-        className="bg-primary border-border-primary relative max-h-[90vh] w-3/4 overflow-y-auto rounded-4xl border-4 p-2 md:p-10"
+        className="bg-primary border-border-primary relative max-h-[90vh] w-[90vw] overflow-y-auto rounded-4xl border-4 p-2 md:p-10"
       >
         {title && (
           <h2 id="modal-title" className="mb-6 text-center text-4xl italic">

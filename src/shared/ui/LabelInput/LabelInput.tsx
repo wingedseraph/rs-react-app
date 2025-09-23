@@ -37,8 +37,8 @@ export default function LabelInput({
           required
         />
       </div>
-      <div className="mt-1 flex min-h-[32px] items-center">
-        {error && <p className="text-lg text-red-400">{error}</p>}
+      <div className="mt-1 flex min-h-[16px] items-center xl:min-h-[32px]">
+        {error && <p className="text-sm text-red-400">{error}</p>}
       </div>
     </div>
   );

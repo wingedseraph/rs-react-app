@@ -18,7 +18,7 @@ describe('ControlledForm component', () => {
       ...defaultMockStoreData,
       countries: ['usa', 'germany'],
     };
-    
+
     mockAppStore.mockReturnValue(mockState);
     mockAppStore.getState = vi.fn().mockReturnValue(mockState);
   });
