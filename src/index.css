@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+
+@theme {
+  --breakpoint-3xl: 120rem;
+
+  --color-primary: hsl(0, 0%, 11%);
+  --color-secondary: hsl(330, 89%, 100%);
+  --color-border-primary: hsl(0, 0%, 33%);
+
+  --font-display: 'OldStandardTT', sans-serif;
+
+  --animate-slideDown: slideDown 1s ease forwards;
+  --animate-moveCursor: moveCursor 0.5s infinite alternate;
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes moveCursor {
+    from {
+      transform: scale(1);
+    }
+
+    to {
+      transform: scale(0.8);
+    }
+  }
+}
+
+@font-face {
+  font-family: 'OldStandardTT';
+  src: url('/fonts/OldStandardTT-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OldStandardTT';
+  src: url('/fonts/OldStandardTT-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OldStandardTT';
+  src: url('/fonts/OldStandardTT-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+:root {
+  --primary-color: hsl(0, 0%, 11%);
+  --secondary-color: hsl(330, 89%, 100%);
+  --primary-border: hsl(0, 0%, 33%);
+
+  font-family: OldStandardTT, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+* {
+  cursor: none;
+}
+button:hover,
+a:hover {
+  cursor: none;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border-radius: 9999px;
+  transition: 0.15s all cubic-bezier(0.4, 0, 0.2, 1);
+}
+input[type='radio'],
+input[type='checkbox'] {
+  appearance: none;
+  width: 1em;
+  height: 1em;
+}
+input[type='radio']:checked,
+input[type='checkbox']:checked {
+  background-color: var(--secondary-color);
+  position: relative;
+}
+input[type='checkbox']:checked::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='hsl(0, 0%, 11%)' d='M6.173 12.414L2.05 8.293l1.414-1.414L6.173 9.586l6.364-6.364 1.414 1.414z'/></svg>")
+    no-repeat center center;
+  background-size: 1em;
+}
+
+::selection {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+::-moz-selection {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}

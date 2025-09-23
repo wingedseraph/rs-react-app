@@ -1,0 +1,69 @@
+import { appStore } from '@/app/store';
+import ControlledForm from '@/features/forms/ControlledForm/ControlledForm';
+import UncontrolledForm from '@/features/forms/UncontrolledForm/UncontrolledForm';
+import CardList from '@/shared/ui/CardList/CardList';
+import CustomCursor from '@/shared/ui/CustomCursor/CustomCursor';
+import Footer from '@/shared/ui/Footer/Footer';
+import Modal from '@/shared/ui/Modal/Modal';
+
+export default function App() {
+  const { isModalOpen, modalType, openModal, closeModal } = appStore();
+
+  const renderModalContent = () => {
+    switch (modalType) {
+      case 'uncontrolled':
+        return <UncontrolledForm />;
+
+      case 'hook':
+        return <ControlledForm />;
+
+      default:
+        return null;
+    }
+  };
+
+  const getModalTitle = () => {
+    switch (modalType) {
+      case 'uncontrolled':
+        return 'Uncontrolled Form';
+
+      case 'hook':
+        return 'React Hook Form';
+
+      default:
+        return '';
+    }
+  };
+
+  return (
+    <>
+      <CustomCursor />
+      <div className="animate-slideDown flex flex-col gap-10">
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => {
+              openModal('uncontrolled');
+            }}
+            className="focus:outline-secondary text-4xl md:text-8xl"
+          >
+            <span className="italic">un</span>controlled form
+          </button>
+          <button
+            onClick={() => {
+              openModal('hook');
+            }}
+            className="focus:outline-secondary text-4xl md:text-8xl"
+          >
+            react <span className="italic">ho</span>ok form
+          </button>
+        </div>
+        <CardList />
+        <Footer />
+      </div>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={getModalTitle()}>
+        {renderModalContent()}
+      </Modal>
+    </>
+  );
+}
